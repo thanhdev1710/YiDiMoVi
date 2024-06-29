@@ -1,7 +1,11 @@
 import { RootApiFilmBySearch } from "@/_interfaces/DataFilmBySearch";
 import RootApiFilmBySlug from "@/_interfaces/DataFilmBySlug";
 import { PaginationPage } from "./PaginationPage";
-import { getMovieByNational, getMovieBySlugAndPage } from "@/_libs/service";
+import {
+  getMovieByNational,
+  getMovieBySearch,
+  getMovieBySlugAndPage,
+} from "@/_libs/service";
 import removeAccents from "@/_utils/removeAccents";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +21,9 @@ export async function AllMovieFetchPagination({
 }) {
   const nameFormat = removeAccents(name);
   const dataList =
-    type === "National"
+    type === "search"
+      ? await getMovieBySearch(name)
+      : type === "National"
       ? await getMovieByNational(nameFormat, currentPage)
       : await getMovieBySlugAndPage(nameFormat, currentPage);
   const { total_page } = dataList.paginate;
@@ -37,7 +43,7 @@ export async function AllMovieFetchPagination({
                 />
               </div>
               <h2 className="text-xl font-bold">{item.name}</h2>
-              <p className="text-xs">{item.description.slice(0, 180)}...</p>
+              <p className="text-xs">{item.description.slice(0, 160)}...</p>
             </Link>
           </article>
         ))}

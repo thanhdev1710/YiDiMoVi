@@ -17,11 +17,11 @@ export function SwiperMovie({
       breakpoints={{
         768: {
           slidesPerView: 3,
-          spaceBetween: 40,
+          spaceBetween: 20,
         },
         1024: {
           slidesPerView: 4,
-          spaceBetween: 50,
+          spaceBetween: 30,
         },
       }}
       navigation={true}

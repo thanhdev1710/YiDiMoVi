@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { AllMovieFetchPagination } from "@/_components/AllMovieFetchPagination";
 import { Suspense } from "react";
+import { SkeletonAllMovieFetchPaginationList } from "@/_components/SkeletonAllMovieFetchPaginationList";
 
 type Props = {
   params: { slug: string };
@@ -78,7 +79,10 @@ export default async function page({ params, searchParams }: Props) {
           Phim {name}
         </h1>
       </section>
-      <Suspense fallback={<></>} key={page + name}>
+      <Suspense
+        fallback={<SkeletonAllMovieFetchPaginationList />}
+        key={page + name}
+      >
         <AllMovieFetchPagination currentPage={page} type={type} name={name} />
       </Suspense>
     </Main>

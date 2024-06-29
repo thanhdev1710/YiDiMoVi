@@ -10,25 +10,23 @@ import { usePathname } from "next/navigation";
 const NavLinkHeader: NavLinkProps[] = [
   { href: "/dangNhap", name: "Đăng nhập/Đăng ký" },
   { href: "/", name: "Trang chủ" },
-  { href: "/truyenHinh", name: "Truyền hình" },
   { href: "/trang/phimBo", name: "Phim bộ" },
   { href: "/trang/phimLe", name: "Phim lẻ" },
-  { href: "/trang/hoatHinh", name: "Hoạt hình" },
-  { href: "/trang/hanhDong", name: "Hành động" },
-  { href: "/trang/kinhDi", name: "Kinh dị" },
-  { href: "/trang/haiHuoc", name: "Hài hước" },
-  { href: "/trang/anime", name: "Anime" },
-  { href: "/trang/tamLy", name: "Tâm lý" },
-  { href: "/trang/tinhCam", name: "Tình cảm" },
-  { href: "/trang/xaHoi", name: "Xã hội" },
+  { href: "/block/highlight/Hoạt hình?type=Movie Genre", name: "Hoạt hình" },
+  { href: "/block/highlight/Hành động?type=Movie Genre", name: "Hành động" },
+  { href: "/block/highlight/Kinh dị?type=Movie Genre", name: "Kinh dị" },
+  { href: "/block/highlight/Hài hước?type=Movie Genre", name: "Hài hước" },
+  { href: "/block/highlight/Tâm lý?type=Movie Genre", name: "Tâm lý" },
+  { href: "/block/highlight/Tình cảm?type=Movie Genre", name: "Tình cảm" },
+  { href: "/block/highlight/Xã hội?type=Movie Genre", name: "Xã hội" },
 ];
 
 export default function Menu({ className }: { className?: string }) {
   const [isMenu, setIsMenu] = useState(false);
-  const pathName = usePathname();
+  const pathName = decodeURIComponent(usePathname());
   const urlCur =
-    pathName.split("/")[1] === "trang"
-      ? "/" + pathName.split("/")[2]
+    pathName.split("/")[1] === "block"
+      ? "/" + pathName.split("/")[3]
       : "/" + pathName.split("/")[1];
   return (
     <>
