@@ -12,8 +12,18 @@ export function SwiperMovie({
 }) {
   return (
     <Swiper
-      spaceBetween={30}
-      slidesPerView={3}
+      spaceBetween={20}
+      slidesPerView={2}
+      breakpoints={{
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+      }}
       navigation={true}
       modules={[Navigation]}
       className="mySwiper"

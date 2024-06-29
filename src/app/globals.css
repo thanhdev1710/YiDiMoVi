@@ -38,6 +38,14 @@
   @apply !absolute !z-20 !left-[92%] !bottom-[8%] max-sm:hidden;
 }
 
+.swiper-button-next {
+  @apply max-sm:!hidden;
+}
+
+.swiper-button-prev {
+  @apply max-sm:!hidden;
+}
+
 /* ----------------------------- LOADING FACEBOOK --------------------------------- */
 
 .fui-loading-facebook {

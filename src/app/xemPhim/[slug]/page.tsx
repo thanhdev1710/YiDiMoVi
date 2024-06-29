@@ -10,31 +10,60 @@ import { ListEpisodeMovie } from "../../../_components/ListEpisodeMovie";
 import RelatedMovies from "../../../_components/RelatedMovies";
 import { Suspense } from "react";
 import { RelatedMovieItemSkeleton } from "@/_components/RelatedMovieItemSkeleton";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   let { slug } = params;
-  slug = slug.split("-").join(" ");
+  const data = await getMovieByFilm(slug);
+  const { poster_url, description } = data.movie || {
+    poster_url: "",
+    description: "No description available",
+  };
+  const previousImages = (await parent).openGraph?.images || [];
+  const absolutePosterUrl = poster_url.startsWith("http")
+    ? poster_url
+    : `${process.env.NEXT_PUBLIC_APP_DOMAIN}${poster_url}`;
+  const absoluteUrl = `${process.env.NEXT_PUBLIC_APP_DOMAIN}/xemPhim/${slug}`;
+
   return {
     title: `Phim ${slug} - YidiMovi`,
     keywords: `phim ${slug}, phim bom tấn, phim chiếu rạp, xem phim online`,
-    description: `Khám phá các bộ phim ${slug} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
+    description: `${description}`,
     openGraph: {
       title: `Phim ${slug} - YidiMovi`,
-      description: `Khám phá các bộ phim ${slug} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      url: `${process.env.NEXT_APP_DOMAIN}/block/highlight/${slug}`,
+      description: `${description}`,
+      url: absoluteUrl,
       type: "website",
-      images: "website.png",
+      images: [
+        {
+          url: absolutePosterUrl,
+          width: 1200,
+          height: 630,
+          alt: "YiDiMoVi Website",
+        },
+        ...previousImages,
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `Phim ${slug} - YidiMovi`,
-      description: `Khám phá các bộ phim ${slug} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      images: "website.png",
+      description: `${description}`,
+      images: [
+        {
+          url: absolutePosterUrl,
+          width: 1200,
+          height: 630,
+          alt: "YiDiMoVi Website",
+        },
+        ...previousImages,
+      ],
     },
     robots: "index, follow",
   };

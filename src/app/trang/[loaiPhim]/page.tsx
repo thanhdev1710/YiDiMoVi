@@ -1,12 +1,16 @@
 import Main from "@/_components/Main";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { loaiPhim: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const { loaiPhim } = params;
+  const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: `Phim ${loaiPhim} - YidiMovi`,
@@ -15,15 +19,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `Phim ${loaiPhim} - YidiMovi`,
       description: `Khám phá các bộ phim ${loaiPhim} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      url: `${process.env.NEXT_APP_DOMAIN}/trang/${loaiPhim}`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/trang/${loaiPhim}`,
       type: "website",
-      images: "website.png",
+      images: [
+        {
+          url: `${process.env.NEXT_APP_DOMAIN || ""}/images/website.png`,
+          width: 1200,
+          height: 630,
+          alt: "YiDiMoVi Website",
+        },
+        ...previousImages,
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `Phim ${loaiPhim} - YidiMovi`,
       description: `Khám phá các bộ phim ${loaiPhim} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      images: "website.png",
+      images: [
+        {
+          url: `${process.env.NEXT_APP_DOMAIN || ""}/images/website.png`,
+          width: 1200,
+          height: 630,
+          alt: "YiDiMoVi Website",
+        },
+        ...previousImages,
+      ],
     },
     robots: "index, follow",
   };
