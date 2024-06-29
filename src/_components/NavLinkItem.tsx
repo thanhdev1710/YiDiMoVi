@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NavLinkProps } from "./NavLinkProps";
+import { NavLinkProps } from "../_interfaces/NavLinkProps";
 
 export function NavLinkItem({ linkItem }: { linkItem: NavLinkProps }) {
   return (

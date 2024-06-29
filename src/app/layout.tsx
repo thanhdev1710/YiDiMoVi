@@ -8,8 +8,9 @@ import { ThemeProvider } from "@/_components/ThemeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "The YiDi-MoVi",
-  description: "Welcome to YiDi-MoVi's movie viewing website",
+  title: "YiDiMoVi - Trang web xem phim trực tuyến",
+  description:
+    "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với YiDiMoVi!",
 };
 
 export default function RootLayout({
@@ -18,18 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
-        className={`${inter.className} text-blue-950 dark:text-blue-100 relative`}
+        className={`${inter.className} bg-white dark:bg-black relative max-w-[1286px] mx-auto`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+          enableSystem={true}
+          disableTransitionOnChange={true}
         >
           <Header />
-          <main className="min-h-screen space-default">{children}</main>
+          {children}
           <Footer />
         </ThemeProvider>
       </body>

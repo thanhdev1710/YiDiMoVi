@@ -2,9 +2,9 @@ import Image from "next/image";
 import icon from "../../public/icon.png";
 import Link from "next/link";
 
-export function LogoMain() {
+export function LogoMain({ className = "flex" }: { className?: string }) {
   return (
-    <Link href="/" className="flex items-end">
+    <Link href="/" className={`items-end ${className}`}>
       <Image
         src={icon}
         width={52}

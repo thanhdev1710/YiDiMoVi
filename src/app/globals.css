@@ -7,3 +7,72 @@
     @apply md:px-8 md:py-4 px-4 py-2;
   }
 }
+
+@layer utilities {
+}
+
+/* ----------------------------- CUSTOM SCROLLBAR --------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-default rounded-xl;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* ----------------------------- CUSTOM SWIPER PAGINATION --------------------------------- */
+.swiper-pagination-bullet {
+  @apply !bg-blue-default;
+}
+
+.swiper-pagination-bullet-active {
+  @apply !bg-blue-default;
+}
+
+.swiper-pagination {
+  @apply !absolute !z-20 !left-[92%] !bottom-[8%] max-sm:hidden;
+}
+
+/* ----------------------------- LOADING FACEBOOK --------------------------------- */
+
+.fui-loading-facebook {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+.fui-loading-facebook div {
+  @apply bg-blue-default;
+  display: inline-block;
+  position: absolute;
+  width: 8px;
+  animation: Hcxe2 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.fui-loading-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.fui-loading-facebook div:nth-child(2) {
+  left: 18px;
+  animation-delay: -0.12s;
+}
+.fui-loading-facebook div:nth-child(3) {
+  left: 28px;
+  animation-delay: 0;
+}
+@keyframes Hcxe2 {
+  0% {
+    top: 8px;
+    height: 62px;
+  }
+  50%,
+  100% {
+    top: 24px;
+    height: 36px;
+  }
+}

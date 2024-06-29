@@ -1,5 +1,5 @@
 import { NavLinkItem } from "./NavLinkItem";
-import { NavLinkProps } from "./NavLinkProps";
+import { NavLinkProps } from "../_interfaces/NavLinkProps";
 
 export function NavLinkList({ linkList }: { linkList: NavLinkProps[] }) {
   return (
