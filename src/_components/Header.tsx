@@ -14,7 +14,7 @@ const NavLinkHeader: NavLinkProps[] = [
 
 export async function Header() {
   return (
-    <header className="flex justify-between items-center space-default">
+    <header className="fixed top-0 left-0 z-30 w-full bg-white dark:bg-black flex justify-between items-center space-default">
       <Menu className={"lg:hidden flex"} />
       <LogoMain className={"lg:flex hidden"} />
       <Navigation linkList={NavLinkHeader} />

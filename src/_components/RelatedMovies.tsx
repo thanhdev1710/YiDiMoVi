@@ -1,15 +1,14 @@
 import { Item } from "@/_interfaces/DataFilmBySlug";
 import { getMovieBySlugAndPage } from "@/_libs/service";
 import removeAccents from "@/_utils/removeAccents";
+import { MovieItem } from "./MovieItem";
 
 export default async function RelatedMovies({
   slugList,
 }: {
   slugList: string[];
 }) {
-  const slugFormat = slugList.map((slug) =>
-    removeAccents(slug).replace(" ", "-").toLowerCase()
-  );
+  const slugFormat = slugList.map((slug) => removeAccents(slug));
   let data;
   const length = slugFormat.length;
   if (length === 1) {
@@ -19,7 +18,7 @@ export default async function RelatedMovies({
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
         <div className="flex gap-6 overflow-x-scroll pb-6">
           {data.items.map((item) => (
-            <p key={item.name}>{item.name}</p>
+            <MovieItem key={item.name} item={item} />
           ))}
         </div>
       </section>
@@ -34,11 +33,9 @@ export default async function RelatedMovies({
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
         <div className="flex gap-6 overflow-x-scroll pb-6">
-          <div className="flex gap-6 overflow-x-scroll pb-6">
-            {allData.map((item) => (
-              <p key={item.name}>{item.name}</p>
-            ))}
-          </div>
+          {allData.map((item) => (
+            <MovieItem key={item.name} item={item} />
+          ))}
         </div>
       </section>
     );

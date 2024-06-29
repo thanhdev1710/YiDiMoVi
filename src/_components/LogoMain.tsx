@@ -7,9 +7,11 @@ export function LogoMain({ className = "flex" }: { className?: string }) {
     <Link href="/" className={`items-end ${className}`}>
       <Image
         src={icon}
+        draggable={false}
         width={52}
         height={52}
         quality={100}
+        priority
         alt="YiDiMoVi Icon"
       />
       <span className="text-2xl font-bold text-blue-default">iDiMoVi</span>

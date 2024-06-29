@@ -43,6 +43,7 @@ export function Hero({ slideList }: { slideList: RootApiFilmNewUpdate }) {
         {slideList.items.map((item) => (
           <SwiperSlide className="relative aspect-video" key={item.name}>
             <Image
+              sizes="1000px"
               alt={`Ảnh phim ${item.name}`}
               src={item.poster_url}
               fill

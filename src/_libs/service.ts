@@ -3,7 +3,7 @@ import { RootApiFilmBySearch } from "@/_interfaces/DataFilmBySearch";
 import RootApiFilmBySlug from "@/_interfaces/DataFilmBySlug";
 import RootApiFilmNewUpdate from "@/_interfaces/DataFilmNewUpdateProps";
 import { notFound } from "next/navigation";
-const URL = process.env.NEXT_APP_API_FILM;
+const URL = process.env.NEXT_PUBLIC_APP_API_FILM;
 
 export async function getMovieByPage(
   page: string
@@ -49,9 +49,24 @@ export async function getMovieByFilm(slug: string): Promise<RootApiFilmByFilm> {
 
 export async function getMovieBySearch(
   search: string
-): Promise<RootApiFilmBySearch> {
+): Promise<RootApiFilmBySlug> {
   try {
     const res = await fetch(`${URL}/films/search?keyword=${search}`);
+    if (!res.ok) throw new Error("Fetching data error");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function getMovieByNational(
+  national: string,
+  page: string
+): Promise<RootApiFilmBySearch> {
+  try {
+    const res = await fetch(`${URL}/films/quoc-gia/${national}?page=${page}`);
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
     return data;

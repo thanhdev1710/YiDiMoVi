@@ -19,10 +19,12 @@ export function EpisodeMovie({
     <div className="space-y-4 w-52 relative">
       <Link
         href={`/xemPhim/${slug}?tap=${episode}`}
-        className="inline-block w-52 bg-red-200 relative aspect-video"
+        className="inline-block w-52 relative aspect-video"
       >
         <Image
           fill
+          draggable={false}
+          sizes="200px"
           alt={description}
           src={url}
           className="absolute object-cover brightness-50 rounded-lg"
