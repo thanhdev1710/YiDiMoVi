@@ -1,7 +1,19 @@
+import { getMovieByPage } from "@/_libs/service";
 import { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+async function fetchSlugs(baseUrl: string) {
+  const data = await getMovieByPage("1");
+  return data.items.map((item) => ({
+    url: `${baseUrl}/xemPhim/${item.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority: 0.9,
+  }));
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.yididev.online";
+  const slugUrls = await fetchSlugs(baseUrl);
   return [
     {
       url: baseUrl,
@@ -10,36 +22,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/block/highlight/${encodeURIComponent(
-        "Việt Nam"
-      )}?type=National`,
+      url: `${baseUrl}/block/highlight`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/block/highlight/${encodeURIComponent(
-        "Hàn Quốc"
-      )}?type=National`,
+      url: `${baseUrl}/dangNhap`,
       lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
+      changeFrequency: "weekly",
+      priority: 0.6,
     },
     {
-      url: `${baseUrl}/block/highlight/${encodeURIComponent(
-        "Kinh dị"
-      )}?type=Movie Genre`,
+      url: `${baseUrl}/gioiThieu`,
       lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.8,
+      changeFrequency: "monthly",
+      priority: 0.5,
     },
     {
-      url: `${baseUrl}/block/highlight/${encodeURIComponent(
-        "Hành động"
-      )}?type=Movie Genre`,
+      url: `${baseUrl}/timKiem`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/truyenHinh`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.8,
     },
+    ...slugUrls,
   ];
 }
