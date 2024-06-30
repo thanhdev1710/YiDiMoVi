@@ -2,7 +2,7 @@ import Main from "@/_components/Main";
 import { Metadata } from "next";
 import { AllMovieFetchPagination } from "@/_components/AllMovieFetchPagination";
 import { Suspense } from "react";
-import { SkeletonAllMovieFetchPaginationList } from "@/_components/chuaSuDung/SkeletonAllMovieFetchPaginationList";
+import { SkeletonAllMovieFetchPaginationList } from "@/_components/Skeleton/SkeletonAllMovieFetchPaginationList";
 import { FetchMovieAll } from "@/_utils/FetchMovieAll";
 import { Hero } from "@/_components/Hero";
 import removeChar from "@/_utils/removeChar";

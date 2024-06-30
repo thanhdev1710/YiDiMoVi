@@ -10,7 +10,7 @@ import { ListEpisodeMovie } from "../../../_components/ListEpisodeMovie";
 import RelatedMovies from "../../../_components/RelatedMovies";
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
-import { SkeletonHightLightBlock } from "@/_components/chuaSuDung/SkeletonHightLightBlock";
+import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
 
 type Props = {
   params: { slug: string };

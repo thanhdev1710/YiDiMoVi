@@ -3,7 +3,7 @@ import { Hero } from "../_components/Hero";
 import { getMovieByPage } from "@/_libs/service";
 import { ListMovie } from "../_components/ListMovie";
 import { Suspense } from "react";
-import { SkeletonHightLightBlock } from "@/_components/chuaSuDung/SkeletonHightLightBlock";
+import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
 
 const DataBlockHighLight = [
   {
