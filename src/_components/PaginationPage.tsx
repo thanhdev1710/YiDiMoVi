@@ -23,8 +23,10 @@ export function PaginationPage({
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page")
-    ? Number(searchParams.get("page")) < 1 ||
-      Number(searchParams.get("page")) > totalPage
+    ? isNaN(Number(searchParams.get("page")))
+      ? 1
+      : Number(searchParams.get("page")) < 1 ||
+        Number(searchParams.get("page")) > totalPage
       ? 1
       : Number(searchParams.get("page"))
     : 1;

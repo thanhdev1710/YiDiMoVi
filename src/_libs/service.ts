@@ -12,10 +12,12 @@ export async function getMovieByPage(
     const res = await fetch(`${URL}/films/phim-moi-cap-nhat?page=${page}`);
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
-    if (!data.items) notFound();
+    if (!data) throw new Error("Not found data");
+    if (data.items?.length <= 0) throw new Error("Not found data");
     return data;
   } catch (error) {
-    console.error(error);
+    if (error instanceof Error && error.message === "Not found data")
+      notFound();
     throw error;
   }
 }
@@ -25,9 +27,12 @@ export async function getMovieByFilm(slug: string): Promise<RootApiFilmByFilm> {
     const res = await fetch(`${URL}/film/${slug}`);
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
+    if (!data) throw new Error("Not found data");
+    if (data.items?.length <= 0) throw new Error("Not found data");
     return data;
   } catch (error) {
-    console.error(error);
+    if (error instanceof Error && error.message === "Not found data")
+      notFound();
     throw error;
   }
 }
@@ -42,10 +47,13 @@ export async function getMovieBySearch(
     );
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
+    if (!data) throw new Error("Not found data");
+    if (data.items?.length <= 0) throw new Error("Not found data");
     return data;
   } catch (error) {
-    console.error(error);
-    notFound();
+    if (error instanceof Error && error.message === "Not found data")
+      notFound();
+    throw error;
   }
 }
 
@@ -57,10 +65,13 @@ export async function getMovieBySlugAndPage(
     const res = await fetch(`${URL}/films/the-loai/${slug}?page=${page}`);
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
+    if (!data) throw new Error("Not found data");
+    if (data.items?.length <= 0) throw new Error("Not found data");
     return data;
   } catch (error) {
-    console.error(error);
-    notFound();
+    if (error instanceof Error && error.message === "Not found data")
+      notFound();
+    throw error;
   }
 }
 
@@ -72,10 +83,13 @@ export async function getMovieByCat(
     const res = await fetch(`${URL}/films/danh-sach/${slug}?page=${page}`);
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
+    if (!data) throw new Error("Not found data");
+    if (data.items?.length <= 0) throw new Error("Not found data");
     return data;
   } catch (error) {
-    console.error(error);
-    notFound();
+    if (error instanceof Error && error.message === "Not found data")
+      notFound();
+    throw error;
   }
 }
 
@@ -87,9 +101,12 @@ export async function getMovieByNational(
     const res = await fetch(`${URL}/films/quoc-gia/${national}?page=${page}`);
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
+    if (!data) throw new Error("Not found data");
+    if (data.items?.length <= 0) throw new Error("Not found data");
     return data;
   } catch (error) {
-    console.error(error);
-    notFound();
+    if (error instanceof Error && error.message === "Not found data")
+      notFound();
+    throw error;
   }
 }

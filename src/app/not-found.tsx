@@ -2,7 +2,6 @@ import Main from "@/_components/Main";
 import Image from "next/image";
 import Link from "next/link";
 import imgNotFound from "../../public/images/not-found.jpg";
-import imgNotFoundDark from "../../public/images/not-found-dark.jpg";
 
 export default function notFound() {
   return (

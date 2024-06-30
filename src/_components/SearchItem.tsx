@@ -51,14 +51,14 @@ export function SearchItem({
         }}
         className="flex"
       >
-        <div className="flex gap-6 items-center w-full">
+        <div className="flex gap-4 items-center w-full">
           <Search />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             type="search"
             placeholder="Nhập tên phim"
-            className="bg-transparent outline-none w-full px-8"
+            className="bg-transparent outline-none w-full px-2"
           />
         </div>
         <Button

@@ -15,15 +15,15 @@ import { InstagramLogoIcon } from "@radix-ui/react-icons";
 
 const NavLinkAbout: NavLinkProps[] = [
   {
-    href: "gioiThieu",
+    href: "/gioiThieu#gioiThieu",
     name: "Giới thiệu",
   },
   {
-    href: "cacGoiDichVu",
+    href: "/gioiThieu#cacGoiDichVu",
     name: "Các gói dịch vụ",
   },
   {
-    href: "lienHe",
+    href: "/gioiThieu#lienHe",
     name: "Liên hệ",
   },
   {

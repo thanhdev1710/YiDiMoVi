@@ -11,10 +11,13 @@ import RelatedMovies from "../../../_components/RelatedMovies";
 import { Suspense } from "react";
 import { RelatedMovieItemSkeleton } from "@/_components/RelatedMovieItemSkeleton";
 import { Metadata, ResolvingMetadata } from "next";
+import { SkeletonHightLightBlock } from "@/_components/chuaSuDung/SkeletonHightLightBlock";
 
 type Props = {
   params: { slug: string };
 };
+
+export const revalidate = 86400;
 
 export async function generateMetadata(
   { params }: Props,
@@ -187,19 +190,7 @@ export default async function page({
       )}
       <Suspense
         key={slugList.join("")}
-        fallback={
-          <section className="mt-10">
-            <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
-            <div className="flex gap-6 overflow-x-scroll pb-6">
-              <RelatedMovieItemSkeleton />
-              <RelatedMovieItemSkeleton />
-              <RelatedMovieItemSkeleton />
-              <RelatedMovieItemSkeleton />
-              <RelatedMovieItemSkeleton />
-              <RelatedMovieItemSkeleton />
-            </div>
-          </section>
-        }
+        fallback={<SkeletonHightLightBlock name="Nội dung liên quan" />}
       >
         <RelatedMovies slugList={slugList} />
       </Suspense>

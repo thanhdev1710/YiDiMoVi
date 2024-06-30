@@ -4,11 +4,12 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MovieItem } from "./MovieItem";
 import RootApiFilmBySlug from "@/_interfaces/DataFilmBySlug";
+import RootApiFilmNewUpdate from "@/_interfaces/DataFilmNewUpdateProps";
 
 export function SwiperMovie({
   dataList,
 }: {
-  dataList: RootApiFilmBySearch | RootApiFilmBySlug;
+  dataList: RootApiFilmBySearch | RootApiFilmBySlug | RootApiFilmNewUpdate;
 }) {
   return (
     <Swiper

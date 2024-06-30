@@ -2,57 +2,75 @@ import Main from "@/_components/Main";
 import { Hero } from "../_components/Hero";
 import { getMovieByPage } from "@/_libs/service";
 import { ListMovie } from "../_components/ListMovie";
-import { SkeletonHightLightBlock } from "../_components/SkeletonHightLightBlock";
 import { Suspense } from "react";
+import { SkeletonHightLightBlock } from "@/_components/chuaSuDung/SkeletonHightLightBlock";
 
 const DataBlockHighLight = [
   {
-    name: "Việt Nam",
+    value: "Phim Đang Chiếu",
+    type: "category",
+  },
+  {
+    value: "Việt Nam",
     type: "national",
   },
   {
-    name: "Hàn Quốc",
+    value: "Hàn Quốc",
     type: "national",
   },
   {
-    name: "Trung Quốc",
+    value: "Trung Quốc",
     type: "national",
   },
   {
-    name: "Âu Mỹ",
+    value: "Âu Mỹ",
     type: "national",
   },
   {
-    name: "Hoạt hình",
+    value: "Hoạt hình",
     type: "movie-genre",
   },
   {
-    name: "Hành động",
+    value: "Hành động",
     type: "movie-genre",
   },
   {
-    name: "Kinh dị",
+    value: "Kinh dị",
     type: "movie-genre",
   },
   {
-    name: "Tình cảm",
+    value: "Siêu Anh Hùng",
+    type: "search",
+  },
+  {
+    value: "Tình cảm",
     type: "movie-genre",
   },
   {
-    name: "Khoa học viễn tưởng",
+    value: "Khoa học viễn tưởng",
     type: "movie-genre",
   },
   {
-    name: "Ấn Độ",
+    value: "Lịch sử",
+    type: "movie-genre",
+  },
+  {
+    value: "Ấn Độ",
     type: "national",
   },
   {
-    name: "Pháp",
+    value: "Pháp",
+    type: "national",
+  },
+  {
+    value: "Anh",
+    type: "national",
+  },
+  {
+    value: "Thái Lan",
     type: "national",
   },
 ];
-
-export const revalidate = 86400;
 
 export default async function page() {
   const popularFilm = await getMovieByPage("1");
@@ -74,14 +92,34 @@ export default async function page() {
           hôm nay!
         </p>
       </section>
-      {DataBlockHighLight.map((item) => (
-        <Suspense
-          key={item.name + item.type}
-          fallback={<SkeletonHightLightBlock name={item.name} />}
-        >
-          <ListMovie name={item.name} type={item.type} />
-        </Suspense>
+      {DataBlockHighLight.map((item, i) => (
+        <section key={item.value + item.type}>
+          <Suspense
+            fallback={<SkeletonHightLightBlock name={item.value} />}
+            key={item.value + item.type}
+          >
+            <ListMovie value={item.value} type={item.type} />
+          </Suspense>
+          <Suspense
+            fallback={<SkeletonHightLightBlock name={item.value} />}
+            key={item.value + item.type + i}
+          >
+            {(i + 1) % 3 === 0 && <ListMovieSub i={i.toString()} />}
+          </Suspense>
+        </section>
       ))}
     </Main>
+  );
+}
+
+async function ListMovieSub({ i }: { i: string }) {
+  const dataList = await getMovieByPage(i);
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-4 text-blue-default capitalize">
+        Các bộ phim nổi bật ngày hôm nay
+      </h2>
+      <Hero slideList={dataList} />
+    </div>
   );
 }

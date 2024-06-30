@@ -2,6 +2,7 @@ import { PaginationPage } from "./PaginationPage";
 import Image from "next/image";
 import Link from "next/link";
 import { FetchMovieAll } from "../_utils/FetchMovieAll";
+import { Suspense } from "react";
 
 export async function AllMovieFetchPagination({
   type,
@@ -36,7 +37,9 @@ export async function AllMovieFetchPagination({
         ))}
       </div>
 
-      <PaginationPage totalPage={total_page} name={value} type={type} />
+      <Suspense>
+        <PaginationPage totalPage={total_page} name={value} type={type} />
+      </Suspense>
     </section>
   );
 }

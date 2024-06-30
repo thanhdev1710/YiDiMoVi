@@ -1,4 +1,4 @@
-export default function removeAccents(str: string) {
+export default function removeAccents(str: string = "") {
   var AccentsMap = [
     "aàảãáạăằẳẵắặâầẩẫấậ",
     "AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ",

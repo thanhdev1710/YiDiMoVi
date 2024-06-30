@@ -7,8 +7,10 @@ import Link from "next/link";
 import { SearchItem } from "../../_components/SearchItem";
 
 export default async function page() {
-  const dataList1 = await getMovieByPage("1");
-  const dataList2 = await getMovieByPage("2");
+  const [dataList1, dataList2] = await Promise.all([
+    getMovieByPage("1"),
+    getMovieByPage("2"),
+  ]);
   const { items: items1 } = dataList1;
   const { items: items2 } = dataList2;
 

@@ -1,10 +1,11 @@
 import Main from "@/_components/Main";
 import { Metadata } from "next";
-import Image from "next/image";
 import { AllMovieFetchPagination } from "@/_components/AllMovieFetchPagination";
 import { Suspense } from "react";
-import { SkeletonAllMovieFetchPaginationList } from "@/_components/SkeletonAllMovieFetchPaginationList";
+import { SkeletonAllMovieFetchPaginationList } from "@/_components/chuaSuDung/SkeletonAllMovieFetchPaginationList";
 import { FetchMovieAll } from "@/_utils/FetchMovieAll";
+import { Hero } from "@/_components/Hero";
+import removeChar from "@/_utils/removeChar";
 
 type Props = {
   params: { type: string };
@@ -15,14 +16,9 @@ export async function generateMetadata({
   params,
   searchParams,
 }: Props): Promise<Metadata> {
-  const { page, type, value } = searchParams;
-  const typeMovie = value.startsWith("Phim")
-    ? value.replace("Phim ", "")
-    : value;
-  const typeMovieFormat = typeMovie
-    .split(" ")
-    .map((str) => str[0].toUpperCase() + str.slice(1))
-    .join(" ");
+  const { type, value, page } = searchParams;
+
+  const typeMovieFormat = removeChar(value, "Phim ");
   return {
     title: `Phim ${typeMovieFormat} - YidiMovi`,
     keywords: `phim ${typeMovieFormat}, phim bom tấn, phim chiếu rạp, xem phim online`,
@@ -30,7 +26,9 @@ export async function generateMetadata({
     openGraph: {
       title: `Phim ${typeMovieFormat} - YidiMovi`,
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/block/highlight/${typeMovieFormat}`,
+      url: `${
+        process.env.NEXT_PUBLIC_APP_DOMAIN
+      }/block/highlight?type=${type}&value=${value}&page=${page || "1"}`,
       type: "website",
       images: [
         {
@@ -60,10 +58,9 @@ export async function generateMetadata({
 
 export default async function page({ params, searchParams }: Props) {
   const { page, type, value } = searchParams;
-  const dataList = await FetchMovieAll(type, value, page);
-  const { poster_url, name: nameMovie } = dataList.items[0];
-  const typeMovie = value.startsWith("Phim")
-    ? value.replace("Phim ", "")
+  const dataList = await FetchMovieAll(type, value, page || "1");
+  const typeMovie = value?.startsWith("Phim")
+    ? value?.replace("Phim ", "")
     : value;
   const typeMovieFormat = typeMovie
     .split(" ")
@@ -71,23 +68,20 @@ export default async function page({ params, searchParams }: Props) {
     .join(" ");
   return (
     <Main>
-      <section className="mb-8">
-        <div className="w-full aspect-video relative rounded-2xl overflow-hidden">
-          <Image
-            alt={nameMovie}
-            src={poster_url}
-            priority
-            fill
-            className="object-cover absolute"
-          />
-        </div>
-        <h1 className="text-center sm:text-3xl text-2xl font-bold mt-8">
+      <section className="mb-20">
+        <Hero slideList={dataList} />
+        <h1 className="sm:text-4xl text-2xl font-bold mt-10 mb-4 text-blue-default">
           Phim {typeMovieFormat}
         </h1>
+        <p>
+          Khám phá các bộ phim {typeMovieFormat.toLowerCase()} hấp dẫn nhất trên
+          YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom
+          tấn.
+        </p>
       </section>
       <Suspense
+        key={page + type + value}
         fallback={<SkeletonAllMovieFetchPaginationList />}
-        key={page + value}
       >
         <AllMovieFetchPagination page={page} type={type} value={value} />
       </Suspense>
