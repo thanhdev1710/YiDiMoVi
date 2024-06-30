@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/gioiThieu`,
     type: "website",
     images: {
-      url: `/images/website.png`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description:
       "Giới thiệu về YidiMovi - nền tảng phim trực tuyến hàng đầu, cung cấp bộ sưu tập đa dạng các phim và chương trình truyền hình. Khám phá và trải nghiệm ngay với YidiMovi!",
     images: {
-      url: `/images/website.png`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",

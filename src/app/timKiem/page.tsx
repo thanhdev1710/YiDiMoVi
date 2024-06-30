@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `/images/website.png`,
+        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
         width: 1200,
         height: 630,
         alt: "YiDiMoVi Website",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
     images: [
       {
-        url: `/images/website.png`,
+        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
         width: 1200,
         height: 630,
         alt: "YiDiMoVi Website",

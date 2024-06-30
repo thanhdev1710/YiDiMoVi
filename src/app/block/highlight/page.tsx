@@ -39,7 +39,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: `/images/website.png`,
+          url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
           width: 1200,
           height: 630,
           alt: "YiDiMoVi Website",
@@ -52,7 +52,7 @@ export async function generateMetadata({
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
       images: [
         {
-          url: `/images/website.png`,
+          url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
           width: 1200,
           height: 630,
           alt: "YiDiMoVi Website",
