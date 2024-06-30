@@ -3,6 +3,12 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Đăng Nhập - YidiMovi",
+  alternates: {
+    canonical: "/dangNhap",
+    languages: {
+      vi: "/vi-VN",
+    },
+  },
   keywords:
     "YidiMovi, đăng nhập, phim trực tuyến, xem phim, bộ sưu tập phim, chương trình truyền hình",
   description:

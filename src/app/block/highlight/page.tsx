@@ -19,20 +19,27 @@ export async function generateMetadata({
   const { type, value, page } = searchParams;
 
   const typeMovieFormat = removeChar(value, "Phim ");
+
   return {
     title: `Phim ${typeMovieFormat} - YidiMovi`,
+    alternates: {
+      canonical: "/block/highlight",
+      languages: {
+        vi: "/vi-VN",
+      },
+    },
     keywords: `phim ${typeMovieFormat}, phim bom tấn, phim chiếu rạp, xem phim online`,
     description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
     openGraph: {
       title: `Phim ${typeMovieFormat} - YidiMovi`,
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      url: `${
-        process.env.NEXT_PUBLIC_APP_DOMAIN
-      }/block/highlight?type=${type}&value=${value}&page=${page || "1"}`,
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/block/highlight?type=${
+        type || "national"
+      }&value=${value || "Việt Nam"}&page=${page || "1"}`,
       type: "website",
       images: [
         {
-          url: `${process.env.NEXT_APP_DOMAIN || ""}/images/website.png`,
+          url: `/images/website.png`,
           width: 1200,
           height: 630,
           alt: "YiDiMoVi Website",
@@ -45,7 +52,7 @@ export async function generateMetadata({
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
       images: [
         {
-          url: `${process.env.NEXT_APP_DOMAIN || ""}/images/website.png`,
+          url: `/images/website.png`,
           width: 1200,
           height: 630,
           alt: "YiDiMoVi Website",
@@ -58,14 +65,12 @@ export async function generateMetadata({
 
 export default async function page({ params, searchParams }: Props) {
   const { page, type, value } = searchParams;
-  const dataList = await FetchMovieAll(type, value, page || "1");
-  const typeMovie = value?.startsWith("Phim")
-    ? value?.replace("Phim ", "")
-    : value;
-  const typeMovieFormat = typeMovie
-    .split(" ")
-    .map((str) => str[0].toUpperCase() + str.slice(1))
-    .join(" ");
+  const dataList = await FetchMovieAll(
+    type || "national",
+    value || "Việt Nam",
+    page || "1"
+  );
+  const typeMovieFormat = removeChar(value, "Phim ");
   return (
     <Main>
       <section className="mb-20">

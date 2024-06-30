@@ -9,7 +9,6 @@ import { notFound } from "next/navigation";
 import { ListEpisodeMovie } from "../../../_components/ListEpisodeMovie";
 import RelatedMovies from "../../../_components/RelatedMovies";
 import { Suspense } from "react";
-import { RelatedMovieItemSkeleton } from "@/_components/RelatedMovieItemSkeleton";
 import { Metadata, ResolvingMetadata } from "next";
 import { SkeletonHightLightBlock } from "@/_components/chuaSuDung/SkeletonHightLightBlock";
 
@@ -39,6 +38,12 @@ export async function generateMetadata(
   return {
     title: `Phim ${name} - YidiMovi`,
     keywords: `phim ${name}, phim bom tấn, phim chiếu rạp, xem phim online`,
+    alternates: {
+      canonical: `xemPhim/${slug}`,
+      languages: {
+        vi: "vi-VN",
+      },
+    },
     description: `${description}`,
     openGraph: {
       title: `Phim ${name} - YidiMovi`,

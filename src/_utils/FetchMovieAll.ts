@@ -7,8 +7,8 @@ import {
 import removeAccents from "@/_utils/removeAccents";
 
 export async function FetchMovieAll(
-  type: string,
-  name: string,
+  type: string = "national",
+  name: string = "Việt Nam",
   page: string = "1"
 ) {
   const nameFormat = removeAccents(name);

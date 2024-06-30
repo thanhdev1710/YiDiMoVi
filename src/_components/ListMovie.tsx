@@ -12,7 +12,7 @@ export async function ListMovie({
 }) {
   const dataList = await FetchMovieAll(type, value);
   return (
-    <div className="my-20 space-y-4">
+    <div className="md:my-20 my-10 space-y-4">
       <div className="flex justify-between">
         <h2 className="text-2xl font-bold text-blue-default">
           Phim {removeChar(value, "Phim ")}

@@ -9,6 +9,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
+  alternates: {
+    canonical: "/",
+    languages: {
+      vi: "/vi-VN",
+    },
+  },
   title: {
     template: "%s | YiDiMoVi - Trang web xem phim trực tuyến",
     default: "YiDiMoVi | YiDiMoVi - Trang web xem phim trực tuyến",
@@ -23,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${process.env.NEXT_APP_DOMAIN || ""}/images/website.png`,
+        url: `/images/website.png`,
         width: 1200,
         height: 630,
         alt: "YiDiMoVi Website",
@@ -37,7 +43,7 @@ export const metadata: Metadata = {
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
     images: [
       {
-        url: `${process.env.NEXT_APP_DOMAIN || ""}/images/website.png`,
+        url: `/images/website.png`,
         width: 1200,
         height: 630,
         alt: "YiDiMoVi Website",

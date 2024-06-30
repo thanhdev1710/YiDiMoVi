@@ -3,6 +3,12 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Giới Thiệu - YidiMovi",
+  alternates: {
+    canonical: "/gioiThieu",
+    languages: {
+      vi: "/vi-VN",
+    },
+  },
   keywords:
     "YidiMovi, giới thiệu, phim trực tuyến, xem phim, bộ sưu tập phim, chương trình truyền hình",
   description:
@@ -14,7 +20,7 @@ export const metadata: Metadata = {
     url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/gioiThieu`,
     type: "website",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -26,7 +32,7 @@ export const metadata: Metadata = {
     description:
       "Giới thiệu về YidiMovi - nền tảng phim trực tuyến hàng đầu, cung cấp bộ sưu tập đa dạng các phim và chương trình truyền hình. Khám phá và trải nghiệm ngay với YidiMovi!",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
