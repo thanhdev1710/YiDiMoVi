@@ -78,12 +78,6 @@ export async function generateMetadata(
   };
 }
 
-export async function generateStaticParams() {
-  const listSlug = await getMovieByPage("1");
-
-  return listSlug.items.map((item) => ({ slug: item.slug }));
-}
-
 export default async function page({
   params,
   searchParams,
