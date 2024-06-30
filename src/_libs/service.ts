@@ -20,21 +20,6 @@ export async function getMovieByPage(
   }
 }
 
-export async function getMovieBySlugAndPage(
-  slug: string,
-  page: string
-): Promise<RootApiFilmBySlug> {
-  try {
-    const res = await fetch(`${URL}/films/the-loai/${slug}?page=${page}`);
-    if (!res.ok) throw new Error("Fetching data error");
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
 export async function getMovieByFilm(slug: string): Promise<RootApiFilmByFilm> {
   try {
     const res = await fetch(`${URL}/film/${slug}`);
@@ -48,23 +33,56 @@ export async function getMovieByFilm(slug: string): Promise<RootApiFilmByFilm> {
 }
 
 export async function getMovieBySearch(
-  search: string
-): Promise<RootApiFilmBySlug> {
+  search: string,
+  page: string
+): Promise<RootApiFilmBySearch> {
   try {
-    const res = await fetch(`${URL}/films/search?keyword=${search}`);
+    const res = await fetch(
+      `${URL}/films/search?keyword=${search}&page=${page}`
+    );
     if (!res.ok) throw new Error("Fetching data error");
     const data = await res.json();
     return data;
   } catch (error) {
     console.error(error);
-    throw error;
+    notFound();
+  }
+}
+
+export async function getMovieBySlugAndPage(
+  slug: string,
+  page: string
+): Promise<RootApiFilmBySlug> {
+  try {
+    const res = await fetch(`${URL}/films/the-loai/${slug}?page=${page}`);
+    if (!res.ok) throw new Error("Fetching data error");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    notFound();
+  }
+}
+
+export async function getMovieByCat(
+  slug: string,
+  page: string
+): Promise<RootApiFilmBySlug> {
+  try {
+    const res = await fetch(`${URL}/films/danh-sach/${slug}?page=${page}`);
+    if (!res.ok) throw new Error("Fetching data error");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    notFound();
   }
 }
 
 export async function getMovieByNational(
   national: string,
   page: string
-): Promise<RootApiFilmBySearch> {
+): Promise<RootApiFilmBySlug> {
   try {
     const res = await fetch(`${URL}/films/quoc-gia/${national}?page=${page}`);
     if (!res.ok) throw new Error("Fetching data error");
@@ -72,6 +90,6 @@ export async function getMovieByNational(
     return data;
   } catch (error) {
     console.error(error);
-    throw error;
+    notFound();
   }
 }

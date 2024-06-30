@@ -25,7 +25,7 @@ export function SearchItem({
       try {
         setIsLoading(true);
         if (search) {
-          const data = await getMovieBySearch(search);
+          const data = await getMovieBySearch(search, "1");
           setDataSearch(data);
         }
       } catch (error) {
@@ -42,7 +42,15 @@ export function SearchItem({
   }, [search, delay]);
   return (
     <section className="absolute w-full z-20 py-6 px-8 bg-gray-800 text-white rounded-lg">
-      <div className="flex">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (search.length > 0) {
+            router.push(`/block/highlight?type=search&value=${search}`);
+          }
+        }}
+        className="flex"
+      >
         <div className="flex gap-6 items-center w-full">
           <Search />
           <input
@@ -54,17 +62,12 @@ export function SearchItem({
           />
         </div>
         <Button
-          onClick={() => {
-            if (search.length > 0) {
-              router.push(`/timKiem/search?value=${search}`);
-            }
-          }}
           variant="secondary"
           className="!bg-blue-default text-lg font-bold"
         >
           Tìm kiếm
         </Button>
-      </div>
+      </form>
       {search.length > 0 && (
         <div className="mt-4 flex flex-col gap-2">
           {isLoading ? (

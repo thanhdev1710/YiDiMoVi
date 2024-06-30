@@ -22,8 +22,9 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   let { slug } = params;
   const data = await getMovieByFilm(slug);
-  const { poster_url, description } = data.movie || {
+  const { poster_url, description, name } = data.movie || {
     poster_url: "",
+    name: "",
     description: "No description available",
   };
   const previousImages = (await parent).openGraph?.images || [];
@@ -33,11 +34,11 @@ export async function generateMetadata(
   const absoluteUrl = `${process.env.NEXT_PUBLIC_APP_DOMAIN}/xemPhim/${slug}`;
 
   return {
-    title: `Phim ${slug} - YidiMovi`,
-    keywords: `phim ${slug}, phim bom tấn, phim chiếu rạp, xem phim online`,
+    title: `Phim ${name} - YidiMovi`,
+    keywords: `phim ${name}, phim bom tấn, phim chiếu rạp, xem phim online`,
     description: `${description}`,
     openGraph: {
-      title: `Phim ${slug} - YidiMovi`,
+      title: `Phim ${name} - YidiMovi`,
       description: `${description}`,
       url: absoluteUrl,
       type: "website",
@@ -53,7 +54,7 @@ export async function generateMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: `Phim ${slug} - YidiMovi`,
+      title: `Phim ${name} - YidiMovi`,
       description: `${description}`,
       images: [
         {

@@ -5,10 +5,21 @@ import Navigation from "./Navigation";
 import Menu from "./Menu";
 
 const NavLinkHeader: NavLinkProps[] = [
-  { href: "/", name: "Trang chủ" },
-  { href: "/phimBo", name: "Phim bộ" },
-  { href: "/phimLe", name: "Phim lẻ" },
-  { href: "/block/highlight/hoat-hinh?type=Movie Genre", name: "Hoạt hình" },
+  { href: "/block/highlight?type=category&value=Phim lẻ", name: "Phim lẻ" },
+  { href: "/block/highlight?type=category&value=Phim bộ", name: "Phim bộ" },
+  {
+    href: "/block/highlight?type=movie-genre&value=Hoạt hình",
+    name: "Hoạt hình",
+  },
+  {
+    href: "/block/highlight?type=movie-genre&value=Hành động",
+    name: "Hành động",
+  },
+  { href: "/block/highlight?type=movie-genre&value=Kinh dị", name: "Kinh dị" },
+  {
+    href: "/block/highlight?type=movie-genre&value=Tình cảm",
+    name: "Tình cảm",
+  },
 ];
 
 export async function Header() {

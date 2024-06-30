@@ -15,7 +15,7 @@ export function PaginationPage({
   name,
   totalPage,
 }: {
-  type: string | string[] | undefined;
+  type: string;
   name: string;
   totalPage: number;
 }) {
@@ -36,28 +36,20 @@ export function PaginationPage({
     }
 
     if (currentPage === 1) {
-      const encodedURL = encodeURIComponent(
-        "/block/highlight/Việt Nam?type=National&page=2"
-      );
-      router.prefetch(encodedURL);
+      router.prefetch(`${pathName}?type=${type}&value=${name}&&page=2`);
     } else if (currentPage === totalPage) {
-      const encodedURL = encodeURIComponent(
-        `/block/highlight/Việt Nam?type=National&page=${totalPage - 1}`
+      router.prefetch(
+        `${pathName}?type=${type}&value=${name}&page=${totalPage - 1}`
       );
-      router.prefetch(encodedURL);
     } else {
       router.prefetch(
-        encodeURIComponent(
-          `/block/highlight/Việt Nam?type=National&page=${currentPage - 1}`
-        )
+        `${pathName}?type=${type}&value=${name}&page=${currentPage - 1}`
       );
       router.prefetch(
-        encodeURIComponent(
-          `/block/highlight/Việt Nam?type=National&page=${currentPage + 1}`
-        )
+        `${pathName}?type=${type}&value=${name}&page=${currentPage + 1}`
       );
     }
-  }, [currentPage, pathName, router, searchParams, totalPage]);
+  }, [currentPage, pathName, router, searchParams, totalPage, name, type]);
   return (
     <Pagination>
       <PaginationContent className="flex items-center justify-center">
@@ -68,7 +60,7 @@ export function PaginationPage({
                 ? "pointer-events-none select-none"
                 : "cursor-pointer"
             }`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 1
             }`}
           />
@@ -76,7 +68,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 4 > totalPage ? "" : "hidden"}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 4
             }`}
           >
@@ -86,7 +78,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 3 > totalPage ? "" : "hidden"}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 3
             }`}
           >
@@ -96,7 +88,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 2 > totalPage ? "" : "hidden"}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 2
             }`}
           >
@@ -107,7 +99,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 1 > totalPage ? "" : "hidden"}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 1
             }`}
           >
@@ -116,7 +108,7 @@ export function PaginationPage({
         </PaginationItem>
         <PaginationItem>
           <PaginationLink
-            href={`/block/highlight/${name}?type=${type}&page=${currentPage}`}
+            href={`${pathName}?value=${name}&type=${type}&page=${currentPage}`}
             isActive
           >
             {currentPage}
@@ -125,7 +117,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 1 > totalPage ? "hidden" : ""}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage + 1
             }`}
           >
@@ -135,7 +127,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 2 > totalPage ? "hidden" : ""}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage + 2
             }`}
           >
@@ -145,7 +137,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 3 > totalPage ? "hidden" : ""}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage + 3
             }`}
           >
@@ -155,7 +147,7 @@ export function PaginationPage({
         <PaginationItem>
           <PaginationLink
             className={`${currentPage + 4 > totalPage ? "hidden" : ""}`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage + 4
             }`}
           >
@@ -169,7 +161,7 @@ export function PaginationPage({
                 ? "pointer-events-none select-none"
                 : "cursor-pointer"
             }`}
-            href={`/block/highlight/${name}?type=${type}&page=${
+            href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage + 1
             }`}
           />

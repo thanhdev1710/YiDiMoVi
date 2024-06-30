@@ -9,7 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
-  title: "YiDiMoVi - Trang web xem phim trực tuyến",
+  title: {
+    template: "%s | YiDiMoVi - Trang web xem phim trực tuyến",
+    default: "Welcome to YiDiMoVi | YiDiMoVi - Trang web xem phim trực tuyến",
+  },
   description:
     "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
   openGraph: {

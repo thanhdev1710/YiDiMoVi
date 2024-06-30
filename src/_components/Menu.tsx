@@ -10,15 +10,23 @@ import { usePathname } from "next/navigation";
 const NavLinkHeader: NavLinkProps[] = [
   { href: "/dangNhap", name: "Đăng nhập/Đăng ký" },
   { href: "/", name: "Trang chủ" },
-  { href: "/trang/phimBo", name: "Phim bộ" },
-  { href: "/trang/phimLe", name: "Phim lẻ" },
-  { href: "/block/highlight/Hoạt hình?type=Movie Genre", name: "Hoạt hình" },
-  { href: "/block/highlight/Hành động?type=Movie Genre", name: "Hành động" },
-  { href: "/block/highlight/Kinh dị?type=Movie Genre", name: "Kinh dị" },
-  { href: "/block/highlight/Hài hước?type=Movie Genre", name: "Hài hước" },
-  { href: "/block/highlight/Tâm lý?type=Movie Genre", name: "Tâm lý" },
-  { href: "/block/highlight/Tình cảm?type=Movie Genre", name: "Tình cảm" },
-  { href: "/block/highlight/Xã hội?type=Movie Genre", name: "Xã hội" },
+
+  { href: "/block/highlight?type=category&value=Phim lẻ", name: "Phim lẻ" },
+  { href: "/block/highlight?type=category&value=Phim bộ", name: "Phim bộ" },
+  {
+    href: "/block/highlight?type=movie-genre&value=Hoạt hình",
+    name: "Hoạt hình",
+  },
+  {
+    href: "/block/highlight?type=movie-genre&value=Hành động",
+    name: "Hành động",
+  },
+  { href: "/block/highlight?type=movie-genre&value=Kinh dị", name: "Kinh dị" },
+  {
+    href: "/block/highlight?type=movie-genre&value=Tình cảm",
+    name: "Tình cảm",
+  },
+  { href: "/block/highlight?type=movie-genre&value=Tâm lý", name: "Tâm lý" },
 ];
 
 export default function Menu({ className }: { className?: string }) {

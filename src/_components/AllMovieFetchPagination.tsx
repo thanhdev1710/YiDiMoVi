@@ -1,31 +1,18 @@
-import { RootApiFilmBySearch } from "@/_interfaces/DataFilmBySearch";
-import RootApiFilmBySlug from "@/_interfaces/DataFilmBySlug";
 import { PaginationPage } from "./PaginationPage";
-import {
-  getMovieByNational,
-  getMovieBySearch,
-  getMovieBySlugAndPage,
-} from "@/_libs/service";
-import removeAccents from "@/_utils/removeAccents";
 import Image from "next/image";
 import Link from "next/link";
+import { FetchMovieAll } from "../_utils/FetchMovieAll";
 
 export async function AllMovieFetchPagination({
   type,
-  name,
-  currentPage,
+  value,
+  page,
 }: {
-  type: string | string[] | undefined;
-  name: string;
-  currentPage: string;
+  type: string;
+  value: string;
+  page: string;
 }) {
-  const nameFormat = removeAccents(name);
-  const dataList =
-    type === "search"
-      ? await getMovieBySearch(name)
-      : type === "National"
-      ? await getMovieByNational(nameFormat, currentPage)
-      : await getMovieBySlugAndPage(nameFormat, currentPage);
+  const dataList = await FetchMovieAll(type, value, page);
   const { total_page } = dataList.paginate;
   const { items } = dataList;
   return (
@@ -43,13 +30,13 @@ export async function AllMovieFetchPagination({
                 />
               </div>
               <h2 className="text-xl font-bold">{item.name}</h2>
-              <p className="text-xs">{item.description.slice(0, 160)}...</p>
+              <p className="text-xs">{item.description?.slice(0, 160)}...</p>
             </Link>
           </article>
         ))}
       </div>
 
-      <PaginationPage totalPage={total_page} name={name} type={type} />
+      <PaginationPage totalPage={total_page} name={value} type={type} />
     </section>
   );
 }

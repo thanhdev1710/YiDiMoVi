@@ -27,5 +27,4 @@ export interface Item {
   language: string;
   director: string;
   casts: string;
-  base64?: string;
 }
