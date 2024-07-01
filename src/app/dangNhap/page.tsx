@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default async function page() {
   const session = await auth();
-  if (!session?.user.email) redirect("/taiKhoan/thongTinCaNhan");
+  if (session?.user.email) redirect("/taiKhoan/thongTinCaNhan");
   return (
     <Main>
       <div className="flex flex-col gap-10 mt-10 items-center">
