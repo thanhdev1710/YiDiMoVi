@@ -1,6 +1,8 @@
 import Main from "@/_components/Main";
 import SignInButton from "@/_components/SignInButton";
+import { auth } from "@/_libs/auth";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Đăng Nhập - YidiMovi",
@@ -42,7 +44,9 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
-export default function page() {
+export default async function page() {
+  const session = await auth();
+  if (!session?.user.email) redirect("/taiKhoan/thongTinCaNhan");
   return (
     <Main>
       <div className="flex flex-col gap-10 mt-10 items-center">

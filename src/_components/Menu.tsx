@@ -8,7 +8,6 @@ import { LogoMain } from "./LogoMain";
 import { usePathname } from "next/navigation";
 
 const NavLinkHeader: NavLinkProps[] = [
-  { href: "/dangNhap", name: "Đăng nhập/Đăng ký" },
   { href: "/", name: "Trang chủ" },
 
   { href: "/block/highlight?type=category&value=Phim lẻ", name: "Phim lẻ" },
