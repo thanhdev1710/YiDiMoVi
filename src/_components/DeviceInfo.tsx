@@ -22,7 +22,8 @@ export function DeviceInfo({ session }: { session: Session | null }) {
         setIsLoading(true);
         const email = encodeURIComponent(session?.user.email || "");
         const data = await fetch(
-          `${process.env.NEXT_PUBLIC_APP_DOMAIN}api/logDeviceInfo?email=${email}`
+          `${process.env.NEXT_PUBLIC_APP_DOMAIN}api/logDeviceInfo?email=${email}`,
+          { next: { revalidate: 3600 } }
         ).then((res) => res.json());
         setDeviceInfo(data);
       } catch (error) {
@@ -39,7 +40,7 @@ export function DeviceInfo({ session }: { session: Session | null }) {
   return (
     <div className="py-4 px-6 bg-gray-800 rounded-md">
       <h2 className="text-2xl font-bold flex gap-2 items-center">
-        {deviceInfo?.browser}{" "}
+        {deviceInfo?.browser || "Chrome"}{" "}
         <span>
           <Dot className="text-blue-default h-10 w-10" />
         </span>

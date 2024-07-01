@@ -29,7 +29,7 @@ export default async function page() {
           />
         </div>
         <div className="w-full flex flex-col justify-between">
-          <p className="mb-4 text-xl font-bold">
+          <p className="mb-4 text-white text-xl font-bold">
             {session?.user.phone || "0123456789"}
           </p>
           <div className="flex text-gray-400 text-sm">
