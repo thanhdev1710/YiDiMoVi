@@ -5,7 +5,7 @@ import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 
 export async function signInAction() {
-  await signIn("google", { redirectTo: "/taiKhoan" });
+  await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
 }
 
 export async function signOutAction() {
