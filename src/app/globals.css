@@ -17,8 +17,8 @@ html {
 
 /* ----------------------------- CUSTOM SCROLLBAR --------------------------------- */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -103,4 +103,8 @@ html {
   to {
     background-position: 80% 100%;
   }
+}
+
+.rdp-day_selected {
+  @apply !bg-blue-default;
 }

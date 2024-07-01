@@ -110,3 +110,15 @@ export async function getMovieByNational(
     throw error;
   }
 }
+
+export async function getTinhThanhVN() {
+  try {
+    const res = await fetch("https://esgoo.net/api-tinhthanh/1/0.htm");
+    if (!res.ok) throw new Error("Fetching data error");
+    const data = await res.json();
+    if (!data) throw new Error("Not found data");
+    return data;
+  } catch (error) {
+    throw new Error("Lỗi lấy dữ liệu các tỉnh thành phố ở Việt Nam");
+  }
+}

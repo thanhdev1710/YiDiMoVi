@@ -1,4 +1,5 @@
 import Main from "@/_components/Main";
+import SignInButton from "@/_components/SignInButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -42,5 +43,14 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-  return <Main>page</Main>;
+  return (
+    <Main>
+      <div className="flex flex-col gap-10 mt-10 items-center">
+        <h2 className="text-3xl font-semibold">
+          Sign in to access your guest area
+        </h2>
+        <SignInButton />
+      </div>
+    </Main>
+  );
 }
