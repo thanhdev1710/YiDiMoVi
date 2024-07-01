@@ -4,6 +4,8 @@ import { getMovieByPage } from "@/_libs/service";
 import { ListMovie } from "../_components/ListMovie";
 import { Suspense } from "react";
 import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import ErrorComponent from "@/_components/ErrorComponent";
 
 const DataBlockHighLight = [
   {
@@ -94,18 +96,22 @@ export default async function page() {
       </section>
       {DataBlockHighLight.map((item, i) => (
         <section key={item.value + item.type}>
-          <Suspense
-            fallback={<SkeletonHightLightBlock name={item.value} />}
-            key={item.value + item.type}
-          >
-            <ListMovie value={item.value} type={item.type} />
-          </Suspense>
-          <Suspense
-            fallback={<SkeletonHightLightBlock name={item.value} />}
-            key={item.value + item.type + i}
-          >
-            {(i + 1) % 3 === 0 && <ListMovieSub i={i.toString()} />}
-          </Suspense>
+          <ErrorBoundary errorComponent={ErrorComponent}>
+            <Suspense
+              fallback={<SkeletonHightLightBlock name={item.value} />}
+              key={item.value + item.type}
+            >
+              <ListMovie value={item.value} type={item.type} />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary errorComponent={ErrorComponent}>
+            <Suspense
+              fallback={<SkeletonHightLightBlock name={item.value} />}
+              key={item.value + item.type + i}
+            >
+              {(i + 1) % 3 === 0 && <ListMovieSub i={i.toString()} />}
+            </Suspense>
+          </ErrorBoundary>
         </section>
       ))}
     </Main>

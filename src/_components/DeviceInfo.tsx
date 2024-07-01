@@ -21,12 +21,20 @@ export function DeviceInfo({ session }: { session: Session | null }) {
       try {
         setIsLoading(true);
         const email = encodeURIComponent(session?.user.email || "");
-        const data = await fetch(
-          `${process.env.NEXT_PUBLIC_APP_DOMAIN}api/logDeviceInfo?email=${email}`,
-          { next: { revalidate: 3600 } }
-        ).then((res) => res.json());
-        setDeviceInfo(data);
+        const cachedData = sessionStorage.getItem(`deviceInfo`);
+
+        if (cachedData) {
+          setDeviceInfo(JSON.parse(cachedData));
+        } else {
+          const data = await fetch(
+            `${process.env.NEXT_PUBLIC_APP_DOMAIN}api/logDeviceInfo?email=${email}`,
+            { next: { revalidate: 3600 } }
+          ).then((res) => res.json());
+          setDeviceInfo(data);
+          sessionStorage.setItem(`deviceInfo`, JSON.stringify(data));
+        }
       } catch (error) {
+        console.error("Error fetching device info:", error);
       } finally {
         setIsLoading(false);
       }
@@ -36,6 +44,8 @@ export function DeviceInfo({ session }: { session: Session | null }) {
   }, [session?.user.email]);
 
   if (isLoading) return <Loading />;
+
+  if (!deviceInfo) return null;
 
   return (
     <div className="py-4 px-6 bg-gray-800 rounded-md">
@@ -49,13 +59,10 @@ export function DeviceInfo({ session }: { session: Session | null }) {
         Đăng nhập lần cuối{" "}
         {deviceInfo?.previousVisit === "Chưa có lần truy cập trước"
           ? "Chưa có lần truy cập trước"
-          : `${new Date(deviceInfo?.previousVisit || new Date()).toLocaleString(
-              "vi-VN",
-              {
-                dateStyle: "long",
-                timeStyle: "medium",
-              }
-            )}`}
+          : `${new Date(deviceInfo?.previousVisit).toLocaleString("vi-VN", {
+              dateStyle: "long",
+              timeStyle: "medium",
+            })}`}
       </p>
     </div>
   );

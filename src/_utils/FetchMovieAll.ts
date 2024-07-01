@@ -12,6 +12,7 @@ export async function FetchMovieAll(
   page: string = "1"
 ) {
   const nameFormat = removeAccents(name);
+  console.log({ type, name, page });
   const dataList =
     type.toLowerCase() === "national"
       ? await getMovieByNational(nameFormat, page)
