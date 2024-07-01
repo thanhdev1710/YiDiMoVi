@@ -29,7 +29,6 @@ export function SearchItem({
           setDataSearch(data);
         }
       } catch (error) {
-        console.error("Fetching data error", error);
         throw error;
       } finally {
         setIsLoading(false);

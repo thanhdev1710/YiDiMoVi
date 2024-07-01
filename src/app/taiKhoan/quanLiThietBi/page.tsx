@@ -7,7 +7,7 @@ export default async function page() {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Thiết bị đã đăng nhập</h1>
-      <DeviceInfo session={session} />
+      {session?.user && <DeviceInfo session={session} />}
     </div>
   );
 }

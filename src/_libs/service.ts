@@ -10,13 +10,13 @@ export async function getMovieByPage(
 ): Promise<RootApiFilmNewUpdate> {
   try {
     const res = await fetch(`${URL}/films/phim-moi-cap-nhat?page=${page}`);
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các phim mới cập nhật");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
-    if (data.items?.length <= 0) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
+    if (data.items?.length <= 0) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Not found data")
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
       notFound();
     throw error;
   }
@@ -25,13 +25,13 @@ export async function getMovieByPage(
 export async function getMovieByFilm(slug: string): Promise<RootApiFilmByFilm> {
   try {
     const res = await fetch(`${URL}/film/${slug}`);
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ phim");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
-    if (data.items?.length <= 0) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
+    if (data.items?.length <= 0) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Not found data")
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
       notFound();
     throw error;
   }
@@ -45,13 +45,13 @@ export async function getMovieBySearch(
     const res = await fetch(
       `${URL}/films/search?keyword=${search}&page=${page}`
     );
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ tìm kiếm theo tên phim");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
-    if (data.items?.length <= 0) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
+    if (data.items?.length <= 0) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Not found data")
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
       notFound();
     throw error;
   }
@@ -63,13 +63,13 @@ export async function getMovieBySlugAndPage(
 ): Promise<RootApiFilmBySlug> {
   try {
     const res = await fetch(`${URL}/films/the-loai/${slug}?page=${page}`);
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các thể loại phim");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
-    if (data.items?.length <= 0) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
+    if (data.items?.length <= 0) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Not found data")
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
       notFound();
     throw error;
   }
@@ -81,13 +81,13 @@ export async function getMovieByCat(
 ): Promise<RootApiFilmBySlug> {
   try {
     const res = await fetch(`${URL}/films/danh-sach/${slug}?page=${page}`);
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các danh sách");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
-    if (data.items?.length <= 0) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
+    if (data.items?.length <= 0) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Not found data")
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
       notFound();
     throw error;
   }
@@ -99,13 +99,14 @@ export async function getMovieByNational(
 ): Promise<RootApiFilmBySlug> {
   try {
     const res = await fetch(`${URL}/films/quoc-gia/${national}?page=${page}`);
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok)
+      throw new Error("Lỗi lấy dữ liệu từ các phim lấy theo quốc gia");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
-    if (data.items?.length <= 0) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
+    if (data.items?.length <= 0) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Not found data")
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
       notFound();
     throw error;
   }
@@ -114,9 +115,9 @@ export async function getMovieByNational(
 export async function getTinhThanhVN() {
   try {
     const res = await fetch("https://esgoo.net/api-tinhthanh/1/0.htm");
-    if (!res.ok) throw new Error("Fetching data error");
+    if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các tỉnh thành Việt Nam");
     const data = await res.json();
-    if (!data) throw new Error("Not found data");
+    if (!data) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch (error) {
     throw new Error("Lỗi lấy dữ liệu các tỉnh thành phố ở Việt Nam");
