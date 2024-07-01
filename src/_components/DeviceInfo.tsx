@@ -13,48 +13,48 @@ interface deviceInfo {
 }
 
 export function DeviceInfo({ session }: { session: Session | null }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [deviceInfo, setDeviceInfo] = useState<deviceInfo | null>(null);
 
   useEffect(() => {
     const fetchDeviceInfo = async () => {
-      const email = encodeURIComponent(session?.user.email || "");
-
-      if (typeof window !== "undefined") {
-        const response = await fetch(
+      try {
+        setIsLoading(true);
+        const email = encodeURIComponent(session?.user.email || "");
+        const data = await fetch(
           `${process.env.NEXT_PUBLIC_APP_DOMAIN}api/logDeviceInfo?email=${email}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setDeviceInfo(data);
-        } else {
-          console.error("Failed to fetch device info:", response.statusText);
-        }
+        ).then((res) => res.json());
+        setDeviceInfo(data);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchDeviceInfo();
   }, [session?.user.email]);
 
-  if (!deviceInfo) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <div className="py-4 px-6 bg-gray-800 rounded-md">
       <h2 className="text-2xl font-bold flex gap-2 items-center">
-        {deviceInfo.browser}{" "}
+        {deviceInfo?.browser}{" "}
         <span>
           <Dot className="text-blue-default h-10 w-10" />
         </span>
       </h2>
       <p className="text-sm text-gray-400">
         Đăng nhập lần cuối{" "}
-        {deviceInfo.previousVisit === "Chưa có lần truy cập trước"
+        {deviceInfo?.previousVisit === "Chưa có lần truy cập trước"
           ? "Chưa có lần truy cập trước"
-          : `${new Date(deviceInfo.previousVisit).toLocaleString("vi-VN", {
-              dateStyle: "long",
-              timeStyle: "medium",
-            })}`}
+          : `${new Date(deviceInfo?.previousVisit || new Date()).toLocaleString(
+              "vi-VN",
+              {
+                dateStyle: "long",
+                timeStyle: "medium",
+              }
+            )}`}
       </p>
     </div>
   );
