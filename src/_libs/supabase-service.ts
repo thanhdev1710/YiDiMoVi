@@ -46,7 +46,8 @@ export async function getMovieViewingHistory(id: Number) {
   return data;
 }
 
-export async function getMovieFavorite(id: Number) {
+export async function getMovieFavorite(id: Number | null | undefined) {
+  if (!id) throw new Error("Lấy dữ liệu danh sách yêu thích thất bại");
   const { data, error } = await supabase
     .from("listMovieFavorite")
     .select("name,slug,image")

@@ -10,14 +10,22 @@ export function FavoriteAndShare({
   name,
   slug,
   image,
+  listFavorite,
 }: {
   id: number | null | undefined;
   name: string;
   slug: string;
   image: string;
+  listFavorite?: {
+    id: number;
+    name: string;
+    slug: string;
+    image: string;
+  }[];
 }) {
   const prevList = JSON.parse(
-    localStorage.getItem("listFavorite") ||
+    JSON.stringify(listFavorite) ||
+      localStorage.getItem("listFavorite") ||
       JSON.stringify([{ id: "", name: "", slug: "", image: "" }])
   );
   const [is, setIs] = useState(

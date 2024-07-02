@@ -11,7 +11,10 @@ import RelatedMovies from "../../../_components/RelatedMovies";
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
 import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
-import { createMovieViewingHistory } from "@/_libs/supabase-service";
+import {
+  createMovieViewingHistory,
+  getMovieFavorite,
+} from "@/_libs/supabase-service";
 import { auth } from "@/_libs/auth";
 
 type Props = {
@@ -145,6 +148,12 @@ export default async function page({
     }
   }
 
+  const listFav = await getMovieFavorite(session?.user.userId);
+  const listFavorite = listFav.map((item) => ({
+    id: session?.user.userId,
+    ...item,
+  }));
+
   return (
     <Main>
       <VideoEmbed url={movie.embed} />
@@ -181,6 +190,7 @@ export default async function page({
         <p className="text-sm">{description}</p>
         <div className="space-x-2 !my-6">
           <FavoriteAndShare
+            listFavorite={listFavorite}
             id={session?.user.userId}
             image={poster_url}
             name={name}
