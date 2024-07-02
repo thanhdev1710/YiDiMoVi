@@ -21,8 +21,6 @@ type Props = {
   params: { slug: string };
 };
 
-export const revalidate = 86400;
-
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
@@ -45,9 +43,6 @@ export async function generateMetadata(
     keywords: `phim ${name}, phim bom tấn, phim chiếu rạp, xem phim online`,
     alternates: {
       canonical: `xemPhim/${slug}`,
-      languages: {
-        vi: "vi-VN",
-      },
     },
     description: `${description}`,
     openGraph: {
@@ -92,6 +87,7 @@ export default async function page({
 }) {
   const session = await auth();
   let movie;
+  let listFavoriteAlready: any[];
   const { slug } = params;
   const tap = searchParams.tap ? Number(searchParams.tap) : 1;
   const data = await getMovieByFilm(slug);
@@ -141,18 +137,18 @@ export default async function page({
       poster_url
     );
 
+    listFavoriteAlready = (await getMovieFavorite(session?.user.userId)).map(
+      (item) => item.name
+    );
+
     if (error) {
       console.error("Lưu lịch sử xem thất bại");
     } else {
       console.log("Lưu lịch sử xem thành công");
     }
+  } else {
+    listFavoriteAlready = [];
   }
-
-  const listFav = await getMovieFavorite(session?.user.userId);
-  const listFavorite = listFav.map((item) => ({
-    id: session?.user.userId,
-    ...item,
-  }));
 
   return (
     <Main>
@@ -190,11 +186,11 @@ export default async function page({
         <p className="text-sm">{description}</p>
         <div className="space-x-2 !my-6">
           <FavoriteAndShare
-            listFavorite={listFavorite}
-            id={session?.user.userId}
+            listFavoriteAlready={listFavoriteAlready}
             image={poster_url}
             name={name}
             slug={slug}
+            id={session?.user.userId}
           />
         </div>
         <p className="text-sm text-gray-400">

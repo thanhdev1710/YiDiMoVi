@@ -1,5 +1,12 @@
 import { supabase } from "./supabase";
 
+interface PropsMovieFavorite {
+  id: number;
+  name: string;
+  slug: string;
+  image: string;
+}
+
 export async function getUser(email: string) {
   const { data } = await supabase
     .from("users")
@@ -34,10 +41,12 @@ export async function createMovieViewingHistory(
   return error;
 }
 
-export async function getMovieViewingHistory(id: Number) {
+export async function getMovieViewingHistory(
+  id: number
+): Promise<PropsMovieFavorite[]> {
   const { data, error } = await supabase
     .from("movieViewingHistory")
-    .select("name,slug,image")
+    .select("id,name,slug,image")
     .eq("id", id)
     .order("created_at", { ascending: false });
 
@@ -46,11 +55,12 @@ export async function getMovieViewingHistory(id: Number) {
   return data;
 }
 
-export async function getMovieFavorite(id: Number | null | undefined) {
-  if (!id) throw new Error("Lấy dữ liệu danh sách yêu thích thất bại");
+export async function getMovieFavorite(
+  id: number
+): Promise<PropsMovieFavorite[]> {
   const { data, error } = await supabase
     .from("listMovieFavorite")
-    .select("name,slug,image")
+    .select("id,name,slug,image")
     .eq("id", id)
     .order("created_at", { ascending: false });
 

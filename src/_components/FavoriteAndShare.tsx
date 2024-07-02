@@ -1,69 +1,25 @@
 "use client";
 import { Heart, Share2 } from "lucide-react";
 import { Button } from "./ui/button";
-import { createMovieFavorite, deleteMovieFavorite } from "@/_libs/actions";
-import { toast } from "react-hot-toast";
-import { useState } from "react";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import { createMovieFavorite } from "@/_libs/actions";
 
 export function FavoriteAndShare({
   id,
   name,
   slug,
   image,
-  listFavorite,
+  listFavoriteAlready,
 }: {
   id: number | null | undefined;
   name: string;
   slug: string;
   image: string;
-  listFavorite?:
-    | {
-        id: number | null | undefined;
-        name: string;
-        slug: string;
-        image: string;
-      }[]
-    | undefined;
+  listFavoriteAlready: any[];
 }) {
-  const prevList = JSON.parse(
-    JSON.stringify(listFavorite) ||
-      localStorage.getItem("listFavorite") ||
-      JSON.stringify([{ id: "", name: "", slug: "", image: "" }])
-  );
-  const [is, setIs] = useState(
-    prevList.find((item: any) => item.name === name)
-  );
-
-  async function handleClickFavorite() {
-    if (id) {
-      if (!is) {
-        const error = await createMovieFavorite(id, name, slug, image);
-        if (error) {
-          console.log("Thêm vào danh sách yêu thích thất bại");
-          return;
-        }
-        localStorage.setItem(
-          "listFavorite",
-          JSON.stringify([...prevList, { id, name, slug, image }])
-        );
-        setIs({ id, name, slug, image });
-      } else {
-        const error = await deleteMovieFavorite(id, name);
-        if (error) {
-          console.log("Xoá khỏi danh sách yêu thích thất bại");
-          return;
-        }
-        const newList = prevList.filter((item: any) => item.name !== is.name);
-        localStorage.setItem("listFavorite", JSON.stringify(newList));
-        setIs(null);
-      }
-    } else {
-      toast.error("Không thể thêm vào danh sách yêu thích");
-    }
-  }
-
   const handleCopyLink = () => {
-    const linkToCopy = `${process.env.NEXT_PUBLIC_APP_DOMAIN}/xemPhim/${slug}`;
+    const linkToCopy = window.location.href;
 
     navigator.clipboard
       .writeText(linkToCopy)
@@ -71,19 +27,51 @@ export function FavoriteAndShare({
         toast.success("Link đã được sao chép vào clipboard!");
       })
       .catch((err) => {
-        toast.error("Không thể sao chép link: " + err);
+        toast.error("Đã xảy ra lỗi. Không thể sao chép link!");
       });
   };
 
   return (
     <>
       <Button
-        onClick={handleClickFavorite}
+        onClick={async () => {
+          if (id) {
+            const status = await createMovieFavorite(id, name, slug, image);
+            if (status.error) {
+              toast.error("Thêm vào danh sách yêu thích thất bại");
+            } else {
+              if (status.type === "insert") {
+                toast.success("Đã thêm vào danh sách yêu thích");
+              } else {
+                toast("Đã xoá khỏi danh sách yêu thích", {
+                  icon: "😓",
+                });
+              }
+            }
+          } else {
+            toast((t) => (
+              <div className="flex flex-col gap-2">
+                <p>Bạn cần đăng nhập mới có thể thêm vào danh sách yêu thích</p>
+                <Link
+                  href="/dangNhap"
+                  className="px-4 py-2 rounded text-center bg-blue-default text-white"
+                  onClick={() => toast.dismiss(t.id)}
+                >
+                  Đăng nhập
+                </Link>
+              </div>
+            ));
+          }
+        }}
         className="rounded-full w-10 h-10 !p-[10px]"
         variant="secondary"
       >
         <Heart
-          className={`${is ? "text-blue-default fill-blue-default" : ""} `}
+          className={`${
+            listFavoriteAlready.includes(name)
+              ? "fill-blue-default text-blue-default"
+              : ""
+          }`}
         />
       </Button>
       <Button

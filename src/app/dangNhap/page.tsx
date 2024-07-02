@@ -49,11 +49,28 @@ export default async function page() {
   if (session?.user.email) redirect("/taiKhoan/thongTinCaNhan");
   return (
     <Main>
-      <div className="flex flex-col gap-10 mt-10 items-center">
-        <h2 className="text-3xl font-semibold">
-          Sign in to access your guest area
-        </h2>
+      <h1 className="text-center text-3xl font-bold mb-8">
+        Đăng Ký / Đăng Nhập - Yidimovi
+      </h1>
+      <div className="flex flex-col gap-10 mb-10 items-center">
         <SignInButton />
+      </div>
+      <div className="space-y-2">
+        <p>
+          Chào mừng bạn đến với Yidimovi - trang web xem phim miễn phí hàng đầu!
+          Đăng ký hoặc đăng nhập để trải nghiệm thế giới phim ảnh đa dạng và
+          phong phú. Với tài khoản Yidimovi, bạn có thể:
+        </p>
+        <ul className="list-disc ml-4">
+          <li>Xem phim không giới hạn với chất lượng cao</li>
+          <li>Lưu lại danh sách phim yêu thích</li>
+          <li>Nhận thông báo về các bộ phim mới nhất</li>
+          <li>Tham gia cộng đồng yêu phim và chia sẻ cảm nhận</li>
+        </ul>
+        <p>
+          Hãy tạo tài khoản ngay hôm nay để không bỏ lỡ những trải nghiệm tuyệt
+          vời trên Yidimovi!
+        </p>
       </div>
     </Main>
   );

@@ -8,12 +8,14 @@ export function EpisodeMovie({
   curEpisodes,
   description,
   slug,
+  i,
 }: {
   url: string;
   episode: number;
   curEpisodes: number;
   description: string;
   slug: string;
+  i: number;
 }) {
   return (
     <div className="space-y-4 w-52 relative">
@@ -41,6 +43,11 @@ export function EpisodeMovie({
       {curEpisodes === episode && (
         <div className="absolute right-2 bottom-16">
           <LoadingWatch />
+        </div>
+      )}
+      {i >= 2 && (
+        <div className="absolute right-2 bottom-12 px-2 py-1 bg-blue-default text-white font-bold rounded">
+          VIP
         </div>
       )}
     </div>

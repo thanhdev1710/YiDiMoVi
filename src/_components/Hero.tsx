@@ -13,17 +13,18 @@ import { Button } from "./ui/button";
 import { useRef } from "react";
 import { DescriptionMovie } from "./DescriptionMovie";
 import { FavoriteAndShare } from "./FavoriteAndShare";
-import { getMovieFavorite } from "@/_libs/supabase-service";
-import { auth } from "@/_libs/auth";
 
-export async function Hero({ slideList }: { slideList: RootApiFilmNewUpdate }) {
-  const session = await auth();
-  const listFav = await getMovieFavorite(session?.user.userId);
-  const listFavorite = listFav.map((item) => ({
-    id: session?.user.userId,
-    ...item,
-  }));
+export function Hero({
+  listFavorite,
+  slideList,
+  id,
+}: {
+  slideList: RootApiFilmNewUpdate;
+  id: number | null | undefined;
+  listFavorite: any;
+}) {
   const swiperRef = useRef<SwiperType>();
+  const listFavoriteAlready = listFavorite.map((item: any) => item.name);
   return (
     <section className="relative text-white">
       <Swiper
@@ -76,11 +77,11 @@ export async function Hero({ slideList }: { slideList: RootApiFilmNewUpdate }) {
                     <span className="font-bold">Xem ngay</span>
                   </Link>
                   <FavoriteAndShare
-                    listFavorite={listFavorite}
-                    id={session?.user.userId}
+                    listFavoriteAlready={listFavoriteAlready}
                     image={item.poster_url}
                     name={item.name}
                     slug={item.slug}
+                    id={id}
                   />
                 </div>
               </div>

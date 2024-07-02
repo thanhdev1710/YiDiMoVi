@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
-import image from "next/image";
+import { getMovieFavorite } from "./supabase-service";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
@@ -40,7 +40,7 @@ export async function updateUserAction(formData: FormData) {
 }
 
 export async function createMovieFavorite(
-  id: Number,
+  id: number,
   name: string,
   slug: string,
   image: string
@@ -52,24 +52,58 @@ export async function createMovieFavorite(
     image,
   };
 
-  const { error } = await supabase
-    .from("listMovieFavorite")
-    .insert([newMovieFavorite]);
-  if (error) {
-    console.error(error);
+  const listMovie = await getMovieFavorite(id);
+  const isAlreadyExist = listMovie.find((item) => item.name === name);
+
+  let type;
+  let error;
+
+  if (isAlreadyExist) {
+    error = await deleteMovieFavorite(id, name, slug);
+    type = "delete";
+  } else {
+    const { error: errorInsert } = await supabase
+      .from("listMovieFavorite")
+      .insert([newMovieFavorite]);
+    error = errorInsert;
+    type = "insert";
   }
-  return error;
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+  revalidatePath("/", "page");
+  revalidatePath(`/xemPhim/${slug}`, "page");
+  return { error, type };
 }
 
-export async function deleteMovieFavorite(id: number, name: string) {
+export async function deleteMovieFavorite(
+  id: number,
+  name: string,
+  slug: string
+) {
   const { error } = await supabase
     .from("listMovieFavorite")
     .delete()
     .eq("id", id)
     .eq("name", name)
     .single();
-  if (error) {
-    console.error(error);
-  }
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+  revalidatePath("/", "page");
+  revalidatePath(`/xemPhim/${slug}`, "page");
+  return error;
+}
+
+export async function deleteMovieHistory(
+  id: number,
+  name: string,
+  slug: string
+) {
+  const { error } = await supabase
+    .from("movieViewingHistory")
+    .delete()
+    .eq("id", id)
+    .eq("name", name)
+    .single();
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+  revalidatePath("/", "page");
+  revalidatePath(`/xemPhim/${slug}`, "page");
   return error;
 }
