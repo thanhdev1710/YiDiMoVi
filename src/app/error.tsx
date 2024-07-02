@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { Button } from "@/_components/ui/button";
 
-export default function GlobalError({
+export default function Error({
   error,
   reset,
 }: {

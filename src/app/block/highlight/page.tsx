@@ -84,7 +84,7 @@ export default async function page({ params, searchParams }: Props) {
     <Main>
       <section className="mb-20">
         <Hero
-          id={session?.user?.userId}
+          userId={session?.user?.userId}
           listFavorite={listFavorite}
           slideList={dataList}
         />

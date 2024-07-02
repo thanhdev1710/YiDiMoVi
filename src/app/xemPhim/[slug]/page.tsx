@@ -190,7 +190,7 @@ export default async function page({
             image={poster_url}
             name={name}
             slug={slug}
-            id={session?.user?.userId}
+            userId={session?.user?.userId}
           />
         </div>
         <p className="text-sm text-gray-400">

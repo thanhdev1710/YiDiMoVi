@@ -3,11 +3,11 @@ import { getMovieByPage } from "@/_libs/service";
 
 export async function ListMovieSub({
   i,
-  id,
+  userId,
   listFavorite,
 }: {
   i: string;
-  id: number | null | undefined;
+  userId: number | null | undefined;
   listFavorite: any;
 }) {
   const dataList = await getMovieByPage(i);
@@ -16,7 +16,7 @@ export async function ListMovieSub({
       <h2 className="text-2xl font-bold mb-4 text-blue-default capitalize">
         Các bộ phim nổi bật ngày hôm nay
       </h2>
-      <Hero listFavorite={listFavorite} id={id} slideList={dataList} />
+      <Hero listFavorite={listFavorite} userId={userId} slideList={dataList} />
     </div>
   );
 }

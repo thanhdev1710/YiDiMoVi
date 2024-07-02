@@ -17,10 +17,10 @@ import { FavoriteAndShare } from "./FavoriteAndShare";
 export function Hero({
   listFavorite,
   slideList,
-  id,
+  userId,
 }: {
   slideList: RootApiFilmNewUpdate;
-  id: number | null | undefined;
+  userId: number | null | undefined;
   listFavorite: any;
 }) {
   const swiperRef = useRef<SwiperType>();
@@ -81,7 +81,7 @@ export function Hero({
                     image={item.poster_url}
                     name={item.name}
                     slug={item.slug}
-                    id={id}
+                    userId={userId}
                   />
                 </div>
               </div>

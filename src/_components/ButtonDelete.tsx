@@ -8,7 +8,7 @@ export function ButtonDelete({
   type,
 }: {
   item: {
-    id: number;
+    userId: number;
     name: string;
     slug: string;
     image: string;
@@ -20,7 +20,7 @@ export function ButtonDelete({
       onClick={async () => {
         if (type === "listFavorite") {
           const error = await deleteMovieFavorite(
-            item.id,
+            item.userId,
             item.name,
             item.slug
           );
@@ -30,7 +30,11 @@ export function ButtonDelete({
             toast.success("Xoá khỏi danh sách yêu thích thành công");
           }
         } else {
-          const error = await deleteMovieHistory(item.id, item.name, item.slug);
+          const error = await deleteMovieHistory(
+            item.userId,
+            item.name,
+            item.slug
+          );
           if (error) {
             toast.error("Xoá khỏi lịch sử xem thất bại");
           } else {

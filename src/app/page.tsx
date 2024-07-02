@@ -15,38 +15,38 @@ const DataBlockHighLight = [
     value: "Phim Đang Chiếu",
     type: "category",
   },
-  // {
-  //   value: "Việt Nam",
-  //   type: "national",
-  // },
-  // {
-  //   value: "Hàn Quốc",
-  //   type: "national",
-  // },
-  // {
-  //   value: "Trung Quốc",
-  //   type: "national",
-  // },
-  // {
-  //   value: "Âu Mỹ",
-  //   type: "national",
-  // },
-  // {
-  //   value: "Hoạt hình",
-  //   type: "movie-genre",
-  // },
-  // {
-  //   value: "Hành động",
-  //   type: "movie-genre",
-  // },
-  // {
-  //   value: "Kinh dị",
-  //   type: "movie-genre",
-  // },
-  // {
-  //   value: "Tình cảm",
-  //   type: "movie-genre",
-  // },
+  {
+    value: "Việt Nam",
+    type: "national",
+  },
+  {
+    value: "Hàn Quốc",
+    type: "national",
+  },
+  {
+    value: "Trung Quốc",
+    type: "national",
+  },
+  {
+    value: "Âu Mỹ",
+    type: "national",
+  },
+  {
+    value: "Hoạt hình",
+    type: "movie-genre",
+  },
+  {
+    value: "Hành động",
+    type: "movie-genre",
+  },
+  {
+    value: "Kinh dị",
+    type: "movie-genre",
+  },
+  {
+    value: "Tình cảm",
+    type: "movie-genre",
+  },
 ];
 
 export default async function page() {
@@ -64,7 +64,7 @@ export default async function page() {
     <Main>
       <Hero
         listFavorite={listFavorite}
-        id={session?.user?.userId}
+        userId={session?.user?.userId}
         slideList={popularFilm}
       />
       <section className="mt-6 space-y-2 pb-10 border-b-2">
@@ -99,7 +99,7 @@ export default async function page() {
               {(i + 1) % 3 === 0 && (
                 <ListMovieSub
                   listFavorite={listFavorite}
-                  id={session?.user?.userId}
+                  userId={session?.user?.userId}
                   i={i.toString()}
                 />
               )}

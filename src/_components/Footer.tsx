@@ -37,19 +37,19 @@ const NavLinkAbout: NavLinkProps[] = [
 ];
 
 const NavLinkService: NavLinkProps[] = [
-  { href: "dichVu", name: "Dịch vụ" },
-  { href: "goiData", name: "Gói DATA" },
-  { href: "quangCao", name: "Quảng cáo" },
-  { href: "muaGoi", name: "Mua gói" },
-  { href: "baoHanh", name: "Bảo hành" },
+  { href: "/dichVu/dichVu", name: "Dịch vụ" },
+  { href: "/dichVu/goiData", name: "Gói DATA" },
+  { href: "/dichVu/quangCao", name: "Quảng cáo" },
+  { href: "/dichVu/muaGoi", name: "Mua gói" },
+  { href: "/dichVu/baoHanh", name: "Bảo hành" },
 ];
 
 const NavLinkRegulations: NavLinkProps[] = [
-  { href: "quiDinh", name: "Qui định" },
-  { href: "dieuKhoanSuDung", name: "Điều khoản sử dụng" },
-  { href: "chinhSachThanhToan", name: "Chính sách thanh toán" },
+  { href: "/quiDinh/quiDinh", name: "Qui định" },
+  { href: "/quiDinh/dieuKhoanSuDung", name: "Điều khoản sử dụng" },
+  { href: "/quiDinh/chinhSachThanhToan", name: "Chính sách thanh toán" },
   {
-    href: "chinhSachBaoMatThongTinDuLieu",
+    href: "/quiDinh/chinhSachBaoMatThongTinDuLieu",
     name: "Chính sách bảo mật thông tin dữ liệu",
   },
 ];

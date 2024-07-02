@@ -6,13 +6,13 @@ import Link from "next/link";
 import { createMovieFavorite } from "@/_libs/actions";
 
 export function FavoriteAndShare({
-  id,
+  userId,
   name,
   slug,
   image,
   listFavoriteAlready,
 }: {
-  id: number | null | undefined;
+  userId: number | null | undefined;
   name: string;
   slug: string;
   image: string;
@@ -35,8 +35,8 @@ export function FavoriteAndShare({
     <>
       <Button
         onClick={async () => {
-          if (id) {
-            const status = await createMovieFavorite(id, name, slug, image);
+          if (userId) {
+            const status = await createMovieFavorite(userId, name, slug, image);
             if (status.error) {
               toast.error("Thêm vào danh sách yêu thích thất bại");
             } else {

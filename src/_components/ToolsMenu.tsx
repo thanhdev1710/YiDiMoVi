@@ -18,7 +18,7 @@ export default async function ToolsMenu() {
         <BellIcon className="w-5 h-5" />
       </Button>
       <ButtonToggleTheme />
-      {session?.user.email && session.user.image ? (
+      {session?.user?.email && session?.user?.image ? (
         <Link href="/taiKhoan/thongTinCaNhan">
           <img
             className="w-8 h-8 rounded-full"

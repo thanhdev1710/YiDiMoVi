@@ -40,26 +40,26 @@ export async function updateUserAction(formData: FormData) {
 }
 
 export async function createMovieFavorite(
-  id: number,
+  userId: number,
   name: string,
   slug: string,
   image: string
 ) {
   const newMovieFavorite = {
-    id,
+    userId,
     name,
     slug,
     image,
   };
 
-  const listMovie = await getMovieFavorite(id);
+  const listMovie = await getMovieFavorite(userId);
   const isAlreadyExist = listMovie.find((item) => item.name === name);
 
   let type;
   let error;
 
   if (isAlreadyExist) {
-    error = await deleteMovieFavorite(id, name, slug);
+    error = await deleteMovieFavorite(userId, name, slug);
     type = "delete";
   } else {
     const { error: errorInsert } = await supabase
@@ -69,41 +69,38 @@ export async function createMovieFavorite(
     type = "insert";
   }
   revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  revalidatePath("/", "page");
   revalidatePath(`/xemPhim/${slug}`, "page");
   return { error, type };
 }
 
 export async function deleteMovieFavorite(
-  id: number,
+  userId: number,
   name: string,
   slug: string
 ) {
   const { error } = await supabase
     .from("listMovieFavorite")
     .delete()
-    .eq("id", id)
+    .eq("userId", userId)
     .eq("name", name)
     .single();
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  revalidatePath("/", "page");
   revalidatePath(`/xemPhim/${slug}`, "page");
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
   return error;
 }
 
 export async function deleteMovieHistory(
-  id: number,
+  userId: number,
   name: string,
   slug: string
 ) {
   const { error } = await supabase
     .from("movieViewingHistory")
     .delete()
-    .eq("id", id)
+    .eq("userId", userId)
     .eq("name", name)
     .single();
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  revalidatePath("/", "page");
   revalidatePath(`/xemPhim/${slug}`, "page");
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
   return error;
 }
