@@ -69,7 +69,9 @@ export function PaginationPage({
         </PaginationItem>
         <PaginationItem>
           <PaginationLink
-            className={`${currentPage + 4 > totalPage ? "" : "hidden"}`}
+            className={`${
+              currentPage + 4 > totalPage && totalPage > 4 ? "" : "hidden"
+            }`}
             href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 4
             }`}
@@ -79,7 +81,9 @@ export function PaginationPage({
         </PaginationItem>
         <PaginationItem>
           <PaginationLink
-            className={`${currentPage + 3 > totalPage ? "" : "hidden"}`}
+            className={`${
+              currentPage + 3 > totalPage && totalPage > 3 ? "" : "hidden"
+            }`}
             href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 3
             }`}
@@ -89,7 +93,9 @@ export function PaginationPage({
         </PaginationItem>
         <PaginationItem>
           <PaginationLink
-            className={`${currentPage + 2 > totalPage ? "" : "hidden"}`}
+            className={`${
+              currentPage + 2 > totalPage && totalPage > 2 ? "" : "hidden"
+            }`}
             href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 2
             }`}
@@ -100,7 +106,9 @@ export function PaginationPage({
 
         <PaginationItem>
           <PaginationLink
-            className={`${currentPage + 1 > totalPage ? "" : "hidden"}`}
+            className={`${
+              currentPage + 1 > totalPage && totalPage > 1 ? "" : "hidden"
+            }`}
             href={`${pathName}?value=${name}&type=${type}&page=${
               currentPage - 1
             }`}
