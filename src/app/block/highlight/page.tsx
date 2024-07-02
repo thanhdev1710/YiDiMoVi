@@ -6,6 +6,8 @@ import { SkeletonAllMovieFetchPaginationList } from "@/_components/Skeleton/Skel
 import { FetchMovieAll } from "@/_utils/FetchMovieAll";
 import { Hero } from "@/_components/Hero";
 import removeChar from "@/_utils/removeChar";
+import { auth } from "@/_libs/auth";
+import { getMovieFavorite } from "@/_libs/supabase-service";
 
 type Props = {
   params: { type: string };
@@ -65,6 +67,13 @@ export async function generateMetadata({
 
 export default async function page({ params, searchParams }: Props) {
   const { page, type, value } = searchParams;
+  const session = await auth();
+  let listFavorite: any[];
+  if (session?.user.userId) {
+    listFavorite = await getMovieFavorite(session?.user.userId);
+  } else {
+    listFavorite = [];
+  }
   const dataList = await FetchMovieAll(
     type || "national",
     value || "Việt Nam",
@@ -74,7 +83,11 @@ export default async function page({ params, searchParams }: Props) {
   return (
     <Main>
       <section className="mb-20">
-        <Hero slideList={dataList} />
+        <Hero
+          id={session?.user.userId}
+          listFavorite={listFavorite}
+          slideList={dataList}
+        />
         <h1 className="sm:text-4xl text-2xl font-bold mt-10 mb-4 text-blue-default">
           Phim {typeMovieFormat}
         </h1>
