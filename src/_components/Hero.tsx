@@ -11,11 +11,18 @@ import { ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useRef } from "react";
-import { time } from "console";
 import { DescriptionMovie } from "./DescriptionMovie";
 import { FavoriteAndShare } from "./FavoriteAndShare";
+import { getMovieFavorite } from "@/_libs/supabase-service";
+import { auth } from "@/_libs/auth";
 
-export function Hero({ slideList }: { slideList: RootApiFilmNewUpdate }) {
+export async function Hero({ slideList }: { slideList: RootApiFilmNewUpdate }) {
+  const session = await auth();
+  const listFav = await getMovieFavorite(session?.user.userId);
+  const listFavorite = listFav.map((item) => ({
+    id: session?.user.userId,
+    ...item,
+  }));
   const swiperRef = useRef<SwiperType>();
   return (
     <section className="relative text-white">
@@ -68,7 +75,13 @@ export function Hero({ slideList }: { slideList: RootApiFilmNewUpdate }) {
                     <PlayCircle />
                     <span className="font-bold">Xem ngay</span>
                   </Link>
-                  <FavoriteAndShare />
+                  <FavoriteAndShare
+                    listFavorite={listFavorite}
+                    id={session?.user.userId}
+                    image={item.poster_url}
+                    name={item.name}
+                    slug={item.slug}
+                  />
                 </div>
               </div>
             </div>

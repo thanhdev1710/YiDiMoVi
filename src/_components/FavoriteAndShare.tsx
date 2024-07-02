@@ -16,12 +16,14 @@ export function FavoriteAndShare({
   name: string;
   slug: string;
   image: string;
-  listFavorite?: {
-    id: number;
-    name: string;
-    slug: string;
-    image: string;
-  }[];
+  listFavorite?:
+    | {
+        id: number | null | undefined;
+        name: string;
+        slug: string;
+        image: string;
+      }[]
+    | undefined;
 }) {
   const prevList = JSON.parse(
     JSON.stringify(listFavorite) ||
