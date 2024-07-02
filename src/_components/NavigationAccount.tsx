@@ -16,28 +16,12 @@ export const dataList: dataListProps[] = [
     href: "/taiKhoan/thongTinCaNhan",
   },
   {
-    name: "Hồ sơ",
-    href: "/taiKhoan/hoSo",
+    name: "Danh sách yêu thích",
+    href: "/taiKhoan/danhSachYeuThich",
   },
   {
-    name: "Quản lí thiết bị",
-    href: "/taiKhoan/quanLiThietBi",
-  },
-  {
-    name: "Quản lí thẻ thanh toán",
-    href: "/taiKhoan/quanLiTheThanhToan",
-  },
-  {
-    name: "Lịch sử giao dịch",
-    href: "/taiKhoan/lichSuGiaoDich",
-  },
-  {
-    name: "Dịch vụ đã mua",
-    href: "/taiKhoan/dichVuDaMua",
-  },
-  {
-    name: "Nhập mã kích hoạt",
-    href: "/taiKhoan/nhapMaKichHoat",
+    name: "Lịch sử xem",
+    href: "/taiKhoan/lichSuXem",
   },
   {
     name: "Đăng xuất tài khoản",

@@ -18,7 +18,12 @@ export default async function RelatedMovies({
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
         <div className="flex gap-6 overflow-x-scroll pb-6">
           {data.items.map((item) => (
-            <MovieItem key={item.name} item={item} />
+            <MovieItem
+              key={item.name}
+              name={item.name}
+              poster_url={item.poster_url}
+              slug={item.slug}
+            />
           ))}
         </div>
       </section>
@@ -34,7 +39,12 @@ export default async function RelatedMovies({
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
         <div className="flex gap-6 overflow-x-scroll pb-6">
           {allData.map((item) => (
-            <MovieItem key={item.name} item={item} />
+            <MovieItem
+              key={item.name}
+              name={item.name}
+              poster_url={item.poster_url}
+              slug={item.slug}
+            />
           ))}
         </div>
       </section>

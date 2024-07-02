@@ -5,12 +5,14 @@ import VideoEmbed from "@/_components/VideoEmbed";
 import { getMovieByFilm, getMovieByPage } from "@/_libs/service";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { Dot } from "lucide-react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ListEpisodeMovie } from "../../../_components/ListEpisodeMovie";
 import RelatedMovies from "../../../_components/RelatedMovies";
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
 import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
+import { createMovieViewingHistory } from "@/_libs/supabase-service";
+import { auth } from "@/_libs/auth";
 
 type Props = {
   params: { slug: string };
@@ -85,10 +87,14 @@ export default async function page({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const session = await auth();
   let movie;
   const { slug } = params;
   const tap = searchParams.tap ? Number(searchParams.tap) : 1;
   const data = await getMovieByFilm(slug);
+
+  if (!session?.user.email && tap >= 3) redirect("/dangNhap");
+
   const {
     total_episodes,
     episodes,
@@ -124,9 +130,24 @@ export default async function page({
   const nationMovie = category["4"];
   const slugList = categoryMovie.list.map((item) => item.name);
 
+  if (session?.user.userId) {
+    const error = await createMovieViewingHistory(
+      session?.user.userId,
+      name,
+      slug,
+      poster_url
+    );
+
+    if (error) {
+      console.error("Lưu lịch sử xem thất bại");
+    } else {
+      console.log("Lưu lịch sử xem thành công");
+    }
+  }
+
   return (
     <Main>
-      <VideoEmbed url={movie.embed} />
+      {/* <VideoEmbed url={movie.embed} /> */}
       <section className="mt-10 space-y-2 pt-5 border-t-2">
         <h1 className="text-2xl font-bold">{name}</h1>
         <h3>{original_name}</h3>
@@ -159,7 +180,12 @@ export default async function page({
         </div>
         <p className="text-sm">{description}</p>
         <div className="space-x-2 !my-6">
-          <FavoriteAndShare />
+          <FavoriteAndShare
+            id={session?.user.userId}
+            image={poster_url}
+            name={name}
+            slug={slug}
+          />
         </div>
         <p className="text-sm text-gray-400">
           <span className="mr-4 w-20 inline-block">Diễn viên:</span>

@@ -1,31 +1,34 @@
-import { Item } from "@/_interfaces/DataFilmBySlug";
 import Image from "next/image";
 import Link from "next/link";
 
 export function MovieItem({
-  item,
+  slug,
+  poster_url,
+  name,
   className = "w-52",
 }: {
-  item: Item;
+  slug: string;
+  poster_url: string;
+  name: string;
   className?: string;
 }) {
   return (
-    <div key={item.name}>
+    <div>
       <Link
-        href={`/xemPhim/${item.slug}`}
+        href={`/xemPhim/${slug}`}
         className={`inline-block relative aspect-video select-none ${className}`}
       >
         <Image
           fill
           draggable={false}
           sizes="200px"
-          alt={`Ảnh phim ${item.name}`}
-          src={item.poster_url}
+          alt={`Ảnh phim ${name}`}
+          src={poster_url}
           className="absolute object-cover brightness-50 rounded-lg select-none"
         />
       </Link>
       <h3 className="text-sm font-semibold tracking-wide select-none">
-        {item.name}
+        {name}
       </h3>
     </div>
   );

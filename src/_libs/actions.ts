@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
+import image from "next/image";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
@@ -36,4 +37,39 @@ export async function updateUserAction(formData: FormData) {
     revalidatePath("/taiKhoan/thongTinCaNhan", "page");
     revalidatePath("/taiKhoan/thongTinCaNhan/thayDoi", "page");
   }
+}
+
+export async function createMovieFavorite(
+  id: Number,
+  name: string,
+  slug: string,
+  image: string
+) {
+  const newMovieFavorite = {
+    id,
+    name,
+    slug,
+    image,
+  };
+
+  const { error } = await supabase
+    .from("listMovieFavorite")
+    .insert([newMovieFavorite]);
+  if (error) {
+    console.error(error);
+  }
+  return error;
+}
+
+export async function deleteMovieFavorite(id: number, name: string) {
+  const { error } = await supabase
+    .from("listMovieFavorite")
+    .delete()
+    .eq("id", id)
+    .eq("name", name)
+    .single();
+  if (error) {
+    console.error(error);
+  }
+  return error;
 }
