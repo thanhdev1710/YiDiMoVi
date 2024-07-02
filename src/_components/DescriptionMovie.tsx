@@ -15,10 +15,10 @@ export function DescriptionMovie({
   className?: string;
 }) {
   return (
-    <div className={`flex items-center text-sm ${className}`}>
+    <div className={`flex flex-wrap items-center text-sm ${className} `}>
       <span>{total_episodes === 1 ? "Full" : `${total_episodes} tập`} </span>
       <Dot />
-      <span>{time}</span>
+      <span>{time || "-----"}</span>
       <Dot />
       <span>{language}</span>
       <Dot />

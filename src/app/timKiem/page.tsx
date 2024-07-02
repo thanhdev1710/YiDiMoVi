@@ -11,9 +11,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
   alternates: {
     canonical: "/timKiem",
-    languages: {
-      vi: "/vi-VN",
-    },
   },
   title: {
     template: "%s | YiDiMoVi - Trang web xem phim trực tuyến",
@@ -27,28 +24,24 @@ export const metadata: Metadata = {
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
     url: process.env.NEXT_PUBLIC_APP_DOMAIN + "/timKiem",
     type: "website",
-    images: [
-      {
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
-        width: 1200,
-        height: 630,
-        alt: "YiDiMoVi Website",
-      },
-    ],
+    images: {
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      width: 1200,
+      height: 630,
+      alt: "YiDiMoVi Website",
+    },
   },
   twitter: {
     card: "summary_large_image",
     title: "YiDiMoVi - Trang web xem phim trực tuyến",
     description:
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
-    images: [
-      {
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
-        width: 1200,
-        height: 630,
-        alt: "YiDiMoVi Website",
-      },
-    ],
+    images: {
+      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      width: 1200,
+      height: 630,
+      alt: "YiDiMoVi Website",
+    },
   },
   robots: "index, follow",
 };

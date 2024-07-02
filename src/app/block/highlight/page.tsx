@@ -26,9 +26,6 @@ export async function generateMetadata({
     title: `Phim ${typeMovieFormat} - YidiMovi`,
     alternates: {
       canonical: "/block/highlight",
-      languages: {
-        vi: "/vi-VN",
-      },
     },
     keywords: `phim ${typeMovieFormat}, phim bom tấn, phim chiếu rạp, xem phim online`,
     description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
@@ -39,27 +36,23 @@ export async function generateMetadata({
         type || "national"
       }&value=${value || "Việt Nam"}&page=${page || "1"}`,
       type: "website",
-      images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
-          width: 1200,
-          height: 630,
-          alt: "YiDiMoVi Website",
-        },
-      ],
+      images: {
+        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+        width: 1200,
+        height: 630,
+        alt: "YiDiMoVi Website",
+      },
     },
     twitter: {
       card: "summary_large_image",
       title: `Phim ${typeMovieFormat} - YidiMovi`,
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
-          width: 1200,
-          height: 630,
-          alt: "YiDiMoVi Website",
-        },
-      ],
+      images: {
+        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+        width: 1200,
+        height: 630,
+        alt: "YiDiMoVi Website",
+      },
     },
     robots: "index, follow",
   };

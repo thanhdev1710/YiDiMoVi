@@ -21,7 +21,7 @@ export function MovieItem({
         <Image
           fill
           draggable={false}
-          sizes="200px"
+          sizes="280px"
           alt={`Ảnh phim ${name}`}
           src={poster_url}
           className="absolute object-cover brightness-50 rounded-lg select-none"

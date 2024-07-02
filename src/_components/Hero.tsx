@@ -46,20 +46,24 @@ export function Hero({
           clickable: true,
         }}
         modules={[Pagination, Autoplay, Navigation]}
-        className="mySwiper rounded-lg overflow-hidden"
+        className="mySwiper rounded-lg overflow-hidden border-2 border-blue-default xl:w-[80%] w-full mx-auto "
       >
         {slideList.items.map((item) => (
-          <SwiperSlide className="relative aspect-video" key={item.name}>
+          <SwiperSlide
+            className="relative aspect-video shadow-white"
+            key={item.name}
+          >
             <Image
-              sizes="1000px"
+              sizes="1200px"
               alt={`Ảnh phim ${item.name}`}
               src={item.poster_url}
               fill
+              className="object-cover absolute select-none"
               quality={100}
             />
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tl from-black to-transparent">
               <div className="absolute bottom-[8%] left-[8%]">
-                <h3 className="text-3xl font-bold mb-6 tracking-wide">
+                <h3 className="text-3xl font-bold mb-6 tracking-wide max-sm:text-xl">
                   {item.name}
                 </h3>
                 <DescriptionMovie

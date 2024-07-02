@@ -16,6 +16,8 @@ import {
   getMovieFavorite,
 } from "@/_libs/supabase-service";
 import { auth } from "@/_libs/auth";
+import Link from "next/link";
+import { StarRate } from "../../../_components/StarRate";
 
 type Props = {
   params: { slug: string };
@@ -89,6 +91,8 @@ export default async function page({
   let movie;
   let listFavoriteAlready: any[];
   const { slug } = params;
+  const { serverName } = searchParams;
+
   const tap = searchParams.tap ? Number(searchParams.tap) : 1;
   const data = await getMovieByFilm(slug);
 
@@ -111,15 +115,21 @@ export default async function page({
   if (tap > total_episodes) {
     notFound();
   }
+
+  const indexServerName =
+    episodes.findIndex((item) => item.server_name === serverName) === -1
+      ? 0
+      : episodes.findIndex((item) => item.server_name === serverName);
+
   if (total_episodes > 1) {
     movie = {
-      name: episodes[0].items[tap - 1].name,
-      embed: episodes[0].items[tap - 1].embed,
+      name: episodes[indexServerName].items[tap - 1].name,
+      embed: episodes[indexServerName].items[tap - 1].embed,
     };
   } else {
     movie = {
-      name: episodes[0].items[0].name,
-      embed: episodes[0].items[0].embed,
+      name: episodes[indexServerName].items[0].name,
+      embed: episodes[indexServerName].items[0].embed,
     };
   }
 
@@ -153,6 +163,19 @@ export default async function page({
   return (
     <Main>
       <VideoEmbed url={movie.embed} />
+      <div className="flex gap-4 items-center mt-4">
+        {data.movie.episodes.map((item) => (
+          <Link
+            className="px-2 py-1 text-sm bg-blue-default rounded-md text-white font-semibold"
+            href={`/xemPhim/${slug}?serverName=${encodeURIComponent(
+              item.server_name
+            )}`}
+            key={item.server_name}
+          >
+            {item.server_name}
+          </Link>
+        ))}
+      </div>
       <section className="mt-10 space-y-2 pt-5 border-t-2">
         <h1 className="text-2xl font-bold">{name}</h1>
         <h3>{original_name}</h3>
@@ -162,13 +185,7 @@ export default async function page({
             <span className="text-lg font-bold mr-1 text-white">X.X</span>
             <span className="text-xs text-gray-400">(X)</span>
           </div>
-          <div className="flex gap-1">
-            <StarFilledIcon className="text-gray-700 h-5 w-5 hover:text-blue-default" />
-            <StarFilledIcon className="text-gray-700 h-5 w-5 hover:text-blue-default" />
-            <StarFilledIcon className="text-gray-700 h-5 w-5 hover:text-blue-default" />
-            <StarFilledIcon className="text-gray-700 h-5 w-5 hover:text-blue-default" />
-            <StarFilledIcon className="text-gray-700 h-5 w-5 hover:text-blue-default" />
-          </div>
+          <StarRate userId={session?.user?.userId} />
         </div>
         <div className="flex items-center">
           <p className="font-bold text-blue-default text-lg">
