@@ -147,7 +147,7 @@ export default async function page({
 
   return (
     <Main>
-      {/* <VideoEmbed url={movie.embed} /> */}
+      <VideoEmbed url={movie.embed} />
       <section className="mt-10 space-y-2 pt-5 border-t-2">
         <h1 className="text-2xl font-bold">{name}</h1>
         <h3>{original_name}</h3>
