@@ -27,14 +27,14 @@ export function DeviceInfo({ session }: { session: Session | null }) {
           setDeviceInfo(JSON.parse(cachedData));
         } else {
           const data = await fetch(
-            `${process.env.NEXT_PUBLIC_APP_DOMAIN}api/logDeviceInfo?email=${email}`,
-            { next: { revalidate: 3600 } }
+            `${process.env.NEXT_PUBLIC_APP_DOMAIN}/api/logDeviceInfo?email=${email}`
           ).then((res) => res.json());
+          console.log(data);
           setDeviceInfo(data);
           sessionStorage.setItem(`deviceInfo`, JSON.stringify(data));
         }
       } catch (error) {
-        console.error("Error fetching device info:", error);
+        console.error("Lỗi lấy dữ liệu thiết bị:", error);
       } finally {
         setIsLoading(false);
       }
