@@ -7,8 +7,8 @@ import { redirect } from "next/navigation";
 
 export default async function page() {
   const session = await auth();
-  if (!session?.user.userId) redirect("/dangNhap");
-  const listMovieHistory = await getMovieViewingHistory(session?.user.userId);
+  if (!session?.user?.userId) redirect("/dangNhap");
+  const listMovieHistory = await getMovieViewingHistory(session?.user?.userId);
   const length = listMovieHistory.length;
   return length <= 0 ? (
     <section>

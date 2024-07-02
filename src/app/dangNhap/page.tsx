@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export default async function page() {
   const session = await auth();
-  if (session?.user.email) redirect("/taiKhoan/thongTinCaNhan");
+  if (session?.user?.email) redirect("/taiKhoan/thongTinCaNhan");
   return (
     <Main>
       <h1 className="text-center text-3xl font-bold mb-8">

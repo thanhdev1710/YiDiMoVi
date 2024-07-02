@@ -69,8 +69,8 @@ export default async function page({ params, searchParams }: Props) {
   const { page, type, value } = searchParams;
   const session = await auth();
   let listFavorite: any[];
-  if (session?.user.userId) {
-    listFavorite = await getMovieFavorite(session?.user.userId);
+  if (session?.user?.userId) {
+    listFavorite = await getMovieFavorite(session?.user?.userId);
   } else {
     listFavorite = [];
   }
@@ -84,7 +84,7 @@ export default async function page({ params, searchParams }: Props) {
     <Main>
       <section className="mb-20">
         <Hero
-          id={session?.user.userId}
+          id={session?.user?.userId}
           listFavorite={listFavorite}
           slideList={dataList}
         />

@@ -54,7 +54,7 @@ export default async function page() {
   const popularFilm = await getMovieByPage("1");
   let listFavorite: any[];
 
-  if (session?.user.userId) {
+  if (session?.user?.userId) {
     listFavorite = await getMovieFavorite(session.user.userId);
   } else {
     listFavorite = [];
@@ -64,7 +64,7 @@ export default async function page() {
     <Main>
       <Hero
         listFavorite={listFavorite}
-        id={session?.user.userId}
+        id={session?.user?.userId}
         slideList={popularFilm}
       />
       <section className="mt-6 space-y-2 pb-10 border-b-2">
@@ -99,7 +99,7 @@ export default async function page() {
               {(i + 1) % 3 === 0 && (
                 <ListMovieSub
                   listFavorite={listFavorite}
-                  id={session?.user.userId}
+                  id={session?.user?.userId}
                   i={i.toString()}
                 />
               )}

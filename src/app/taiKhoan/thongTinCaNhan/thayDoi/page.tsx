@@ -7,8 +7,8 @@ import { updateUserAction } from "@/_libs/actions";
 export default async function page() {
   const session = await auth();
   const areaAPI = await getTinhThanhVN();
-  const defaultValue = session?.user.area
-    ? areaAPI.data.find((item: any) => item.name === session?.user.area).name
+  const defaultValue = session?.user?.area
+    ? areaAPI.data.find((item: any) => item.name === session?.user?.area).name
     : "Hồ Chí Minh";
   return (
     <form action={updateUserAction}>
@@ -22,7 +22,7 @@ export default async function page() {
                 type="radio"
                 name="gender"
                 id="nam"
-                defaultChecked={session?.user.gender === "Nam"}
+                defaultChecked={session?.user?.gender === "Nam"}
                 value="Nam"
               />
               <label htmlFor="nam">Nam</label>
@@ -32,7 +32,7 @@ export default async function page() {
                 type="radio"
                 name="gender"
                 id="nu"
-                defaultChecked={session?.user.gender === "Nữ"}
+                defaultChecked={session?.user?.gender === "Nữ"}
                 value="Nữ"
               />
               <label htmlFor="nu">Nữ</label>
@@ -42,7 +42,7 @@ export default async function page() {
                 type="radio"
                 name="gender"
                 id="khac"
-                defaultChecked={session?.user.gender === "Khác"}
+                defaultChecked={session?.user?.gender === "Khác"}
                 value="Khác"
               />
               <label htmlFor="khac">Khác</label>
@@ -53,7 +53,7 @@ export default async function page() {
           <label htmlFor="birthday" className="font-semibold text-xl">
             Ngày sinh
           </label>
-          <DatePicker birthday={session?.user.birthday} />
+          <DatePicker birthday={session?.user?.birthday} />
         </div>
         <div className="flex flex-col gap-4">
           <label htmlFor="area" className="font-semibold text-xl">

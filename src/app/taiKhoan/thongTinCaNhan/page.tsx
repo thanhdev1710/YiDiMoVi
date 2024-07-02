@@ -6,16 +6,16 @@ export default async function page() {
   const list = [
     {
       name: "Tài khoản",
-      value: session?.user.phone || "0123456789",
+      value: session?.user?.phone || "0123456789",
       isSetup: false,
     },
     {
       name: "ID",
-      value: session?.user.userId?.toString().padStart(8, "0"),
+      value: session?.user?.userId?.toString().padStart(8, "0"),
       isSetup: false,
     },
-    { name: "E-mail", value: session?.user.email, isSetup: false },
-    { name: "Khu vực", value: session?.user.area, isSetup: true },
+    { name: "E-mail", value: session?.user?.email, isSetup: false },
+    { name: "Khu vực", value: session?.user?.area, isSetup: true },
   ];
   return (
     <div>
@@ -30,13 +30,13 @@ export default async function page() {
         </div>
         <div className="w-full flex flex-col justify-between">
           <p className="mb-4 text-white text-xl font-bold">
-            {session?.user.phone || "0123456789"}
+            {session?.user?.phone || "0123456789"}
           </p>
           <div className="flex text-gray-400 text-sm">
             <p className="pr-5 border-r border-gray-400 mr-5">
               Giới tính:{" "}
               <span className="text-sm text-white font-semibold">
-                {session?.user.gender
+                {session?.user?.gender
                   ? session.user.gender
                   : "( Chưa cập nhật )"}
               </span>
@@ -44,7 +44,7 @@ export default async function page() {
             <p>
               Ngày sinh:{" "}
               <span className="text-sm text-white font-semibold">
-                {session?.user.birthday
+                {session?.user?.birthday
                   ? new Date(session.user.birthday).toLocaleDateString("vi-VN")
                   : "( Chưa cập nhật )"}
               </span>

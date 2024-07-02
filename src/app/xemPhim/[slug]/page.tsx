@@ -92,7 +92,7 @@ export default async function page({
   const tap = searchParams.tap ? Number(searchParams.tap) : 1;
   const data = await getMovieByFilm(slug);
 
-  if (!session?.user.email && tap >= 3) redirect("/dangNhap");
+  if (!session?.user?.email && tap >= 3) redirect("/dangNhap");
 
   const {
     total_episodes,
@@ -129,15 +129,15 @@ export default async function page({
   const nationMovie = category["4"];
   const slugList = categoryMovie.list.map((item) => item.name);
 
-  if (session?.user.userId) {
+  if (session?.user?.userId) {
     const error = await createMovieViewingHistory(
-      session?.user.userId,
+      session?.user?.userId,
       name,
       slug,
       poster_url
     );
 
-    listFavoriteAlready = (await getMovieFavorite(session?.user.userId)).map(
+    listFavoriteAlready = (await getMovieFavorite(session?.user?.userId)).map(
       (item) => item.name
     );
 
@@ -190,7 +190,7 @@ export default async function page({
             image={poster_url}
             name={name}
             slug={slug}
-            id={session?.user.userId}
+            id={session?.user?.userId}
           />
         </div>
         <p className="text-sm text-gray-400">
