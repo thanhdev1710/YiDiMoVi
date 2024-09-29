@@ -34,6 +34,7 @@ export function FavoriteAndShare({
   return (
     <>
       <Button
+        aria-label="Heart"
         onClick={async () => {
           if (userId) {
             const status = await createMovieFavorite(userId, name, slug, image);
@@ -75,6 +76,7 @@ export function FavoriteAndShare({
         />
       </Button>
       <Button
+        aria-label="Share"
         onClick={handleCopyLink}
         className="rounded-full w-10 h-10 !p-[10px]"
         variant="secondary"

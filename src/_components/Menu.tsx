@@ -49,7 +49,12 @@ export default function Menu({ className }: { className?: string }) {
             <ul className="space-y-4 space-default text-sm">
               <li className="flex justify-between items-end mb-8">
                 <LogoMain />
-                <Button className={`${className}`} variant="ghost" size="icon">
+                <Button
+                  aria-label="Close"
+                  className={`${className}`}
+                  variant="ghost"
+                  size="icon"
+                >
                   <X
                     onClick={() => setIsMenu((is) => !is)}
                     className={`${className}`}
@@ -76,7 +81,12 @@ export default function Menu({ className }: { className?: string }) {
           </div>
         </div>
       ) : (
-        <Button className={`${className}`} variant="ghost" size="icon">
+        <Button
+          aria-label="Menu"
+          className={`${className}`}
+          variant="ghost"
+          size="icon"
+        >
           <MenuIcon
             onClick={() => setIsMenu((is) => !is)}
             className={`${className}`}

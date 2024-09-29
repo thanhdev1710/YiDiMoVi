@@ -77,10 +77,8 @@ export function Hero({
                     href={`/xemPhim/${item.slug}`}
                     className="flex gap-2 items-center justify-center w-48 py-4 rounded-xl bg-blue-default"
                   >
-                    <p className="font-bold">
-                      <PlayCircle />
-                      <span>Xem ngay</span>
-                    </p>
+                    <PlayCircle />
+                    <p className="font-bold">Xem ngay</p>
                   </Link>
                   <FavoriteAndShare
                     listFavoriteAlready={listFavoriteAlready}
