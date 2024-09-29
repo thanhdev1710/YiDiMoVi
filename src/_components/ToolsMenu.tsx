@@ -9,13 +9,10 @@ export default async function ToolsMenu() {
   const session = await auth();
   return (
     <div className="flex items-center gap-6">
-      <Link href="/timKiem">
-        <Button variant="ghost" size="icon">
+      <Button asChild variant="ghost" size="icon">
+        <Link href="/timKiem">
           <Search className="w-5 h-5" />
-        </Button>
-      </Link>
-      <Button variant="ghost" size="icon">
-        <BellIcon className="w-5 h-5" />
+        </Link>
       </Button>
       <ButtonToggleTheme />
       {session?.user?.email && session?.user?.image ? (
