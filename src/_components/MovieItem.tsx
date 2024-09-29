@@ -15,6 +15,7 @@ export function MovieItem({
   return (
     <div>
       <Link
+        aria-label="Film"
         href={`/xemPhim/${slug}`}
         className={`inline-block relative aspect-video select-none ${className}`}
       >

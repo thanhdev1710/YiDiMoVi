@@ -64,6 +64,7 @@ export default function Menu({ className }: { className?: string }) {
               {NavLinkHeader.map((item) => (
                 <li key={item.href}>
                   <Link
+                    aria-label="Menu"
                     className={`${
                       urlCur === item.href ||
                       (urlCur !== "/" && item.href.includes(urlCur))

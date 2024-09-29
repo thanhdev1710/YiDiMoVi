@@ -63,7 +63,11 @@ export function NavigationAccount() {
                   {item.name}
                 </button>
               ) : (
-                <Link className="hover:text-blue-default" href={item.href}>
+                <Link
+                  aria-label={item.name}
+                  className="hover:text-blue-default"
+                  href={item.href}
+                >
                   {item.name}
                 </Link>
               )}

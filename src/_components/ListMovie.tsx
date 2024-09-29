@@ -18,6 +18,7 @@ export async function ListMovie({
           Phim {removeChar(value, "Phim ")}
         </h2>
         <Link
+          aria-label="Show all"
           href={`/block/highlight?type=${type}&value=${value}&page=1`}
           className="hover:text-blue-default text-sm"
         >

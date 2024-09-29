@@ -23,7 +23,7 @@ export default async function ToolsMenu() {
           />
         </Link>
       ) : (
-        <Link href="/dangNhap">
+        <Link aria-label="login" href="/dangNhap">
           <Button aria-label="User" variant="ghost" size="icon">
             <User className="w-5 h-5" />
           </Button>

@@ -8,6 +8,7 @@ export function NavigationItem({ linkItem }: { linkItem: NavLinkProps }) {
   return (
     <li className="font-semibold text-lg">
       <Link
+        aria-label={linkItem.name}
         className={`${
           urlCur === linkItem.href ||
           (urlCur !== "/" && linkItem.href.includes(urlCur))

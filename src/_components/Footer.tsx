@@ -95,14 +95,16 @@ export function Footer() {
           <p className="text-sm mb-4">Theo dõi chúng tôi trên</p>
           <div className="flex gap-4">
             <Link
+              aria-label="Instagram"
               className="p-1 bg-blue-default dark:bg-white rounded-full"
-              href="https://www.youtube.com/"
+              href="https://www.instagram.com/"
             >
               <InstagramLogoIcon className="h-6 w-6 text-white dark:text-black" />
             </Link>
             <Link
+              aria-label="Youtube"
               className="p-1 bg-blue-default dark:bg-white rounded-full"
-              href="https://www.facebook.com/"
+              href="https://www.youtube.com/"
             >
               <YoutubeIcon className="h-6 w-6 text-white dark:text-black" />
             </Link>

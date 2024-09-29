@@ -21,7 +21,11 @@ export async function AllMovieFetchPagination({
       <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[48px_24px]">
         {items.map((item) => (
           <article key={item.name}>
-            <Link href={`/xemPhim/${item.slug}`} className="space-y-4">
+            <Link
+              aria-label="Film"
+              href={`/xemPhim/${item.slug}`}
+              className="space-y-4"
+            >
               <div className="relative aspect-video">
                 <Image
                   fill

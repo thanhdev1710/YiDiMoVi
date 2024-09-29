@@ -20,6 +20,7 @@ export function EpisodeMovie({
   return (
     <div className="space-y-4 w-52 relative">
       <Link
+        aria-label="Film"
         href={`/xemPhim/${slug}?tap=${episode}`}
         className="inline-block w-52 relative aspect-video"
       >

@@ -74,6 +74,7 @@ export function SearchItem({
           ) : (
             dataSearch.items.map((item) => (
               <Link
+                aria-label={item.name}
                 className="w-full py-1 px-3 rounded-md hover:bg-slate-600"
                 href={`/xemPhim/${item.slug}`}
                 key={item.name}

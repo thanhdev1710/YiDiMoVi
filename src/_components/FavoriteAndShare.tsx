@@ -54,6 +54,7 @@ export function FavoriteAndShare({
               <div className="flex flex-col gap-2">
                 <p>Bạn cần đăng nhập mới có thể thêm vào danh sách yêu thích</p>
                 <Link
+                  aria-label="Login"
                   href="/dangNhap"
                   className="px-4 py-2 rounded text-center bg-blue-default text-white"
                   onClick={() => toast.dismiss(t.id)}
