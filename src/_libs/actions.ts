@@ -4,7 +4,6 @@ import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { getMovieFavorite } from "./supabase-service";
-import { error } from "console";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
