@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/_components/ui/button";
-import { deleteMovieFavorite, deleteMovieHistory } from "@/_libs/actions";
+import { deleteMovieFavorite, deleteMovieHistory } from "@/_libs/service";
 import toast from "react-hot-toast";
 
 export function ButtonDelete({
