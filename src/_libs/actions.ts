@@ -4,6 +4,7 @@ import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { getMovieFavorite } from "./supabase-service";
+import { error } from "console";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
@@ -78,15 +79,23 @@ export async function deleteMovieFavorite(
   name: string,
   slug: string
 ) {
-  const { error } = await supabase
-    .from("listMovieFavorite")
-    .delete()
-    .eq("userId", userId)
-    .eq("name", name)
-    .single();
-  revalidatePath(`/xemPhim/${slug}`, "page");
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  throw error;
+  try {
+    const { error } = await supabase
+      .from("listMovieFavorite")
+      .delete()
+      .eq("userId", userId)
+      .eq("name", name)
+      .single();
+
+    if (error) throw new Error(error.message);
+
+    redirect("/taiKhoan/danhSachYeuThich");
+  } catch (error) {
+    throw error;
+  } finally {
+    revalidatePath(`/xemPhim/${slug}`, "page");
+    revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+  }
 }
 
 export async function deleteMovieHistory(
@@ -94,13 +103,21 @@ export async function deleteMovieHistory(
   name: string,
   slug: string
 ) {
-  const { error } = await supabase
-    .from("movieViewingHistory")
-    .delete()
-    .eq("userId", userId)
-    .eq("name", name)
-    .single();
-  revalidatePath(`/xemPhim/${slug}`, "page");
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  throw error;
+  try {
+    const { error } = await supabase
+      .from("movieViewingHistory")
+      .delete()
+      .eq("userId", userId)
+      .eq("name", name)
+      .single();
+
+    if (error) throw new Error(error.message);
+
+    redirect("/taiKhoan/lichSuXem");
+  } catch (error) {
+    throw error;
+  } finally {
+    revalidatePath(`/xemPhim/${slug}`, "page");
+    revalidatePath("/taiKhoan/lichSuXem", "page");
+  }
 }
