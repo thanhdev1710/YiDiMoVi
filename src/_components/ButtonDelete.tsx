@@ -17,29 +17,22 @@ export function ButtonDelete({
 }) {
   return (
     <Button
-      onClick={async () => {
+      onClick={() => {
         if (type === "listFavorite") {
-          const error = await deleteMovieFavorite(
-            item.userId,
-            item.name,
-            item.slug
+          toast.promise(
+            deleteMovieFavorite(item.userId, item.name, item.slug),
+            {
+              error: "Xoá khỏi danh sách yêu thích thất bại",
+              loading: "Đang thực hiện xoá",
+              success: "Xoá khỏi danh sách yêu thích thành công",
+            }
           );
-          if (error) {
-            toast.error("Xoá khỏi danh sách yêu thích thất bại");
-          } else {
-            toast.success("Xoá khỏi danh sách yêu thích thành công");
-          }
         } else {
-          const error = await deleteMovieHistory(
-            item.userId,
-            item.name,
-            item.slug
-          );
-          if (error) {
-            toast.error("Xoá khỏi lịch sử xem thất bại");
-          } else {
-            toast.success("Xoá khỏi lịch sử xem thành công");
-          }
+          toast.promise(deleteMovieHistory(item.userId, item.name, item.slug), {
+            error: "Xoá khỏi danh sách yêu thích thất bại",
+            loading: "Đang thực hiện xoá",
+            success: "Xoá khỏi danh sách yêu thích thành công",
+          });
         }
       }}
       className="w-full mb-2"

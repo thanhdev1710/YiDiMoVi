@@ -86,7 +86,7 @@ export async function deleteMovieFavorite(
     .single();
   revalidatePath(`/xemPhim/${slug}`, "page");
   revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  return error;
+  throw error;
 }
 
 export async function deleteMovieHistory(
@@ -102,5 +102,5 @@ export async function deleteMovieHistory(
     .single();
   revalidatePath(`/xemPhim/${slug}`, "page");
   revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  return error;
+  throw error;
 }
