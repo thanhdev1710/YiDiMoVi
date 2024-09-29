@@ -1,4 +1,4 @@
-import { ButtonDelete } from "@/_components/ButtonDelete";
+import { FormDelete } from "@/_components/FormDelete";
 import { MovieItem } from "@/_components/MovieItem";
 import { auth } from "@/_libs/auth";
 import { getMovieFavorite } from "@/_libs/supabase-service";
@@ -33,7 +33,7 @@ export default async function page() {
         <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[36px_18px]">
           {listMovieFavorite.map((item) => (
             <li key={item.slug}>
-              <ButtonDelete type="listFavorite" item={item} />
+              <FormDelete type="listFavorite" item={item} />
               <MovieItem
                 className="w-full"
                 name={item.name}

@@ -2,9 +2,7 @@ import RootApiFilmByFilm from "@/_interfaces/DataFilmByFilm";
 import { RootApiFilmBySearch } from "@/_interfaces/DataFilmBySearch";
 import RootApiFilmBySlug from "@/_interfaces/DataFilmBySlug";
 import RootApiFilmNewUpdate from "@/_interfaces/DataFilmNewUpdateProps";
-import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
-import { supabase } from "./supabase";
 const URL = process.env.NEXT_PUBLIC_APP_API_FILM;
 
 export async function getMovieByPage(
@@ -124,36 +122,4 @@ export async function getTinhThanhVN() {
   } catch (error) {
     throw new Error("Lỗi lấy dữ liệu các tỉnh thành phố ở Việt Nam");
   }
-}
-
-export async function deleteMovieFavorite(
-  userId: number,
-  name: string,
-  slug: string
-) {
-  const { error } = await supabase
-    .from("listMovieFavorite")
-    .delete()
-    .eq("userId", userId)
-    .eq("name", name)
-    .single();
-  revalidatePath(`/xemPhim/${slug}`, "page");
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  throw error;
-}
-
-export async function deleteMovieHistory(
-  userId: number,
-  name: string,
-  slug: string
-) {
-  const { error } = await supabase
-    .from("movieViewingHistory")
-    .delete()
-    .eq("userId", userId)
-    .eq("name", name)
-    .single();
-  revalidatePath(`/xemPhim/${slug}`, "page");
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  throw error;
 }

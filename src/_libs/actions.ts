@@ -4,7 +4,6 @@ import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { getMovieFavorite } from "./supabase-service";
-import { deleteMovieFavorite } from "./service";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
@@ -72,4 +71,36 @@ export async function createMovieFavorite(
   revalidatePath("/taiKhoan/danhSachYeuThich", "page");
   revalidatePath(`/xemPhim/${slug}`, "page");
   return { error, type };
+}
+
+export async function deleteMovieFavorite(
+  userId: number,
+  name: string,
+  slug: string
+) {
+  const { error } = await supabase
+    .from("listMovieFavorite")
+    .delete()
+    .eq("userId", userId)
+    .eq("name", name)
+    .single();
+  revalidatePath(`/xemPhim/${slug}`, "page");
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+  throw error;
+}
+
+export async function deleteMovieHistory(
+  userId: number,
+  name: string,
+  slug: string
+) {
+  const { error } = await supabase
+    .from("movieViewingHistory")
+    .delete()
+    .eq("userId", userId)
+    .eq("name", name)
+    .single();
+  revalidatePath(`/xemPhim/${slug}`, "page");
+  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+  throw error;
 }

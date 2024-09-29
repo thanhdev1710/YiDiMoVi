@@ -1,55 +1,21 @@
 "use client";
-import { Button } from "@/_components/ui/button";
-import { deleteMovieFavorite, deleteMovieHistory } from "@/_libs/service";
-import toast from "react-hot-toast";
+import React from "react";
+import { Button } from "./ui/button";
+import { useFormStatus } from "react-dom";
 
-export function ButtonDelete({
-  item,
-  type,
-}: {
-  item: {
-    userId: number;
-    name: string;
-    slug: string;
-    image: string;
-  };
-  type: string;
-}) {
+export default function ButtonDelete({ name }: { name: string }) {
+  const { pending, action, data, method } = useFormStatus();
+  console.log(pending, action, data, method);
   return (
     <Button
-      onClick={() => {
-        if (type === "listFavorite") {
-          toast.promise(
-            deleteMovieFavorite(item.userId, item.name, item.slug).catch(
-              (err) => {
-                console.error("Failed to delete favorite movie:", err);
-              }
-            ),
-            {
-              error: "Xoá khỏi danh sách yêu thích thất bại",
-              loading: "Đang thực hiện xoá",
-              success: "Xoá khỏi danh sách yêu thích thành công",
-            }
-          );
-        } else {
-          toast.promise(
-            deleteMovieHistory(item.userId, item.name, item.slug).catch(
-              (err) => {
-                console.error("Failed to delete favorite movie:", err);
-              }
-            ),
-            {
-              error: "Xoá khỏi danh sách yêu thích thất bại",
-              loading: "Đang thực hiện xoá",
-              success: "Xoá khỏi danh sách yêu thích thành công",
-            }
-          );
-        }
-      }}
+      disabled={pending}
+      type="submit"
       className="w-full mb-2"
       variant="destructive"
     >
-      <p className="text-xs">Xoá {item.name} ra khỏi danh sách</p>
+      <p className="text-xs">
+        {pending ? "Đang thực hiện xoá" : `Xoá ${name} ra khỏi danh sách`}
+      </p>
     </Button>
   );
 }
