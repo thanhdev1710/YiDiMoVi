@@ -20,7 +20,11 @@ export function ButtonDelete({
       onClick={() => {
         if (type === "listFavorite") {
           toast.promise(
-            deleteMovieFavorite(item.userId, item.name, item.slug),
+            deleteMovieFavorite(item.userId, item.name, item.slug).catch(
+              (err) => {
+                console.error("Failed to delete favorite movie:", err);
+              }
+            ),
             {
               error: "Xoá khỏi danh sách yêu thích thất bại",
               loading: "Đang thực hiện xoá",
@@ -28,11 +32,18 @@ export function ButtonDelete({
             }
           );
         } else {
-          toast.promise(deleteMovieHistory(item.userId, item.name, item.slug), {
-            error: "Xoá khỏi danh sách yêu thích thất bại",
-            loading: "Đang thực hiện xoá",
-            success: "Xoá khỏi danh sách yêu thích thành công",
-          });
+          toast.promise(
+            deleteMovieHistory(item.userId, item.name, item.slug).catch(
+              (err) => {
+                console.error("Failed to delete favorite movie:", err);
+              }
+            ),
+            {
+              error: "Xoá khỏi danh sách yêu thích thất bại",
+              loading: "Đang thực hiện xoá",
+              success: "Xoá khỏi danh sách yêu thích thành công",
+            }
+          );
         }
       }}
       className="w-full mb-2"
