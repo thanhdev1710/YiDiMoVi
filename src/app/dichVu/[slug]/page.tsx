@@ -41,6 +41,15 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
+export async function generateStaticParams() {
+  return [
+    { slug: "goiData" },
+    { slug: "quangCao" },
+    { slug: "muaGoi" },
+    { slug: "baoHanh" },
+  ];
+}
+
 export default function page() {
   return (
     <Main>

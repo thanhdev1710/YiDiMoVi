@@ -45,32 +45,40 @@ export async function createMovieFavorite(
   slug: string,
   image: string
 ) {
-  const newMovieFavorite = {
-    userId,
-    name,
-    slug,
-    image,
-  };
+  try {
+    const newMovieFavorite = {
+      userId,
+      name,
+      slug,
+      image,
+    };
 
-  const listMovie = await getMovieFavorite(userId);
-  const isAlreadyExist = listMovie.find((item) => item.name === name);
+    const listMovie = await getMovieFavorite(userId);
+    const isAlreadyExist = listMovie.find((item) => item.name === name);
 
-  let type;
-  let error;
+    let type;
 
-  if (isAlreadyExist) {
-    error = await deleteMovieFavorite(userId, name, slug);
-    type = "delete";
-  } else {
-    const { error: errorInsert } = await supabase
-      .from("listMovieFavorite")
-      .insert([newMovieFavorite]);
-    error = errorInsert;
-    type = "insert";
+    if (isAlreadyExist) {
+      await deleteMovieFavorite(userId, name, slug);
+      type = "delete";
+    } else {
+      const { error: errorInsert } = await supabase
+        .from("listMovieFavorite")
+        .insert([newMovieFavorite]);
+      type = "insert";
+
+      if (errorInsert) {
+        throw new Error(errorInsert.message);
+      }
+    }
+    return { type };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  } finally {
+    revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+    revalidatePath(`/xemPhim/${slug}`, "page");
   }
-  revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-  revalidatePath(`/xemPhim/${slug}`, "page");
-  return { error, type };
 }
 
 export async function deleteMovieFavorite(
@@ -87,8 +95,6 @@ export async function deleteMovieFavorite(
       .single();
 
     if (error) throw new Error(error.message);
-
-    redirect("/taiKhoan/danhSachYeuThich");
   } catch (error) {
     throw error;
   } finally {
@@ -111,8 +117,6 @@ export async function deleteMovieHistory(
       .single();
 
     if (error) throw new Error(error.message);
-
-    redirect("/taiKhoan/lichSuXem");
   } catch (error) {
     throw error;
   } finally {

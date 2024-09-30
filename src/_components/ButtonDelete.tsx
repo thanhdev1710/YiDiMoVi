@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { useFormStatus } from "react-dom";
 
 export default function ButtonDelete({ name }: { name: string }) {
-  const { pending, action, data, method } = useFormStatus();
+  const { pending } = useFormStatus();
   return (
     <Button
       disabled={pending}

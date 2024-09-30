@@ -3,6 +3,7 @@ import DatePicker from "../../../../_components/DatePicker";
 import { getTinhThanhVN } from "@/_libs/service";
 import { Button } from "@/_components/ui/button";
 import { updateUserAction } from "@/_libs/actions";
+import ButtonChangeInfo from "@/_components/ButtonChangeInfo";
 
 export default async function page() {
   const session = await auth();
@@ -72,12 +73,7 @@ export default async function page() {
             ))}
           </select>
         </div>
-        <Button
-          variant="secondary"
-          className="max-w-[340px] w-full !py-6 text-xl font-bold"
-        >
-          Thay đổi
-        </Button>
+        <ButtonChangeInfo />
       </div>
     </form>
   );

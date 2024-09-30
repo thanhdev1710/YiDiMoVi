@@ -1,6 +1,8 @@
 import Main from "@/_components/Main";
 import { Metadata } from "next";
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = {
   title: "Giới Thiệu - YidiMovi",
   alternates: {

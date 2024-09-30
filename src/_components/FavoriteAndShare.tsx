@@ -35,20 +35,16 @@ export function FavoriteAndShare({
     <>
       <Button
         aria-label="Heart"
-        onClick={async () => {
+        onClick={() => {
           if (userId) {
-            const status = await createMovieFavorite(userId, name, slug, image);
-            if (status.error) {
-              toast.error("Thêm vào danh sách yêu thích thất bại");
-            } else {
-              if (status.type === "insert") {
-                toast.success("Đã thêm vào danh sách yêu thích");
-              } else {
-                toast("Đã xoá khỏi danh sách yêu thích", {
-                  icon: "😓",
-                });
-              }
-            }
+            toast.promise(createMovieFavorite(userId, name, slug, image), {
+              error: "Thực hiện thất bại",
+              loading: "Đang thực hiện",
+              success: (data) =>
+                data.type === "insert"
+                  ? "Đã thêm vào danh sách yêu thích"
+                  : "Đã xoá khỏi danh sách yêu thích",
+            });
           } else {
             toast((t) => (
               <div className="flex flex-col gap-2">
