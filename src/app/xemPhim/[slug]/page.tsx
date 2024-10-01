@@ -2,8 +2,7 @@ import { DescriptionMovie } from "@/_components/DescriptionMovie";
 import { FavoriteAndShare } from "@/_components/FavoriteAndShare";
 import Main from "@/_components/Main";
 import VideoEmbed from "@/_components/VideoEmbed";
-import { getMovieByFilm, getMovieByPage } from "@/_libs/service";
-import { StarFilledIcon } from "@radix-ui/react-icons";
+import { getMovieByFilm } from "@/_libs/service";
 import { Dot } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import { ListEpisodeMovie } from "../../../_components/ListEpisodeMovie";
@@ -17,7 +16,8 @@ import {
 } from "@/_libs/supabase-service";
 import { auth } from "@/_libs/auth";
 import Link from "next/link";
-import { StarRate } from "../../../_components/StarRate";
+import MovingRating from "@/_components/MovingRating";
+import CommentMovie from "@/_components/CommentMovie";
 
 type Props = {
   params: { slug: string };
@@ -179,14 +179,9 @@ export default async function page({
       <section className="mt-10 space-y-2 pt-5 border-t-2">
         <h1 className="text-2xl font-bold">{name}</h1>
         <h3>{original_name}</h3>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center py-2 px-3 bg-gray-800 rounded-lg">
-            <StarFilledIcon className="text-blue-default h-6 w-6 mr-2" />
-            <span className="text-lg font-bold mr-1 text-white">X.X</span>
-            <span className="text-xs text-gray-400">(X)</span>
-          </div>
-          <StarRate userId={session?.user?.userId} />
-        </div>
+        <Suspense>
+          <MovingRating slug={slug} session={session} />
+        </Suspense>
         <div className="flex items-center">
           <p className="font-bold text-blue-default text-lg">
             {formatMovie.list.map((item) => item.name).join(", ")}
@@ -241,6 +236,9 @@ export default async function page({
         fallback={<SkeletonHightLightBlock name="Nội dung liên quan" />}
       >
         <RelatedMovies slugList={slugList} />
+      </Suspense>
+      <Suspense>
+        <CommentMovie slug={slug} userId={session?.user?.userId} />
       </Suspense>
     </Main>
   );

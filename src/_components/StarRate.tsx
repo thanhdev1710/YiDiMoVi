@@ -1,164 +1,68 @@
 "use client";
+import { updateOrInsertRating } from "@/_libs/actions";
 import { StarFilledIcon } from "@radix-ui/react-icons";
+import { error } from "console";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export function StarRate({ userId }: { userId: number | null | undefined }) {
-  const [numStarClick, setNumStarClick] = useState(0);
+export function StarRate({
+  userId,
+  ratingUser,
+  slug,
+}: {
+  userId: number | null | undefined;
+  ratingUser: number;
+  slug: string;
+}) {
+  const [numStarClick, setNumStarClick] = useState(ratingUser);
   const [numStarHover, setNumStarHover] = useState(0);
+
+  function handleClick(num: number) {
+    if (!userId)
+      toast((t) => (
+        <div className="flex flex-col gap-2">
+          <p>Bạn cần đăng nhập mới có thể đánh giá</p>
+          <Link
+            aria-label="login"
+            href="/dangNhap"
+            className="px-4 py-2 rounded text-center bg-blue-default text-white"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Đăng nhập
+          </Link>
+        </div>
+      ));
+    else {
+      toast.promise(updateOrInsertRating(slug, userId, num), {
+        error: "Đánh giá thất bại",
+        loading: "Đang thực hiện",
+        success: "Thành công",
+      });
+
+      setNumStarClick(num);
+    }
+  }
+
   return (
     <div className="flex gap-1">
-      <StarFilledIcon
-        onMouseOver={() => setNumStarHover(1)}
-        onMouseOut={() => setNumStarHover(0)}
-        onClick={() => {
-          if (!userId)
-            toast((t) => (
-              <div className="flex flex-col gap-2">
-                <p>Bạn cần đăng nhập mới có thể đánh giá</p>
-                <Link
-                  aria-label="login"
-                  href="/dangNhap"
-                  className="px-4 py-2 rounded text-center bg-blue-default text-white"
-                  onClick={() => toast.dismiss(t.id)}
-                >
-                  Đăng nhập
-                </Link>
-              </div>
-            ));
-          else setNumStarClick(1);
-        }}
-        className={`h-5 w-5 cursor-pointer ${
-          numStarHover === 0
-            ? numStarClick >= 1
+      {Array.from({ length: 5 }).map((_, i) => (
+        <StarFilledIcon
+          key={i}
+          onMouseOver={() => setNumStarHover(i + 1)}
+          onMouseOut={() => setNumStarHover(0)}
+          onClick={() => handleClick(i + 1)}
+          className={` h-5 w-5 cursor-pointer ${
+            numStarHover === 0
+              ? numStarClick >= i + 1
+                ? "text-blue-default"
+                : "text-gray-700"
+              : numStarHover >= i + 1
               ? "text-blue-default"
               : "text-gray-700"
-            : numStarHover >= 1
-            ? "text-blue-default"
-            : "text-gray-700"
-        }`}
-      />
-      <StarFilledIcon
-        onMouseOver={() => setNumStarHover(2)}
-        onMouseOut={() => setNumStarHover(0)}
-        onClick={() => {
-          if (!userId)
-            toast((t) => (
-              <div className="flex flex-col gap-2">
-                <p>Bạn cần đăng nhập mới có thể đánh giá</p>
-                <Link
-                  aria-label="login"
-                  href="/dangNhap"
-                  className="px-4 py-2 rounded text-center bg-blue-default text-white"
-                  onClick={() => toast.dismiss(t.id)}
-                >
-                  Đăng nhập
-                </Link>
-              </div>
-            ));
-          else setNumStarClick(2);
-        }}
-        className={` h-5 w-5 cursor-pointer ${
-          numStarHover === 0
-            ? numStarClick >= 2
-              ? "text-blue-default"
-              : "text-gray-700"
-            : numStarHover >= 2
-            ? "text-blue-default"
-            : "text-gray-700"
-        }`}
-      />
-      <StarFilledIcon
-        onMouseOver={() => setNumStarHover(3)}
-        onMouseOut={() => setNumStarHover(0)}
-        onClick={() => {
-          if (!userId)
-            toast((t) => (
-              <div className="flex flex-col gap-2">
-                <p>Bạn cần đăng nhập mới có thể đánh giá</p>
-                <Link
-                  aria-label="login"
-                  href="/dangNhap"
-                  className="px-4 py-2 rounded text-center bg-blue-default text-white"
-                  onClick={() => toast.dismiss(t.id)}
-                >
-                  Đăng nhập
-                </Link>
-              </div>
-            ));
-          else setNumStarClick(3);
-        }}
-        className={` h-5 w-5 cursor-pointer ${
-          numStarHover === 0
-            ? numStarClick >= 3
-              ? "text-blue-default"
-              : "text-gray-700"
-            : numStarHover >= 3
-            ? "text-blue-default"
-            : "text-gray-700"
-        }`}
-      />
-      <StarFilledIcon
-        onMouseOver={() => setNumStarHover(4)}
-        onMouseOut={() => setNumStarHover(0)}
-        onClick={() => {
-          if (!userId)
-            toast((t) => (
-              <div className="flex flex-col gap-2">
-                <p>Bạn cần đăng nhập mới có thể đánh giá</p>
-                <Link
-                  aria-label="login"
-                  href="/dangNhap"
-                  className="px-4 py-2 rounded text-center bg-blue-default text-white"
-                  onClick={() => toast.dismiss(t.id)}
-                >
-                  Đăng nhập
-                </Link>
-              </div>
-            ));
-          else setNumStarClick(4);
-        }}
-        className={` h-5 w-5 cursor-pointer ${
-          numStarHover === 0
-            ? numStarClick >= 4
-              ? "text-blue-default"
-              : "text-gray-700"
-            : numStarHover >= 4
-            ? "text-blue-default"
-            : "text-gray-700"
-        }`}
-      />
-      <StarFilledIcon
-        onMouseOver={() => setNumStarHover(5)}
-        onMouseOut={() => setNumStarHover(0)}
-        onClick={() => {
-          if (!userId)
-            toast((t) => (
-              <div className="flex flex-col gap-2">
-                <p>Bạn cần đăng nhập mới có thể đánh giá</p>
-                <Link
-                  aria-label="login"
-                  href="/dangNhap"
-                  className="px-4 py-2 rounded text-center bg-blue-default text-white"
-                  onClick={() => toast.dismiss(t.id)}
-                >
-                  Đăng nhập
-                </Link>
-              </div>
-            ));
-          else setNumStarClick(5);
-        }}
-        className={` h-5 w-5 cursor-pointer ${
-          numStarHover === 0
-            ? numStarClick >= 5
-              ? "text-blue-default"
-              : "text-gray-700"
-            : numStarHover >= 5
-            ? "text-blue-default"
-            : "text-gray-700"
-        }`}
-      />
+          }`}
+        />
+      ))}
       <p className="font-semibold text-blue-default ml-2">
         {numStarHover === 0 ? numStarClick : numStarHover} sao
       </p>

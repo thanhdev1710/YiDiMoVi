@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { NavLinkProps } from "@/_interfaces/NavLinkProps";
 import Link from "next/link";
 import { LogoMain } from "./LogoMain";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const NavLinkHeader: NavLinkProps[] = [
   { href: "/", name: "Trang chủ" },
@@ -30,11 +30,8 @@ const NavLinkHeader: NavLinkProps[] = [
 
 export default function Menu({ className }: { className?: string }) {
   const [isMenu, setIsMenu] = useState(false);
-  const pathName = decodeURIComponent(usePathname());
-  const urlCur =
-    pathName.split("/")[1] === "block"
-      ? "/" + pathName.split("/")[3]
-      : "/" + pathName.split("/")[1];
+  const searchParams = useSearchParams().get("value") || "Trang chủ";
+
   return (
     <>
       {isMenu ? (
@@ -66,8 +63,7 @@ export default function Menu({ className }: { className?: string }) {
                   <Link
                     aria-label="Menu"
                     className={`${
-                      urlCur === item.href ||
-                      (urlCur !== "/" && item.href.includes(urlCur))
+                      searchParams === item.name
                         ? "text-blue-default font-bold"
                         : ""
                     }`}

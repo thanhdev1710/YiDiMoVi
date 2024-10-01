@@ -39,6 +39,7 @@ export function SearchItem({
       clearTimeout(searchTimeOut);
     };
   }, [search, delay]);
+
   return (
     <section className="absolute w-full z-20 py-6 px-8 bg-gray-800 text-white rounded-lg">
       <form

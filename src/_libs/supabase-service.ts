@@ -68,3 +68,41 @@ export async function getMovieFavorite(
 
   return data;
 }
+
+export async function getMovieRating(
+  slug: string,
+  userId: number | null | undefined
+) {
+  const { data, error } = await supabase
+    .from("movieRating")
+    .select("*")
+    .eq("slug", slug);
+
+  if (error) throw new Error("Lấy dữ liệu đánh giá phim thất bại");
+
+  let ratingUser = 0;
+  if (userId) {
+    ratingUser = data.filter((item) => item.userId === userId)[0]?.rating || 0;
+  }
+  const length = data.length;
+  const avg = data.reduce((prev, cur) => (prev += cur.rating), 0) / length;
+
+  return { length, avg, ratingUser };
+}
+
+export async function getCommentMovie(slug: string) {
+  const { data, error } = await supabase
+    .from("movieComment")
+    .select(
+      `
+    id, comment, slug, created_at,updated_at, 
+    users (name,image,email)
+  `
+    )
+    .eq("slug", slug)
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error("Lấy dữ liệu đánh giá phim thất bại");
+
+  return data;
+}

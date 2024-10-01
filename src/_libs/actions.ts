@@ -124,3 +124,63 @@ export async function deleteMovieHistory(
     revalidatePath("/taiKhoan/lichSuXem", "page");
   }
 }
+
+export async function updateOrInsertRating(
+  slug: string,
+  userId: number | null | undefined,
+  rating: number
+) {
+  try {
+    const { error, count, data } = await supabase
+      .from("movieRating")
+      .select("*", { count: "exact" })
+      .eq("userId", userId)
+      .eq("slug", slug);
+
+    if (error) throw new Error("Lấy dữ liệu đánh giá phim thất bại");
+    if (count === 0) {
+      const newMovieRating = {
+        userId,
+        slug,
+        rating,
+      };
+      const { error } = await supabase
+        .from("movieRating")
+        .insert([newMovieRating]);
+
+      if (error) throw new Error("Thêm đánh giá phim thất bại");
+    } else {
+      const { error } = await supabase
+        .from("movieRating")
+        .update({ rating })
+        .eq("userId", userId)
+        .eq("slug", slug);
+
+      if (error) throw new Error("Cập nhật đánh giá phim thất bại");
+    }
+  } catch (error) {
+    throw error;
+  } finally {
+    revalidatePath(`/xemPhim/${slug}`, "page");
+  }
+}
+
+export async function insertCommentMovie(
+  slug: string,
+  userId: number,
+  formData: FormData
+) {
+  try {
+    const comment = formData.get("comment");
+    const newComment = { slug, userId, comment };
+    const { error } = await supabase.from("movieComment").insert([newComment]);
+
+    if (error) {
+      throw new Error("Thêm bình luận thất bại");
+    }
+  } catch (error) {
+    throw error;
+  } finally {
+    revalidatePath(`/xemPhim/${slug}`, "page");
+  }
+}
