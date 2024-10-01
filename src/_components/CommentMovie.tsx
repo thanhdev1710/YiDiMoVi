@@ -13,6 +13,8 @@ export default async function CommentMovie({
 }) {
   const data: any[] = await getCommentMovie(slug);
 
+  console.log(data);
+
   const insertCommentWithSlugAndUserId = insertCommentMovie.bind(
     null,
     slug,
@@ -42,8 +44,8 @@ export default async function CommentMovie({
                   : formatDate(item.created_at)}
               </p>
               <p className="flex items-center flex-wrap">
-                {item.user.name} <Dot />
-                <span className="text-sm">{item.user.email}</span>
+                {item.users.name} <Dot />
+                <span className="text-sm">{item.users.email}</span>
               </p>
 
               <p className="mt-2 flex gap-2 items-center">
