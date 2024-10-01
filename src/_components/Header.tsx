@@ -3,6 +3,7 @@ import { LogoMain } from "./LogoMain";
 import { NavLinkProps } from "@/_interfaces/NavLinkProps";
 import Navigation from "./Navigation";
 import Menu from "./Menu";
+import { Suspense } from "react";
 
 const NavLinkHeader: NavLinkProps[] = [
   { href: "/block/highlight?type=category&value=Phim lẻ", name: "Phim lẻ" },
@@ -25,9 +26,13 @@ const NavLinkHeader: NavLinkProps[] = [
 export async function Header() {
   return (
     <header className="fixed top-0 left-0 z-30 w-full bg-white dark:bg-black flex justify-between items-center space-default">
-      <Menu className={"lg:hidden flex"} />
+      <Suspense>
+        <Menu className={"lg:hidden flex"} />
+      </Suspense>
       <LogoMain className={"lg:flex hidden"} />
-      <Navigation linkList={NavLinkHeader} />
+      <Suspense>
+        <Navigation linkList={NavLinkHeader} />
+      </Suspense>
       <ToolsMenu />
     </header>
   );
