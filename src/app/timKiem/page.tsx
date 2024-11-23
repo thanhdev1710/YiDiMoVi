@@ -47,22 +47,6 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
-async function KNN({ userId }: { userId: number }) {
-  const dataList = await getMovieKNNByUserID(userId);
-  return (
-    <div>
-      <h2 className="font-bold text-2xl mb-5">Được gợi ý bởi AI (KNN)</h2>
-      <div className="flex flex-wrap gap-4">
-        {dataList.map((item) => (
-          <Link key={item.name} href={`/xemPhim/${item.slug}`}>
-            <Button variant="secondary">{item.name}</Button>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default async function page() {
   const session = await auth();
   const [dataList1, dataList2] = await Promise.all([
@@ -117,9 +101,25 @@ export default async function page() {
               ))}
             </div>
           </div>
-          {session?.user.userId && <KNN userId={session.user.userId} />}
+          {session?.user?.userId && <KNN userId={session.user.userId} />}
         </section>
       </section>
     </Main>
+  );
+}
+
+async function KNN({ userId }: { userId: number }) {
+  const dataList = await getMovieKNNByUserID(userId);
+  return (
+    <div>
+      <h2 className="font-bold text-2xl mb-5">Được gợi ý bởi AI (KNN)</h2>
+      <div className="flex flex-wrap gap-4">
+        {dataList.map((item) => (
+          <Link key={item.name} href={`/xemPhim/${item.slug}`}>
+            <Button variant="secondary">{item.name}</Button>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }
