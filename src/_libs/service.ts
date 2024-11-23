@@ -134,8 +134,6 @@ export async function getMovieKNNByUserID(userId: number): Promise<any[]> {
     const data = (await res.json()) || [];
     return data;
   } catch (error) {
-    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
-      notFound();
-    throw error;
+    return [];
   }
 }
