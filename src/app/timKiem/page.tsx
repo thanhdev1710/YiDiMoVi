@@ -1,11 +1,12 @@
 import { DescriptionMovie } from "@/_components/DescriptionMovie";
 import Main from "@/_components/Main";
 import { Button } from "@/_components/ui/button";
-import { getMovieByPage } from "@/_libs/service";
+import { getMovieByPage, getMovieKNNByUserID } from "@/_libs/service";
 import Image from "next/image";
 import Link from "next/link";
 import { SearchItem } from "../../_components/SearchItem";
 import { Metadata } from "next";
+import { auth } from "@/_libs/auth";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
@@ -47,6 +48,7 @@ export const metadata: Metadata = {
 };
 
 export default async function page() {
+  const session = await auth();
   const [dataList1, dataList2] = await Promise.all([
     getMovieByPage("1"),
     getMovieByPage("2"),
@@ -88,17 +90,36 @@ export default async function page() {
             ))}
           </div>
         </div>
-        <div>
-          <h2 className="font-bold text-2xl mb-5">Tìm kiếm hàng đầu</h2>
-          <div className="flex flex-wrap gap-4">
-            {items1.map((item) => (
-              <Link key={item.name} href={`/xemPhim/${item.slug}`}>
-                <Button variant="secondary">{item.name}</Button>
-              </Link>
-            ))}
+        <section className="flex flex-col gap-8">
+          <div>
+            <h2 className="font-bold text-2xl mb-5">Tìm kiếm hàng đầu</h2>
+            <div className="flex flex-wrap gap-4">
+              {items1.map((item) => (
+                <Link key={item.name} href={`/xemPhim/${item.slug}`}>
+                  <Button variant="secondary">{item.name}</Button>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+          {session?.user.userId && <KNN userId={session.user.userId} />}
+        </section>
       </section>
     </Main>
+  );
+}
+
+export async function KNN({ userId }: { userId: number }) {
+  const dataList = await getMovieKNNByUserID(userId);
+  return (
+    <div>
+      <h2 className="font-bold text-2xl mb-5">Được gợi ý bởi AI (KNN)</h2>
+      <div className="flex flex-wrap gap-4">
+        {dataList.map((item) => (
+          <Link key={item.name} href={`/xemPhim/${item.slug}`}>
+            <Button variant="secondary">{item.name}</Button>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

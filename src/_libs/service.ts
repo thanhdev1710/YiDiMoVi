@@ -2,6 +2,7 @@ import RootApiFilmByFilm from "@/_interfaces/DataFilmByFilm";
 import { RootApiFilmBySearch } from "@/_interfaces/DataFilmBySearch";
 import RootApiFilmBySlug from "@/_interfaces/DataFilmBySlug";
 import RootApiFilmNewUpdate from "@/_interfaces/DataFilmNewUpdateProps";
+import page from "@/app/page";
 import { notFound } from "next/navigation";
 const URL = process.env.NEXT_PUBLIC_APP_API_FILM;
 
@@ -121,5 +122,20 @@ export async function getTinhThanhVN() {
     return data;
   } catch (error) {
     throw new Error("Lỗi lấy dữ liệu các tỉnh thành phố ở Việt Nam");
+  }
+}
+
+export async function getMovieKNNByUserID(userId: number): Promise<any[]> {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_APP_API_KNN || ""}?userId=${userId}`
+    );
+    if (!res.ok) return [];
+    const data = (await res.json()) || [];
+    return data;
+  } catch (error) {
+    if (error instanceof Error && error.message === "Không tìm thấy dữ liệu")
+      notFound();
+    throw error;
   }
 }
