@@ -128,7 +128,8 @@ export async function getTinhThanhVN() {
 export async function getMovieKNNByUserID(userId: number): Promise<any[]> {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_API_KNN || ""}?userId=${userId}`
+      `${process.env.NEXT_PUBLIC_APP_API_KNN || ""}?user_id=${userId}`,
+      { next: { revalidate: 0 } }
     );
     if (!res.ok) return [];
     const data = (await res.json()) || [];

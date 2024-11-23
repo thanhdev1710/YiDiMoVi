@@ -109,12 +109,12 @@ export default async function page() {
 }
 
 async function KNN({ userId }: { userId: number }) {
-  const dataList = await getMovieKNNByUserID(userId);
+  const dataList: any = await getMovieKNNByUserID(userId);
   return (
     <div>
       <h2 className="font-bold text-2xl mb-5">Được gợi ý bởi AI (KNN)</h2>
       <div className="flex flex-wrap gap-4">
-        {dataList.map((item) => (
+        {dataList?.recommendations?.map((item: any) => (
           <Link key={item.name} href={`/xemPhim/${item.slug}`}>
             <Button variant="secondary">{item.name}</Button>
           </Link>
