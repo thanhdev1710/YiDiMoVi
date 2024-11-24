@@ -7,6 +7,8 @@ import Link from "next/link";
 import { SearchItem } from "../../_components/SearchItem";
 import { Metadata } from "next";
 import { auth } from "@/_libs/auth";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import ErrorComponent from "@/_components/ErrorComponent";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
@@ -101,7 +103,11 @@ export default async function page() {
               ))}
             </div>
           </div>
-          {session?.user?.userId && <KNN userId={session.user.userId} />}
+          {session?.user?.userId && (
+            <ErrorBoundary errorComponent={ErrorComponent}>
+              <KNN userId={session.user.userId} />
+            </ErrorBoundary>
+          )}
         </section>
       </section>
     </Main>
@@ -110,6 +116,8 @@ export default async function page() {
 
 async function KNN({ userId }: { userId: number }) {
   const dataList: any = await getMovieKNNByUserID(userId);
+  console.log(dataList);
+
   return (
     <div>
       <h2 className="font-bold text-2xl mb-5">Được gợi ý bởi AI (KNN)</h2>
