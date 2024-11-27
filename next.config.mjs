@@ -9,6 +9,7 @@ const nextConfig = {
         pathname: "/public/images/**",
       },
     ],
+    unoptimized: true,
   },
 };
 
