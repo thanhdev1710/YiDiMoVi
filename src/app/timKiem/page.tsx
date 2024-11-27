@@ -9,6 +9,7 @@ import { Metadata } from "next";
 import { auth } from "@/_libs/auth";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import ErrorComponent from "@/_components/ErrorComponent";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
@@ -105,7 +106,9 @@ export default async function page() {
           </div>
           {session?.user?.userId && (
             <ErrorBoundary errorComponent={ErrorComponent}>
-              <KNN userId={session.user.userId} />
+              <Suspense fallback={<p>Loading...</p>}>
+                <KNN userId={session.user.userId} />
+              </Suspense>
             </ErrorBoundary>
           )}
         </section>
@@ -116,7 +119,6 @@ export default async function page() {
 
 async function KNN({ userId }: { userId: number }) {
   const dataList: any = await getMovieKNNByUserID(userId);
-  console.log(dataList);
 
   return (
     <div>
