@@ -17,7 +17,6 @@ type Props = {
 export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
-  await new Promise((res) => setTimeout(() => res(""), 4000));
   const { type, value, page } = searchParams;
 
   const typeMovieFormat = removeChar(value, "Phim ");
