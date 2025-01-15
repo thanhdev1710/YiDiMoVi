@@ -54,3 +54,34 @@ export function EpisodeMovie({
     </div>
   );
 }
+
+export function EpisodeMovieSmall({
+  episode,
+  curEpisodes,
+  slug,
+  i,
+}: {
+  episode: number;
+  curEpisodes: number;
+  slug: string;
+  i: number;
+}) {
+  return (
+    <div
+      className={`${
+        curEpisodes === episode ? "bg-teal-400" : "bg-blue-300"
+      } inline-block p-1 rounded text-center relative`}
+    >
+      <Link aria-label="Film" href={`/xemPhim/${slug}?tap=${episode}`}>
+        <p className="text-sm">
+          <span className="text-xs">Tập</span> {episode}
+        </p>
+      </Link>
+      {i >= 2 && (
+        <div className="absolute -right-2.5 bottom-5 px-1 py-0.5 bg-blue-default text-white text-xs rounded">
+          VIP
+        </div>
+      )}
+    </div>
+  );
+}

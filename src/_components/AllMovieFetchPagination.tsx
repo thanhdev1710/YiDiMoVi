@@ -26,14 +26,14 @@ export async function AllMovieFetchPagination({
               href={`/xemPhim/${item.slug}`}
               className="space-y-4"
             >
-              <div className="relative aspect-video">
-                <Image
-                  fill
-                  className="absolute object-cover"
-                  alt={`Ảnh phim ${item.name}`}
-                  src={item.poster_url}
-                />
-              </div>
+              <Image
+                width={300}
+                height={200}
+                className="object-cover w-full h-auto aspect-video"
+                loading="lazy"
+                alt={`Ảnh phim ${item.name}`}
+                src={item.poster_url}
+              />
               <h2 className="text-xl font-bold">{item.name}</h2>
               <p className="text-xs">{item.description?.slice(0, 160)}...</p>
             </Link>

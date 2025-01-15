@@ -54,7 +54,7 @@ export function Hero({
             key={item.name}
           >
             <Image
-              sizes="1200px"
+              sizes="(max-width: 1200px) 80vw, (max-width: 1500px) 60vw, 1200px"
               alt={`Ảnh phim ${item.name}`}
               src={item.poster_url}
               fill

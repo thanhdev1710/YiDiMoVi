@@ -57,9 +57,7 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="vi">
-      <body
-        className={`${inter.className} bg-white dark:bg-black relative max-w-[1286px] mx-auto`}
-      >
+      <body className={`${inter.className} bg-white dark:bg-black relative`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

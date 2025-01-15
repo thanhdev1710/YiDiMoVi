@@ -13,8 +13,6 @@ export default async function CommentMovie({
 }) {
   const data: any[] = await getCommentMovie(slug);
 
-  console.log(data);
-
   const insertCommentWithSlugAndUserId = insertCommentMovie.bind(
     null,
     slug,

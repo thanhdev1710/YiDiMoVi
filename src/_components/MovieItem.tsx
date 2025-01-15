@@ -25,6 +25,8 @@ export function MovieItem({
           sizes="280px"
           alt={`Ảnh phim ${name}`}
           src={poster_url}
+          loading="lazy"
+          quality={50}
           className="absolute object-cover brightness-50 rounded-lg select-none"
         />
       </Link>
