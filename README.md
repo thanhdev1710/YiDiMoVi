@@ -1,37 +1,114 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🎬 YiDiMoVi – Trang web xem phim trực tuyến
 
-## Getting Started
+YiDiMoVi là nền tảng xem phim trực tuyến hiện đại, cung cấp trải nghiệm giải trí chất lượng cao với kho phim đa dạng, phong phú. Dự án được xây dựng bằng [Next.js](https://nextjs.org/), hỗ trợ giao diện tối/sáng, tối ưu SEO và hiển thị tốt trên mọi thiết bị.
 
-First, run the development server:
+![YiDiMoVi Banner](https://www.yididev.online/images/website.png)
+
+---
+
+## 🚀 Tính năng nổi bật
+
+- ✅ Giao diện hiện đại, responsive, hỗ trợ **Dark Mode**
+- ✅ Tích hợp hệ thống **SEO tối ưu** với cấu hình metadata chuẩn
+- ✅ Hiển thị danh sách phim theo từng trang
+- ✅ Routing động cho trang xem phim với `slug`
+- ✅ Thân thiện với người dùng và dễ dàng mở rộng
+- ✅ Thông báo người dùng bằng `react-hot-toast`
+
+---
+
+## 🧠 Công nghệ sử dụng
+
+| Công nghệ           | Vai trò                                  |
+| ------------------- | ---------------------------------------- |
+| **Next.js**         | Framework React tối ưu cho SSR/SSG       |
+| **TypeScript**      | Ngôn ngữ kiểu tĩnh giúp code an toàn hơn |
+| **Tailwind CSS**    | Thiết kế giao diện nhanh gọn, hiệu quả   |
+| **React Hot Toast** | Hiển thị toast thông báo                 |
+| **Google Fonts**    | Tải và tối ưu font Inter tự động         |
+
+---
+
+## ⚙️ Cài đặt và khởi chạy
+
+### 1. Clone dự án
+
+```bash
+git clone https://github.com/thanhdev1710/yidimovi.git
+cd yidimovi
+```
+
+### 2. Cài đặt dependencies
+
+```bash
+npm install
+# hoặc
+yarn
+# hoặc
+pnpm install
+```
+
+### 3. Thiết lập biến môi trường `.env`
+
+Tạo file `.env.local` và điền:
+
+```env
+NEXT_PUBLIC_APP_API_KNN
+SUPABASE_URL
+NEXTAUTH_URL
+NEXTAUTH_SECRET
+AUTH_TRUST_HOST
+AUTH_GOOGLE_SECRET
+AUTH_GOOGLE_ID
+SUPABASE_KEY
+NEXT_PUBLIC_APP_DOMAIN
+NEXT_PUBLIC_APP_API_FILM
+```
+
+### 4. Chạy development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mở [http://localhost:3000](http://localhost:3000) để xem kết quả.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 📁 Cấu trúc thư mục
 
-## Learn More
+```
+.
+├── app/                 # Cấu trúc routing theo App Router
+│   └── page.tsx        # Trang chủ
+├── components/         # Các component tái sử dụng (Header, Footer, ThemeProvider)
+├── public/             # Hình ảnh tĩnh, favicon...
+├── styles/             # File CSS toàn cục
+├── utils/              # Các hàm tiện ích (ví dụ: fetch API, xử lý slug)
+└── ...
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Triển khai
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Dự án có thể triển khai dễ dàng trên [Vercel](https://vercel.com) – nền tảng tối ưu nhất cho Next.js:
 
-## Deploy on Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new?utm_source=your-repo-name&utm_campaign=deploy-button)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# YiDiMoVi
+## 🧩 Đóng góp
+
+Rất hoan nghênh mọi ý tưởng hoặc pull request để giúp YiDiMoVi hoàn thiện hơn! Hãy tạo issue nếu bạn gặp lỗi hoặc muốn đề xuất tính năng mới.
+
+---
+
+## 📜 Giấy phép
+
+Dự án được cấp phép theo [MIT License](LICENSE).
+
+---
+
+**YiDiMoVi** – Giải trí mọi lúc, mọi nơi.  
+Website phim trực tuyến cho trải nghiệm điện ảnh tuyệt vời hơn mỗi ngày!
