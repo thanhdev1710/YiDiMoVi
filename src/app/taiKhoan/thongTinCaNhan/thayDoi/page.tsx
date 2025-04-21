@@ -1,9 +1,9 @@
-import { auth } from "@/_libs/auth";
-import DatePicker from "../../../../_components/DatePicker";
-import { getTinhThanhVN } from "@/_libs/service";
-import { Button } from "@/_components/ui/button";
-import { updateUserAction } from "@/_libs/actions";
-import ButtonChangeInfo from "@/_components/ButtonChangeInfo";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { auth } from "@/libs/auth";
+import DatePicker from "../../../../components/DatePicker";
+import { getTinhThanhVN } from "@/libs/service";
+import { updateUserAction } from "@/libs/actions";
+import ButtonChangeInfo from "@/components/ButtonChangeInfo";
 
 export default async function page() {
   const session = await auth();

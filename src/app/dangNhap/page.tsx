@@ -1,6 +1,6 @@
-import Main from "@/_components/Main";
-import SignInButton from "@/_components/SignInButton";
-import { auth } from "@/_libs/auth";
+import Main from "@/components/Main";
+import SignInButton from "@/components/SignInButton";
+import { auth } from "@/libs/auth";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 

@@ -1,14 +1,15 @@
-import { DescriptionMovie } from "@/_components/DescriptionMovie";
-import Main from "@/_components/Main";
-import { Button } from "@/_components/ui/button";
-import { getMovieByPage, getMovieKNNByUserID } from "@/_libs/service";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DescriptionMovie } from "@/components/DescriptionMovie";
+import Main from "@/components/Main";
+import { Button } from "@/components/ui/button";
+import { getMovieByPage, getMovieKNNByUserID } from "@/libs/service";
 import Image from "next/image";
 import Link from "next/link";
-import { SearchItem } from "../../_components/SearchItem";
+import { SearchItem } from "../../components/SearchItem";
 import { Metadata } from "next";
-import { auth } from "@/_libs/auth";
+import { auth } from "@/libs/auth";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import ErrorComponent from "@/_components/ErrorComponent";
+import ErrorComponent from "@/components/ErrorComponent";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {

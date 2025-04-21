@@ -1,4 +1,5 @@
-import { auth } from "@/_libs/auth";
+/* eslint-disable @next/next/no-img-element */
+import { auth } from "@/libs/auth";
 import Link from "next/link";
 
 export default async function page() {

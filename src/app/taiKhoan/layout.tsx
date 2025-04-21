@@ -1,6 +1,6 @@
-import Main from "@/_components/Main";
-import { NavigationAccount } from "@/_components/NavigationAccount";
-import { auth } from "@/_libs/auth";
+import Main from "@/components/Main";
+import { NavigationAccount } from "@/components/NavigationAccount";
+import { auth } from "@/libs/auth";
 import { redirect } from "next/navigation";
 import React from "react";
 

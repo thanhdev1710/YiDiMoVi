@@ -1,14 +1,15 @@
-import Main from "@/_components/Main";
-import { Hero } from "../_components/Hero";
-import { getMovieByPage } from "@/_libs/service";
-import { ListMovie } from "../_components/ListMovie";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Main from "@/components/Main";
+import { Hero } from "../components/Hero";
+import { getMovieByPage } from "@/libs/service";
+import { ListMovie } from "../components/ListMovie";
 import { Suspense } from "react";
-import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
+import { SkeletonHightLightBlock } from "@/components/Skeleton/SkeletonHightLightBlock";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import ErrorComponent from "@/_components/ErrorComponent";
-import { ListMovieSub } from "@/_components/ListMovieSub";
-import { auth } from "@/_libs/auth";
-import { getMovieFavorite } from "@/_libs/supabase-service";
+import ErrorComponent from "@/components/ErrorComponent";
+import { ListMovieSub } from "@/components/ListMovieSub";
+import { auth } from "@/libs/auth";
+import { getMovieFavorite } from "@/libs/supabase-service";
 
 const DataBlockHighLight = [
   {

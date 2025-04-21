@@ -1,4 +1,4 @@
-import { getMovieByPage } from "@/_libs/service";
+import { getMovieByPage } from "@/libs/service";
 import { MetadataRoute } from "next";
 
 async function fetchSlugs(baseUrl: string) {

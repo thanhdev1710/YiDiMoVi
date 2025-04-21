@@ -1,7 +1,7 @@
-import { FormDelete } from "@/_components/FormDelete";
-import { MovieItem } from "@/_components/MovieItem";
-import { auth } from "@/_libs/auth";
-import { getMovieFavorite } from "@/_libs/supabase-service";
+import { FormDelete } from "@/components/FormDelete";
+import { MovieItem } from "@/components/MovieItem";
+import { auth } from "@/libs/auth";
+import { getMovieFavorite } from "@/libs/supabase-service";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -16,7 +16,7 @@ export default async function page() {
       <p>
         Bạn chưa có danh sách yêu thích nào{" "}
         <span>
-          <Link className="underline text-blue-default" href="/">
+          <Link className="underline text-[#38B6FF]" href="/">
             Nhấn vào đây
           </Link>{" "}
           để về trang chủ và xem phim

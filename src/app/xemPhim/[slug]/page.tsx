@@ -1,33 +1,35 @@
-import { DescriptionMovie } from "@/_components/DescriptionMovie";
-import { FavoriteAndShare } from "@/_components/FavoriteAndShare";
-import Main from "@/_components/Main";
-import VideoEmbed from "@/_components/VideoEmbed";
-import { getMovieByFilm } from "@/_libs/service";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DescriptionMovie } from "@/components/DescriptionMovie";
+import { FavoriteAndShare } from "@/components/FavoriteAndShare";
+import Main from "@/components/Main";
+import VideoEmbed from "@/components/VideoEmbed";
+import { getMovieByFilm } from "@/libs/service";
 import { Dot } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
-import { ListEpisodeMovie } from "../../../_components/ListEpisodeMovie";
-import RelatedMovies from "../../../_components/RelatedMovies";
+import { ListEpisodeMovie } from "../../../components/ListEpisodeMovie";
+import RelatedMovies from "../../../components/RelatedMovies";
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
-import { SkeletonHightLightBlock } from "@/_components/Skeleton/SkeletonHightLightBlock";
+import { SkeletonHightLightBlock } from "@/components/Skeleton/SkeletonHightLightBlock";
 import {
   createMovieViewingHistory,
   getMovieFavorite,
-} from "@/_libs/supabase-service";
-import { auth } from "@/_libs/auth";
+} from "@/libs/supabase-service";
+import { auth } from "@/libs/auth";
 import Link from "next/link";
-import MovingRating from "@/_components/MovingRating";
-import CommentMovie from "@/_components/CommentMovie";
+import MovingRating from "@/components/MovingRating";
+import CommentMovie from "@/components/CommentMovie";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata(
-  { params }: Props,
+  props: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  let { slug } = params;
+  const params = await props.params;
+  const { slug } = params;
   const data = await getMovieByFilm(slug);
   const { poster_url, description, name } = data.movie || {
     poster_url: "",
@@ -80,13 +82,12 @@ export async function generateMetadata(
   };
 }
 
-export default async function page({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+export default async function page(props: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const session = await auth();
   let movie;
   let listFavoriteAlready: any[];
@@ -166,7 +167,7 @@ export default async function page({
       <div className="flex gap-4 items-center mt-4">
         {data.movie.episodes.map((item) => (
           <Link
-            className="px-2 py-1 text-sm bg-blue-default rounded-md text-white font-semibold"
+            className="px-2 py-1 text-sm bg-[#38B6FF] rounded-md text-white font-semibold"
             href={`/xemPhim/${slug}?serverName=${encodeURIComponent(
               item.server_name
             )}`}
@@ -183,7 +184,7 @@ export default async function page({
           <MovingRating slug={slug} session={session} />
         </Suspense>
         <div className="flex items-center">
-          <p className="font-bold text-blue-default text-lg">
+          <p className="font-bold text-[#38B6FF] text-lg">
             {formatMovie.list.map((item) => item.name).join(", ")}
           </p>
           <Dot />

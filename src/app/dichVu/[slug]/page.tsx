@@ -1,4 +1,4 @@
-import Main from "@/_components/Main";
+import Main from "@/components/Main";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -53,7 +53,7 @@ export async function generateStaticParams() {
 export default function page() {
   return (
     <Main>
-      <h1 className="text-center sm:text-4xl text-2xl font-bold mt-8 text-blue-default">
+      <h1 className="text-center sm:text-4xl text-2xl font-bold mt-8 text-[#38B6FF]">
         Giới thiệu về YiDiMoVi
       </h1>
       <section className="space-y-4 mt-10" id="gioiThieu">

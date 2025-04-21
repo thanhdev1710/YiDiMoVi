@@ -1,4 +1,4 @@
-import { auth } from "@/_libs/auth";
+import { auth } from "@/libs/auth";
 import { redirect } from "next/navigation";
 
 export default async function page() {
