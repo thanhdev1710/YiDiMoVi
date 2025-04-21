@@ -2,8 +2,22 @@ import { getMovieByPage } from "@/libs/service";
 import { MetadataRoute } from "next";
 
 async function fetchSlugs(baseUrl: string) {
-  const data = await getMovieByPage("1");
-  return data.items.map((item) => ({
+  const pages = ["1", "2", "3", "4", "5"];
+
+  const results = await Promise.allSettled(
+    pages.map((page) => getMovieByPage(page))
+  );
+
+  const movies = results.flatMap((result) => {
+    if (result.status === "fulfilled") {
+      return result.value.items;
+    } else {
+      console.error(`Lỗi khi lấy dữ liệu trang:`, result.reason);
+      return [];
+    }
+  });
+
+  return movies.map((item) => ({
     url: `${baseUrl}/xemPhim/${item.slug}`,
     lastModified: new Date(),
     changeFrequency: "daily" as const,
