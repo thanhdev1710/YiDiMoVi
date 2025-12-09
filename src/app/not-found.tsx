@@ -1,16 +1,15 @@
 import Main from "@/components/Main";
 import Image from "next/image";
 import Link from "next/link";
-import imgNotFound from "../../public/images/not-found.jpg";
 
 export default function notFound() {
   return (
     <Main>
       <Image
         fill
-        className="absolute object-cover dark:hidden z-[-10]"
+        className="absolute object-cover dark:hidden -z-10"
         alt="Ảnh mô tả không tìm thấy trang"
-        src={imgNotFound}
+        src="/images/not-found.jpg"
       />
       <div className="mt-[10%] flex flex-col justify-center items-center bg-black/80 p-10 shadow-md rounded-lg text-white">
         <h1 className="lg:text-8xl text-5xl font-bold text-[#38B6FF]">404</h1>

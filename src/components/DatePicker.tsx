@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { vi } from "date-fns/locale";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -39,7 +39,7 @@ export default function DatePicker({
         fromYear={1900}
         toYear={new Date().getFullYear()}
         dir="vi"
-        className="text-black bg-white rounded-lg flex justify-center items-center h-[360px] max-w-[340px] !m-0"
+        className="text-black bg-white rounded-lg flex justify-center items-center h-[360px] max-w-[340px] m-0!"
         required
         selected={date}
         mode="single"

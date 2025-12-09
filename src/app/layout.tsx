@@ -5,11 +5,12 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
+  metadataBase: new URL(process.env["NEXT_PUBLIC_APP_DOMAIN"] || ""),
   alternates: {
     canonical: "/",
     languages: {
@@ -26,10 +27,10 @@ export const metadata: Metadata = {
     title: "YiDiMoVi - Trang web xem phim trực tuyến",
     description:
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
-    url: process.env.NEXT_PUBLIC_APP_DOMAIN,
+    url: process.env["NEXT_PUBLIC_APP_DOMAIN"],
     type: "website",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     description:
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -64,7 +65,9 @@ export default function RootLayout({
           enableSystem={true}
           disableTransitionOnChange={true}
         >
-          <Header />
+          <Suspense>
+            <Header />
+          </Suspense>
           {children}
           <Footer />
           <Toaster position="bottom-right" />

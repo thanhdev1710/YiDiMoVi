@@ -1,12 +1,11 @@
 import Image from "next/image";
-import icon from "../../public/icon.png";
 import Link from "next/link";
 
 export function LogoMain({ className = "flex" }: { className?: string }) {
   return (
     <Link aria-label="Logo" href="/" className={`items-end ${className}`}>
       <Image
-        src={icon}
+        src="/icon.png"
         draggable={false}
         width={52}
         height={52}

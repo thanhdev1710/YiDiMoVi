@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { supabase } from "./supabase";
+
+import { cacheLife, cacheTag, updateTag } from "next/cache";
+import supabase from "./supabase";
 
 interface PropsMovieFavorite {
   userId: number;
@@ -8,6 +10,9 @@ interface PropsMovieFavorite {
   image: string;
 }
 
+/* ===========================
+   USER
+=========================== */
 export async function getUser(email: string) {
   const { data } = await supabase
     .from("users")
@@ -20,9 +25,13 @@ export async function getUser(email: string) {
 
 export async function createUser(newUser: any) {
   const { error } = await supabase.from("users").insert([newUser]);
+
   if (error) throw new Error("Tạo tài khoản không thành công");
 }
 
+/* ===========================
+   MOVIE VIEWING HISTORY
+=========================== */
 export async function createMovieViewingHistory(
   userId: number,
   name: string,
@@ -39,12 +48,17 @@ export async function createMovieViewingHistory(
     .from("movieViewingHistory")
     .insert([newMovieHistory]);
 
+  if (!error) updateTag(`history-${userId}`);
   return error;
 }
 
 export async function getMovieViewingHistory(
   userId: number
 ): Promise<PropsMovieFavorite[]> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag(`history-${userId}`);
+
   const { data, error } = await supabase
     .from("movieViewingHistory")
     .select("userId,name,slug,image")
@@ -56,9 +70,16 @@ export async function getMovieViewingHistory(
   return data;
 }
 
+/* ===========================
+   FAVORITE
+=========================== */
 export async function getMovieFavorite(
   userId: number
 ): Promise<PropsMovieFavorite[]> {
+  "use cache";
+  cacheLife("minutes");
+  cacheTag(`favorite-${userId}`);
+
   const { data, error } = await supabase
     .from("listMovieFavorite")
     .select("userId,name,slug,image")
@@ -70,10 +91,17 @@ export async function getMovieFavorite(
   return data;
 }
 
+/* ===========================
+   RATING
+=========================== */
 export async function getMovieRating(
   slug: string,
   userId: number | null | undefined
 ) {
+  "use cache";
+  cacheLife("seconds");
+  cacheTag(`rating-${slug}`);
+
   const { data, error } = await supabase
     .from("movieRating")
     .select("*")
@@ -85,20 +113,28 @@ export async function getMovieRating(
   if (userId) {
     ratingUser = data.filter((item) => item.userId === userId)[0]?.rating || 0;
   }
+
   const length = data.length;
   const avg = data.reduce((prev, cur) => (prev += cur.rating), 0) / length;
 
   return { length, avg, ratingUser };
 }
 
+/* ===========================
+   COMMENT
+=========================== */
 export async function getCommentMovie(slug: string) {
+  "use cache";
+  cacheLife("seconds");
+  cacheTag(`comment-${slug}`);
+
   const { data, error } = await supabase
     .from("movieComment")
     .select(
       `
-    id, comment, slug, created_at,updated_at, 
-    users (name,image,email)
-  `
+      id, comment, slug, created_at, updated_at,
+      users (name, image, email)
+    `
     )
     .eq("slug", slug)
     .order("created_at", { ascending: false });

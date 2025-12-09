@@ -53,7 +53,6 @@ pnpm install
 Tạo file `.env.local` và điền:
 
 ```env
-NEXT_PUBLIC_APP_API_KNN
 SUPABASE_URL
 NEXTAUTH_URL
 NEXTAUTH_SECRET

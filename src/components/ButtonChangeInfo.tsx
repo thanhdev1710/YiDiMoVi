@@ -8,7 +8,7 @@ export default function ButtonChangeInfo() {
     <Button
       disabled={pending}
       variant="secondary"
-      className="max-w-[340px] w-full !py-6 text-xl font-bold"
+      className="max-w-[340px] w-full py-6! text-xl font-bold"
     >
       {pending ? "Đang thay đổi" : "Thay đổi"}
     </Button>

@@ -81,13 +81,13 @@ export function Footer() {
       <div className="col-span-4 flex flex-col gap-4 border-b-2 pb-8 border-blue-default dark:border-gray-800">
         <div className="flex items-center gap-2">
           <Phone className="w-5 h-5" />
-          <a href="tel:19009000" className="leading-[0] text-sm">
+          <a href="tel:19009000" className="leading-0 text-sm">
             19009000
           </a>
         </div>
         <div className="flex items-center gap-2">
           <Mail className="w-5 h-5" />
-          <a href="mailto:yidimovi@gmail.com" className="leading-[0] text-sm">
+          <a href="mailto:yidimovi@gmail.com" className="leading-0 text-sm">
             yidimovi@gmail.com
           </a>
         </div>

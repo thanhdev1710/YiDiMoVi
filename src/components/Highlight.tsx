@@ -7,12 +7,13 @@ import { SkeletonAllMovieFetchPaginationList } from "@/components/Skeleton/Skele
 import { FetchMovieAll } from "@/utils/FetchMovieAll";
 import { Hero } from "@/components/Hero";
 import removeChar from "@/utils/removeChar";
-import { auth } from "@/libs/auth";
-import { getMovieFavorite } from "@/libs/supabase-service";
+import { Session } from "next-auth";
 
 type Props = {
   params: Promise<{ type: string }>;
   searchParams: Promise<{ [key: string]: string }>;
+  listFavorite: any[];
+  session: Session | null;
 };
 
 export async function generateMetadata({
@@ -32,12 +33,12 @@ export async function generateMetadata({
     openGraph: {
       title: `Phim ${typeMovieFormat} - YidiMovi`,
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/block/highlight?type=${
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/block/highlight?type=${
         type || "national"
       }&value=${value || "Việt Nam"}&page=${page || "1"}`,
       type: "website",
       images: {
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+        url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
         width: 1200,
         height: 630,
         alt: "YiDiMoVi Website",
@@ -48,7 +49,7 @@ export async function generateMetadata({
       title: `Phim ${typeMovieFormat} - YidiMovi`,
       description: `Khám phá các bộ phim ${typeMovieFormat} hấp dẫn nhất trên YidiMovi. Xem ngay các bộ phim chiếu rạp mới nhất và các tập phim bom tấn.`,
       images: {
-        url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+        url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
         width: 1200,
         height: 630,
         alt: "YiDiMoVi Website",
@@ -58,21 +59,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Highlight({ searchParams }: Props) {
-  const { page, type, value } = await searchParams;
-  const session = await auth();
-  let listFavorite: any[];
-  if (session?.user?.userId) {
-    listFavorite = await getMovieFavorite(session?.user?.userId);
-  } else {
-    listFavorite = [];
-  }
-  const dataList = await FetchMovieAll(
-    type || "national",
-    value || "Việt Nam",
-    "1"
-  );
+export default async function Highlight({
+  searchParams,
+  listFavorite,
+  session,
+}: Props) {
+  const {
+    page = "1",
+    type = "national",
+    value = "Việt Nam",
+  } = await searchParams;
+  const dataList = await FetchMovieAll(type, value, "1");
   const typeMovieFormat = removeChar(value, "Phim ");
+
   return (
     <Main>
       <section className="mb-20">

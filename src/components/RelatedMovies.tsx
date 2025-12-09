@@ -12,7 +12,7 @@ export default async function RelatedMovies({
   let data;
   const length = slugFormat.length;
   if (length === 1) {
-    data = await getMovieBySlugAndPage(slugFormat[0], "1");
+    data = await getMovieBySlugAndPage(slugFormat[0] || "", "1");
     return (
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
@@ -30,8 +30,8 @@ export default async function RelatedMovies({
     );
   } else {
     data = await Promise.all([
-      getMovieBySlugAndPage(slugFormat[0], "1"),
-      getMovieBySlugAndPage(slugFormat[1], "1"),
+      getMovieBySlugAndPage(slugFormat[0] || "", "1"),
+      getMovieBySlugAndPage(slugFormat[1] || "", "1"),
     ]);
     const allData: Item[] = [...data[0].items, ...data[1].items];
     return (

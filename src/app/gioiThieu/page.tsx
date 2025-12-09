@@ -1,8 +1,6 @@
 import Main from "@/components/Main";
 import { Metadata } from "next";
 
-export const dynamic = "force-static";
-
 export const metadata: Metadata = {
   title: "Giới Thiệu - YidiMovi",
   alternates: {
@@ -19,10 +17,10 @@ export const metadata: Metadata = {
     title: "Giới Thiệu - YidiMovi",
     description:
       "Giới thiệu về YidiMovi - nền tảng phim trực tuyến hàng đầu, cung cấp bộ sưu tập đa dạng các phim và chương trình truyền hình. Khám phá và trải nghiệm ngay với YidiMovi!",
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/gioiThieu`,
+    url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/gioiThieu`,
     type: "website",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -34,7 +32,7 @@ export const metadata: Metadata = {
     description:
       "Giới thiệu về YidiMovi - nền tảng phim trực tuyến hàng đầu, cung cấp bộ sưu tập đa dạng các phim và chương trình truyền hình. Khám phá và trải nghiệm ngay với YidiMovi!",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -55,8 +53,8 @@ export default function page() {
           Việt Nam, được cung cấp bởi Công ty Cổ phần YiDiMoVi. Với tiêu chí
           “Không giới hạn”, YiDiMoVi mang đến cho Người Dùng các gói dịch vụ
           truyền hình đa dạng, trên đa nền tảng, đa hạ tầng. Thông qua website{" "}
-          <a href="https://yidimovi.vn" target="_blank">
-            yidimovi.vn
+          <a href={process.env["NEXT_PUBLIC_APP_DOMAIN"]} target="_blank">
+            {process.env["NEXT_PUBLIC_APP_DOMAIN"]}
           </a>{" "}
           và ứng dụng YiDiMoVi được cài đặt trên các thiết bị đầu cuối, Người
           Dùng tại Việt Nam có thể tận hưởng kho nội dung đặc sắc, với gần 200
@@ -71,8 +69,8 @@ export default function page() {
         <ul className="space-y-2 list-disc ml-4">
           <li>
             <strong>Đa nền tảng:</strong> Người Dùng có thể truy cập{" "}
-            <a href="https://yidimovi.vn" target="_blank">
-              yidimovi.vn
+            <a href={process.env["NEXT_PUBLIC_APP_DOMAIN"]} target="_blank">
+              {process.env["NEXT_PUBLIC_APP_DOMAIN"]}
             </a>{" "}
             và ứng dụng YiDiMoVi để sử dụng dịch vụ thông qua kết nối Internet
             trong phạm vi lãnh thổ Việt Nam.
@@ -175,8 +173,11 @@ export default function page() {
           <li>
             <strong>Gói Dịch Vụ (SVOD):</strong> Cước, phí Gói Dịch Vụ được niêm
             yết công khai tại{" "}
-            <a href="https://yidimovi.vn/mua-goi" target="_blank">
-              yidimovi.vn/mua-goi
+            <a
+              href={`${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/mua-goi`}
+              target="_blank"
+            >
+              {process.env["NEXT_PUBLIC_APP_DOMAIN"]}/mua-goi
             </a>{" "}
             và mục “Mua Gói” trên Ứng dụng YiDiMoVi. Được tính trọn tháng kể từ
             thời điểm đăng ký Gói.

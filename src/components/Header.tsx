@@ -4,6 +4,7 @@ import { NavLinkProps } from "@/interfaces/NavLinkProps";
 import Navigation from "./Navigation";
 import Menu from "./Menu";
 import { Suspense } from "react";
+import { auth } from "@/libs/auth";
 
 const NavLinkHeader: NavLinkProps[] = [
   { href: "/block/highlight?type=category&value=Phim lẻ", name: "Phim lẻ" },
@@ -24,6 +25,7 @@ const NavLinkHeader: NavLinkProps[] = [
 ];
 
 export async function Header() {
+  const session = await auth();
   return (
     <header className="fixed top-0 left-0 z-30 w-full bg-white dark:bg-black flex justify-between items-center space-default">
       <Suspense>
@@ -33,7 +35,7 @@ export async function Header() {
       <Suspense>
         <Navigation linkList={NavLinkHeader} />
       </Suspense>
-      <ToolsMenu />
+      <ToolsMenu session={session} />
     </header>
   );
 }

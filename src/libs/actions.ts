@@ -1,10 +1,11 @@
 "use server";
 import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
-import { supabase } from "./supabase";
-import { revalidatePath } from "next/cache";
+import supabase from "./supabase";
+import { updateTag } from "next/cache";
 import { getMovieFavorite } from "./supabase-service";
 
+/* SIGN IN / SIGN OUT */
 export async function signInAction() {
   await signIn("google", { redirectTo: "/taiKhoan/thongTinCaNhan" });
 }
@@ -13,32 +14,30 @@ export async function signOutAction() {
   await signOut({ redirectTo: "/dangNhap" });
 }
 
+/* UPDATE USER */
 export async function updateUserAction(formData: FormData) {
   const user = await auth();
   const id = user?.user.userId;
-  const gender = formData.get("gender");
-  const birthday = formData.get("birthday");
-  const area = formData.get("area");
+  const email = user?.user.email;
+
   const update = {
-    gender,
-    birthday,
-    area,
+    gender: formData.get("gender"),
+    birthday: formData.get("birthday"),
+    area: formData.get("area"),
   };
 
   try {
     const { error } = await supabase.from("users").update(update).eq("id", id);
-
     if (error) throw new Error(error.message);
-
-    redirect("/taiKhoan");
   } catch (error) {
     throw error;
   } finally {
-    revalidatePath("/taiKhoan/thongTinCaNhan", "page");
-    revalidatePath("/taiKhoan/thongTinCaNhan/thayDoi", "page");
+    if (email) updateTag(`user-${email}`); // 🔥 invalidate user cache
+    redirect("/taiKhoan");
   }
 }
 
+/* FAVORITE */
 export async function createMovieFavorite(
   userId: number,
   name: string,
@@ -46,46 +45,33 @@ export async function createMovieFavorite(
   image: string
 ) {
   try {
-    const newMovieFavorite = {
-      userId,
-      name,
-      slug,
-      image,
-    };
-
     const listMovie = await getMovieFavorite(userId);
-    const isAlreadyExist = listMovie.find((item) => item.name === name);
+    const isExist = listMovie.find((item) => item.name === name);
 
     let type;
 
-    if (isAlreadyExist) {
-      await deleteMovieFavorite(userId, name, slug);
+    if (isExist) {
+      await deleteMovieFavorite(userId, name);
       type = "delete";
     } else {
-      const { error: errorInsert } = await supabase
+      const { error } = await supabase
         .from("listMovieFavorite")
-        .insert([newMovieFavorite]);
-      type = "insert";
+        .insert([{ userId, name, slug, image }]);
 
-      if (errorInsert) {
-        throw new Error(errorInsert.message);
-      }
+      if (error) throw new Error(error.message);
+
+      type = "insert";
     }
+
     return { type };
   } catch (error) {
-    console.log(error);
     throw error;
   } finally {
-    revalidatePath("/taiKhoan/danhSachYeuThich", "page");
-    revalidatePath(`/xemPhim/${slug}`, "page");
+    updateTag(`favorite-${userId}`);
   }
 }
 
-export async function deleteMovieFavorite(
-  userId: number,
-  name: string,
-  slug: string
-) {
+export async function deleteMovieFavorite(userId: number, name: string) {
   try {
     const { error } = await supabase
       .from("listMovieFavorite")
@@ -98,16 +84,12 @@ export async function deleteMovieFavorite(
   } catch (error) {
     throw error;
   } finally {
-    revalidatePath(`/xemPhim/${slug}`, "page");
-    revalidatePath("/taiKhoan/danhSachYeuThich", "page");
+    updateTag(`favorite-${userId}`);
   }
 }
 
-export async function deleteMovieHistory(
-  userId: number,
-  name: string,
-  slug: string
-) {
+/* HISTORY */
+export async function deleteMovieHistory(userId: number, name: string) {
   try {
     const { error } = await supabase
       .from("movieViewingHistory")
@@ -120,11 +102,11 @@ export async function deleteMovieHistory(
   } catch (error) {
     throw error;
   } finally {
-    revalidatePath(`/xemPhim/${slug}`, "page");
-    revalidatePath("/taiKhoan/lichSuXem", "page");
+    updateTag(`history-${userId}`);
   }
 }
 
+/* RATING */
 export async function updateOrInsertRating(
   slug: string,
   userId: number | null | undefined,
@@ -138,33 +120,24 @@ export async function updateOrInsertRating(
       .eq("slug", slug);
 
     if (error) throw new Error("Lấy dữ liệu đánh giá phim thất bại");
-    if (count === 0) {
-      const newMovieRating = {
-        userId,
-        slug,
-        rating,
-      };
-      const { error } = await supabase
-        .from("movieRating")
-        .insert([newMovieRating]);
 
-      if (error) throw new Error("Thêm đánh giá phim thất bại");
+    if (count === 0) {
+      await supabase.from("movieRating").insert([{ userId, slug, rating }]);
     } else {
-      const { error } = await supabase
+      await supabase
         .from("movieRating")
         .update({ rating })
         .eq("userId", userId)
         .eq("slug", slug);
-
-      if (error) throw new Error("Cập nhật đánh giá phim thất bại");
     }
   } catch (error) {
     throw error;
   } finally {
-    revalidatePath(`/xemPhim/${slug}`, "page");
+    updateTag(`rating-${slug}`);
   }
 }
 
+/* COMMENT */
 export async function insertCommentMovie(
   slug: string,
   userId: number,
@@ -173,14 +146,12 @@ export async function insertCommentMovie(
   try {
     const comment = formData.get("comment");
     const newComment = { slug, userId, comment };
-    const { error } = await supabase.from("movieComment").insert([newComment]);
 
-    if (error) {
-      throw new Error("Thêm bình luận thất bại");
-    }
+    const { error } = await supabase.from("movieComment").insert([newComment]);
+    if (error) throw new Error("Thêm bình luận thất bại");
   } catch (error) {
     throw error;
   } finally {
-    revalidatePath(`/xemPhim/${slug}`, "page");
+    updateTag(`comment-${slug}`);
   }
 }

@@ -39,8 +39,8 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
   const absolutePosterUrl = poster_url.startsWith("http")
     ? poster_url
-    : `${process.env.NEXT_PUBLIC_APP_DOMAIN}${poster_url}`;
-  const absoluteUrl = `${process.env.NEXT_PUBLIC_APP_DOMAIN}/xemPhim/${slug}`;
+    : `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}${poster_url}`;
+  const absoluteUrl = `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/xemPhim/${slug}`;
 
   return {
     title: `Phim ${name} - YidiMovi`,
@@ -94,7 +94,7 @@ export default async function page(props: {
   const { slug } = params;
   const { serverName } = searchParams;
 
-  const tap = searchParams.tap ? Number(searchParams.tap) : 1;
+  const tap = searchParams["tap"] ? Number(searchParams["tap"]) : 1;
   const data = await getMovieByFilm(slug);
 
   if (!session?.user?.email && tap >= 3) redirect("/dangNhap");
@@ -124,13 +124,13 @@ export default async function page(props: {
 
   if (total_episodes > 1) {
     movie = {
-      name: episodes[indexServerName].items[tap - 1].name,
-      embed: episodes[indexServerName].items[tap - 1].embed,
+      name: episodes[indexServerName]!.items[tap - 1]!.name,
+      embed: episodes[indexServerName]!.items[tap - 1]!.embed,
     };
   } else {
     movie = {
-      name: episodes[indexServerName].items[0].name,
-      embed: episodes[indexServerName].items[0].embed,
+      name: episodes[indexServerName]!.items[0]!.name,
+      embed: episodes[indexServerName]!.items[0]!.embed,
     };
   }
 
@@ -138,7 +138,7 @@ export default async function page(props: {
   const categoryMovie = category["2"];
   const yearMovie = category["3"];
   const nationMovie = category["4"];
-  const slugList = categoryMovie.list.map((item) => item.name);
+  const slugList = categoryMovie!.list.map((item) => item.name);
 
   if (session?.user?.userId) {
     const error = await createMovieViewingHistory(
@@ -185,7 +185,7 @@ export default async function page(props: {
         </Suspense>
         <div className="flex items-center">
           <p className="font-bold text-[#38B6FF] text-lg">
-            {formatMovie.list.map((item) => item.name).join(", ")}
+            {formatMovie!.list.map((item) => item.name).join(", ")}
           </p>
           <Dot />
           <DescriptionMovie
@@ -197,7 +197,7 @@ export default async function page(props: {
           />
         </div>
         <p className="text-sm">{description}</p>
-        <div className="space-x-2 !my-6">
+        <div className="space-x-2 my-6!">
           <FavoriteAndShare
             listFavoriteAlready={listFavoriteAlready}
             image={poster_url}
@@ -212,15 +212,15 @@ export default async function page(props: {
         </p>
         <p className="text-sm text-gray-400">
           <span className="mr-4 w-20 inline-block">Quốc gia:</span>
-          {nationMovie.list.map((item) => item.name).join(", ")}
+          {nationMovie!.list.map((item) => item.name).join(", ")}
         </p>
         <p className="text-sm text-gray-400">
           <span className="mr-4 w-20 inline-block">Năm:</span>
-          {yearMovie.list.map((item) => item.name).join(", ")}
+          {yearMovie!.list.map((item) => item.name).join(", ")}
         </p>
         <p className="text-sm text-gray-400">
           <span className="mr-4 w-20 inline-block">Thể loại:</span>
-          {categoryMovie.list.map((item) => item.name).join(", ")}
+          {categoryMovie!.list.map((item) => item.name).join(", ")}
         </p>
       </section>
       {total_episodes > 1 && (

@@ -20,12 +20,12 @@ export function ListEpisodeMovie({
   const [search, setSearch] = useState(0);
   const data =
     search !== 0
-      ? episodes[0].items.filter((item) =>
+      ? episodes[0]!.items.filter((item) =>
           Number(item.slug.slice(item.slug.indexOf("-") + 1))
             .toString()
             .includes(search.toString())
         )
-      : episodes[0].items;
+      : episodes[0]!.items;
 
   return (
     <section className="mt-10">
@@ -42,12 +42,12 @@ export function ListEpisodeMovie({
       </div>
       <div
         className={`pb-2 ${
-          episodes[0].items.length < 30
+          episodes[0]!.items.length < 30
             ? "flex gap-6 overflow-x-scroll"
             : "grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-6"
         }`}
       >
-        {episodes[0].items.length < 30
+        {episodes[0]!.items.length < 30
           ? data.map((item: any, i) => (
               <EpisodeMovie
                 key={name + item.name}

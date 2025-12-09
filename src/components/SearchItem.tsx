@@ -61,7 +61,7 @@ export function SearchItem({
             className="bg-transparent outline-none w-full px-2"
           />
         </div>
-        <Button variant="secondary" className="!bg-[#38B6FF] text-lg font-bold">
+        <Button variant="secondary" className="bg-[#38B6FF]! text-lg font-bold">
           Tìm kiếm
         </Button>
       </form>

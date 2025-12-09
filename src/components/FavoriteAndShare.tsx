@@ -62,7 +62,7 @@ export function FavoriteAndShare({
             ));
           }
         }}
-        className="rounded-full w-10 h-10 !p-[10px]"
+        className="rounded-full w-10 h-10 p-2.5!"
         variant="secondary"
       >
         <Heart
@@ -76,7 +76,7 @@ export function FavoriteAndShare({
       <Button
         aria-label="Share"
         onClick={handleCopyLink}
-        className="rounded-full w-10 h-10 !p-[10px]"
+        className="rounded-full w-10 h-10 p-2.5!"
         variant="secondary"
       >
         <Share2 />

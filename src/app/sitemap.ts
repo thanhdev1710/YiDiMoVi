@@ -26,7 +26,7 @@ async function fetchSlugs(baseUrl: string) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://www.yididev.online";
+  const baseUrl = process.env["NEXT_PUBLIC_APP_DOMAIN"] || "";
   const slugUrls = await fetchSlugs(baseUrl);
   return [
     {

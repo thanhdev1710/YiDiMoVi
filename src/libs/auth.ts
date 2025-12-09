@@ -5,8 +5,8 @@ import { createUser, getUser } from "./supabase-service";
 const authConfig: NextAuthConfig = {
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: process.env["AUTH_GOOGLE_ID"]!,
+      clientSecret: process.env["AUTH_GOOGLE_SECRET"]!,
     }),
   ],
   callbacks: {

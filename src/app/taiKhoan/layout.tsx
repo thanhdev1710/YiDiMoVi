@@ -2,7 +2,6 @@ import Main from "@/components/Main";
 import { NavigationAccount } from "@/components/NavigationAccount";
 import { auth } from "@/libs/auth";
 import { redirect } from "next/navigation";
-import React from "react";
 
 export default async function RootLayout({
   children,

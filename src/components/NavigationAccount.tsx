@@ -3,7 +3,7 @@ import { signOutAction } from "@/libs/actions";
 import Loading from "@/app/loading";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface dataListProps {
   name: string;
@@ -39,7 +39,7 @@ export function NavigationAccount() {
         <ul className="flex lg:flex-col flex-row overflow-x-auto w-full py-4">
           {dataList.map((item) => (
             <li
-              className={`flex-shrink-0 px-6 py-2 border-l-2 ${
+              className={`shrink-0 px-6 py-2 border-l-2 ${
                 item.href === pathName
                   ? "border-blue-default font-bold text-[#38B6FF]"
                   : "border-transparent"

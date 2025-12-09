@@ -21,7 +21,7 @@ export default function Error({
       <p className="text-lg mb-2">Xin lỗi bạn, có vẻ như đã xảy ra một lỗi.</p>
       <p className="mb-8 text-red-700 text-sm">( {error.message} )</p>
       <Button
-        className="mb-4 !bg-red-700 text-white font-bold"
+        className="mb-4 bg-red-700! text-white font-bold"
         variant="secondary"
         onClick={() => reset()}
       >

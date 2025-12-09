@@ -62,7 +62,7 @@ export function Hero({
               className="object-cover absolute select-none"
               quality={100}
             />
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tl from-black to-transparent">
+            <div className="absolute top-0 left-0 w-full h-full bg-linear-to-tl from-black to-transparent">
               <div className="absolute bottom-[8%] left-[8%]">
                 <h3 className="text-3xl font-bold mb-6 tracking-wide max-sm:text-xl">
                   {item.name}
@@ -97,14 +97,14 @@ export function Hero({
       </Swiper>
       <Button
         variant="secondary"
-        className="prev absolute top-1/2 left-[5%] z-20 -translate-y-1/2 !bg-black/40 sm:block hidden"
+        className="prev absolute top-1/2 left-[5%] z-20 -translate-y-1/2 bg-black/40! sm:block hidden"
         onClick={() => swiperRef.current?.slidePrev()}
       >
         <ChevronLeft className="text-[#38B6FF]" />
       </Button>
       <Button
         variant="secondary"
-        className="next absolute top-1/2 right-[5%] z-20 -translate-y-1/2 !bg-black/40 sm:block hidden"
+        className="next absolute top-1/2 right-[5%] z-20 -translate-y-1/2 bg-black/40! sm:block hidden"
         onClick={() => swiperRef.current?.slideNext()}
       >
         <ChevronRight className="text-[#38B6FF]" />

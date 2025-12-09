@@ -1,16 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import RootApiFilmByFilm from "@/interfaces/DataFilmByFilm";
 import { RootApiFilmBySearch } from "@/interfaces/DataFilmBySearch";
 import RootApiFilmBySlug from "@/interfaces/DataFilmBySlug";
 import RootApiFilmNewUpdate from "@/interfaces/DataFilmNewUpdateProps";
 import { notFound } from "next/navigation";
-const URL = process.env.NEXT_PUBLIC_APP_API_FILM;
+const URL = process.env["NEXT_PUBLIC_APP_API_FILM"];
 
 export async function getMovieByPage(
   page: string
 ): Promise<RootApiFilmNewUpdate> {
   try {
-    const res = await fetch(`${URL}/films/phim-moi-cap-nhat?page=${page}`);
+    const res = await fetch(`${URL}/films/phim-moi-cap-nhat?page=${page}`, {
+      next: { revalidate: 3600 },
+      cache: "force-cache",
+    });
     if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các phim mới cập nhật");
     const data = await res.json();
     if (!data) throw new Error("Không tìm thấy dữ liệu");
@@ -25,7 +27,10 @@ export async function getMovieByPage(
 
 export async function getMovieByFilm(slug: string): Promise<RootApiFilmByFilm> {
   try {
-    const res = await fetch(`${URL}/film/${slug}`);
+    const res = await fetch(`${URL}/film/${slug}`, {
+      next: { revalidate: 3600 },
+      cache: "force-cache",
+    });
     if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ phim");
     const data = await res.json();
     if (!data) throw new Error("Không tìm thấy dữ liệu");
@@ -44,7 +49,11 @@ export async function getMovieBySearch(
 ): Promise<RootApiFilmBySearch> {
   try {
     const res = await fetch(
-      `${URL}/films/search?keyword=${search}&page=${page}`
+      `${URL}/films/search?keyword=${search}&page=${page}`,
+      {
+        next: { revalidate: 3600 },
+        cache: "force-cache",
+      }
     );
     if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ tìm kiếm theo tên phim");
     const data = await res.json();
@@ -63,7 +72,10 @@ export async function getMovieBySlugAndPage(
   page: string
 ): Promise<RootApiFilmBySlug> {
   try {
-    const res = await fetch(`${URL}/films/the-loai/${slug}?page=${page}`);
+    const res = await fetch(`${URL}/films/the-loai/${slug}?page=${page}`, {
+      next: { revalidate: 3600 },
+      cache: "force-cache",
+    });
     if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các thể loại phim");
     const data = await res.json();
     if (!data) throw new Error("Không tìm thấy dữ liệu");
@@ -81,7 +93,10 @@ export async function getMovieByCat(
   page: string
 ): Promise<RootApiFilmBySlug> {
   try {
-    const res = await fetch(`${URL}/films/danh-sach/${slug}?page=${page}`);
+    const res = await fetch(`${URL}/films/danh-sach/${slug}?page=${page}`, {
+      next: { revalidate: 3600 },
+      cache: "force-cache",
+    });
     if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các danh sách");
     const data = await res.json();
     if (!data) throw new Error("Không tìm thấy dữ liệu");
@@ -99,7 +114,10 @@ export async function getMovieByNational(
   page: string
 ): Promise<RootApiFilmBySlug> {
   try {
-    const res = await fetch(`${URL}/films/quoc-gia/${national}?page=${page}`);
+    const res = await fetch(`${URL}/films/quoc-gia/${national}?page=${page}`, {
+      next: { revalidate: 3600 },
+      cache: "force-cache",
+    });
     if (!res.ok)
       throw new Error("Lỗi lấy dữ liệu từ các phim lấy theo quốc gia");
     const data = await res.json();
@@ -115,26 +133,15 @@ export async function getMovieByNational(
 
 export async function getTinhThanhVN() {
   try {
-    const res = await fetch("https://esgoo.net/api-tinhthanh/1/0.htm");
+    const res = await fetch("https://esgoo.net/api-tinhthanh/1/0.htm", {
+      next: { revalidate: 15552000 },
+      cache: "force-cache",
+    });
     if (!res.ok) throw new Error("Lỗi lấy dữ liệu từ các tỉnh thành Việt Nam");
     const data = await res.json();
     if (!data) throw new Error("Không tìm thấy dữ liệu");
     return data;
   } catch {
     throw new Error("Lỗi lấy dữ liệu các tỉnh thành phố ở Việt Nam");
-  }
-}
-
-export async function getMovieKNNByUserID(userId: number): Promise<any[]> {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_API_KNN || ""}?user_id=${userId}`,
-      { next: { revalidate: 0 } }
-    );
-    if (!res.ok) return [];
-    const data = (await res.json()) || [];
-    return data;
-  } catch {
-    return [];
   }
 }

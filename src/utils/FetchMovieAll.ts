@@ -5,12 +5,16 @@ import {
   getMovieBySlugAndPage,
 } from "@/libs/service";
 import removeAccents from "@/utils/removeAccents";
+import { cacheLife, cacheTag } from "next/cache";
 
 export async function FetchMovieAll(
   type: string = "national",
   name: string = "Việt Nam",
   page: string = "1"
 ) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("movie-data");
   const nameFormat = removeAccents(name);
   const dataList =
     type.toLowerCase() === "national"

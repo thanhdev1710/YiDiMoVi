@@ -22,7 +22,7 @@ export default async function page() {
     <div>
       <h2 className="text-lg font-semibold mb-4">Hồ sơ</h2>
       <div className="flex justify-between items-center mb-8 px-6 gap-8 py-4 bg-gray-800 rounded">
-        <div className="w-20 h-20 p-1 flex-shrink-0 bg-gray-400 rounded-full">
+        <div className="w-20 h-20 p-1 shrink-0 bg-gray-400 rounded-full">
           <img
             className="rounded-full"
             alt={`Ảnh người dùng`}
@@ -54,7 +54,7 @@ export default async function page() {
         </div>
         <Link
           href="/taiKhoan/thongTinCaNhan/thayDoi"
-          className="hover:!bg-gray-600 py-2 px-4 rounded flex-shrink-0 text-sm font-semibold"
+          className="hover:bg-gray-600! py-2 px-4 rounded shrink-0 text-sm font-semibold"
         >
           Thay đổi
         </Link>
@@ -75,7 +75,7 @@ export default async function page() {
             {item.isSetup && (
               <Link
                 href="/taiKhoan/thongTinCaNhan/thayDoi"
-                className="hover:!bg-gray-600 py-2 px-4 rounded flex-shrink-0 text-sm font-semibold"
+                className="hover:bg-gray-600! py-2 px-4 rounded shrink-0 text-sm font-semibold"
               >
                 Thay đổi
               </Link>

@@ -16,8 +16,10 @@ export default function removeAccents(str: string = "") {
     "YỲỶỸÝỴ",
   ];
   for (let i = 0; i < AccentsMap.length; i++) {
-    const re = new RegExp("[" + AccentsMap[i].substring(1) + "]", "g");
-    const char = AccentsMap[i][0];
+    const accents = AccentsMap[i];
+    if (!accents) continue;
+    const re = new RegExp("[" + accents.substring(1) + "]", "g");
+    const char = accents[0] || "";
     str = str.replace(re, char);
   }
   return str.replaceAll(" ", "-").toLowerCase();

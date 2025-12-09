@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: true,
   },
+  cacheComponents: true,
+  productionBrowserSourceMaps: false,
+  experimental: { serverSourceMaps: false },
 };
 
 export default nextConfig;

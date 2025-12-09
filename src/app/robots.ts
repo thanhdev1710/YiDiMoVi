@@ -1,12 +1,12 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://www.yididev.online";
+  const baseUrl = process.env["NEXT_PUBLIC_APP_DOMAIN"];
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: [`${baseUrl}/sitemap.xml`, "https://yididev.online/sitemap.xml"],
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }

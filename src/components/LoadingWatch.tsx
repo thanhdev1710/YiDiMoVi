@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function LoadingWatch() {
   return (
     <div className="fui-loading-facebook">

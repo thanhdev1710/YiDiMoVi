@@ -1,19 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DescriptionMovie } from "@/components/DescriptionMovie";
 import Main from "@/components/Main";
 import { Button } from "@/components/ui/button";
-import { getMovieByPage, getMovieKNNByUserID } from "@/libs/service";
+import { getMovieByPage } from "@/libs/service";
 import Image from "next/image";
 import Link from "next/link";
 import { SearchItem } from "../../components/SearchItem";
 import { Metadata } from "next";
-import { auth } from "@/libs/auth";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import ErrorComponent from "@/components/ErrorComponent";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_DOMAIN || ""),
+  metadataBase: new URL(process.env["NEXT_PUBLIC_APP_DOMAIN"] || ""),
   alternates: {
     canonical: "/timKiem",
   },
@@ -27,10 +22,10 @@ export const metadata: Metadata = {
     title: "YiDiMoVi - Trang web xem phim trực tuyến",
     description:
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
-    url: process.env.NEXT_PUBLIC_APP_DOMAIN + "/timKiem",
+    url: process.env["NEXT_PUBLIC_APP_DOMAIN"] + "/timKiem",
     type: "website",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -42,7 +37,7 @@ export const metadata: Metadata = {
     description:
       "YiDiMoVi - Trang web xem phim trực tuyến với kho phim đa dạng và chất lượng cao. Tận hưởng giải trí đỉnh cao với các bộ phim siêu đỉnh cùng YiDiMoVi!",
     images: {
-      url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/images/website.png`,
+      url: `${process.env["NEXT_PUBLIC_APP_DOMAIN"]}/images/website.png`,
       width: 1200,
       height: 630,
       alt: "YiDiMoVi Website",
@@ -52,7 +47,6 @@ export const metadata: Metadata = {
 };
 
 export default async function page() {
-  const session = await auth();
   const [dataList1, dataList2] = await Promise.all([
     getMovieByPage("1"),
     getMovieByPage("2"),
@@ -105,32 +99,8 @@ export default async function page() {
               ))}
             </div>
           </div>
-          {session?.user?.userId && (
-            <ErrorBoundary errorComponent={ErrorComponent}>
-              <Suspense fallback={<p>Loading...</p>}>
-                <KNN userId={session.user.userId} />
-              </Suspense>
-            </ErrorBoundary>
-          )}
         </section>
       </section>
     </Main>
-  );
-}
-
-async function KNN({ userId }: { userId: number }) {
-  const dataList: any = await getMovieKNNByUserID(userId);
-
-  return (
-    <div>
-      <h2 className="font-bold text-2xl mb-5">Được gợi ý bởi AI (KNN)</h2>
-      <div className="flex flex-wrap gap-4">
-        {dataList?.recommendations?.map((item: any) => (
-          <Link key={item.name} href={`/xemPhim/${item.slug}`}>
-            <Button variant="secondary">{item.name}</Button>
-          </Link>
-        ))}
-      </div>
-    </div>
   );
 }

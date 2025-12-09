@@ -141,20 +141,20 @@ html {
 
 /* ----------------------------- SWIPER --------------------------------- */
 .swiper-pagination-bullet {
-  @apply !bg-[#38B6FF];
+  @apply bg-[#38B6FF]!;
 }
 
 .swiper-pagination-bullet-active {
-  @apply !bg-[#38B6FF];
+  @apply bg-[#38B6FF]!;
 }
 
 .swiper-pagination {
-  @apply !absolute !z-20 !left-[92%] !bottom-[8%] max-sm:hidden;
+  @apply absolute! z-20! left-[92%]! bottom-[8%]! max-sm:hidden;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  @apply max-sm:!hidden;
+  @apply max-sm:hidden!;
 }
 
 /* ----------------------------- LOADING: FACEBOOK --------------------------------- */
@@ -218,7 +218,7 @@ html {
 
 /* ----------------------------- REACT DAY PICKER --------------------------------- */
 .rdp-day_selected {
-  @apply !bg-[#38B6FF];
+  @apply bg-[#38B6FF]!;
 }
 
 /* ----------------------------- SPINNER: FOLLOW THE LEADER --------------------------------- */

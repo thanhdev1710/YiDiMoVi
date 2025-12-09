@@ -3,10 +3,13 @@ import ButtonToggleTheme from "./ButtonToggleTheme";
 import { Button } from "./ui/button";
 import { Search, User } from "lucide-react";
 import Link from "next/link";
-import { auth } from "@/libs/auth";
+import { Session } from "next-auth";
 
-export default async function ToolsMenu() {
-  const session = await auth();
+export default async function ToolsMenu({
+  session,
+}: {
+  session: Session | null;
+}) {
   return (
     <div className="flex items-center gap-6">
       <Button asChild variant="ghost" size="icon">

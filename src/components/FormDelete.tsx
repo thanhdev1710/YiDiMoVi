@@ -8,15 +8,14 @@ export function FormDelete({
   item: {
     userId: number;
     name: string;
-    slug: string;
     image: string;
   };
   type: string;
 }) {
   const deleteMovie =
     type === "listFavorite"
-      ? deleteMovieFavorite.bind(null, item.userId, item.name, item.slug)
-      : deleteMovieHistory.bind(null, item.userId, item.name, item.slug);
+      ? deleteMovieFavorite.bind(null, item.userId, item.name)
+      : deleteMovieHistory.bind(null, item.userId, item.name);
 
   return (
     <form action={deleteMovie}>
