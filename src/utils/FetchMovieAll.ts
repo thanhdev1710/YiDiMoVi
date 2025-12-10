@@ -5,7 +5,7 @@ import {
   getMovieBySlugAndPage,
 } from "@/libs/service";
 import removeAccents from "@/utils/removeAccents";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 export async function FetchMovieAll(
   type: string = "national",
@@ -14,7 +14,6 @@ export async function FetchMovieAll(
 ) {
   "use cache";
   cacheLife("hours");
-  cacheTag("movie-data");
   const nameFormat = removeAccents(name);
   const dataList =
     type.toLowerCase() === "national"
@@ -24,5 +23,6 @@ export async function FetchMovieAll(
       : type.toLowerCase() === "category"
       ? await getMovieByCat(nameFormat, page)
       : await getMovieBySearch(nameFormat, page);
+
   return dataList;
 }

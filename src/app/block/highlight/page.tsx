@@ -23,7 +23,7 @@ export default async function page({ params, searchParams }: Props) {
   return (
     <Suspense
       fallback={<Loading />}
-      key={`${type}-${value}-${session}-${listFavorite.length}`}
+      key={`${type}-${value}-${session?.user?.userId}`}
     >
       <Highlight
         searchParams={searchParams}
