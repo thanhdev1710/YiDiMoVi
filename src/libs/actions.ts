@@ -89,13 +89,18 @@ export async function deleteMovieFavorite(userId: number, name: string) {
 }
 
 /* HISTORY */
-export async function deleteMovieHistory(userId: number, name: string) {
+export async function deleteMovieHistory(
+  userId: number,
+  name: string,
+  tap?: number | undefined
+) {
   try {
     const { error } = await supabase
       .from("movieViewingHistory")
       .delete()
       .eq("userId", userId)
       .eq("name", name)
+      .eq("tap", tap)
       .single();
 
     if (error) throw new Error(error.message);

@@ -145,6 +145,7 @@ export default async function page(props: {
       session?.user?.userId,
       name,
       slug,
+      tap,
       poster_url
     );
 
@@ -153,7 +154,7 @@ export default async function page(props: {
     );
 
     if (error) {
-      console.error("Lưu lịch sử xem thất bại");
+      console.log("Lưu lịch sử xem thất bại");
     } else {
       console.log("Lưu lịch sử xem thành công");
     }

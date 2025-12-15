@@ -17,9 +17,9 @@ export default async function RelatedMovies({
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
         <div className="flex gap-6 overflow-x-scroll pb-6">
-          {data.items.map((item) => (
+          {data.items.map((item, index) => (
             <MovieItem
-              key={item.name}
+              key={"Nội dung liên quan" + item.slug + index}
               name={item.name}
               poster_url={item.poster_url}
               slug={item.slug}
@@ -38,9 +38,9 @@ export default async function RelatedMovies({
       <section className="mt-10">
         <h2 className="text-2xl font-bold mb-4">Nội dung liên quan</h2>
         <div className="flex gap-6 overflow-x-scroll pb-6">
-          {allData.map((item) => (
+          {allData.map((item, index) => (
             <MovieItem
-              key={item.name}
+              key={"Nội dung liên quan" + item.slug + index}
               name={item.name}
               poster_url={item.poster_url}
               slug={item.slug}

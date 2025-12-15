@@ -9,6 +9,7 @@ export default async function page() {
   const session = await auth();
   if (!session?.user?.userId) redirect("/dangNhap");
   const listMovieHistory = await getMovieViewingHistory(session?.user?.userId);
+
   const length = listMovieHistory.length;
   return length <= 0 ? (
     <section>
@@ -29,14 +30,15 @@ export default async function page() {
       <p className="text-sm text-gray-400 mb-8">Tổng lịch sử xem: {length}</p>
       <div>
         <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[36px_18px]">
-          {listMovieHistory.map((item) => (
-            <li key={item.slug}>
+          {listMovieHistory.map((item, i) => (
+            <li key={"listMovieHistory" + item.slug + i + item.tap}>
               <FormDelete type="listHistory" item={item} />
               <MovieItem
                 className="w-full"
                 name={item.name}
                 poster_url={item.image}
                 slug={item.slug}
+                tap={item.tap}
               />
             </li>
           ))}

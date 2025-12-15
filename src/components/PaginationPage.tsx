@@ -7,8 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function PaginationPage({
   type,
@@ -20,7 +19,6 @@ export function PaginationPage({
   totalPage: number;
 }) {
   const pathName = usePathname();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page")
     ? isNaN(Number(searchParams.get("page")))
@@ -30,28 +28,7 @@ export function PaginationPage({
       ? 1
       : Number(searchParams.get("page"))
     : 1;
-  useEffect(() => {
-    if (currentPage <= 1) {
-      const searchParam = new URLSearchParams(searchParams.toString());
-      searchParam.set("page", "1");
-      router.push(`${pathName}?${searchParam}`);
-    }
 
-    if (currentPage === 1) {
-      router.prefetch(`${pathName}?type=${type}&value=${name}&&page=2`);
-    } else if (currentPage === totalPage) {
-      router.prefetch(
-        `${pathName}?type=${type}&value=${name}&page=${totalPage - 1}`
-      );
-    } else {
-      router.prefetch(
-        `${pathName}?type=${type}&value=${name}&page=${currentPage - 1}`
-      );
-      router.prefetch(
-        `${pathName}?type=${type}&value=${name}&page=${currentPage + 1}`
-      );
-    }
-  }, [currentPage, pathName, router, searchParams, totalPage, name, type]);
   return (
     <Pagination>
       <PaginationContent className="flex items-center justify-center">

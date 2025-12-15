@@ -31,8 +31,8 @@ export default async function page() {
       </p>
       <div>
         <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[36px_18px]">
-          {listMovieFavorite.map((item) => (
-            <li key={item.slug}>
+          {listMovieFavorite.map((item, i) => (
+            <li key={"listMovieFavorite" + item.slug + i}>
               <FormDelete type="listFavorite" item={item} />
               <MovieItem
                 className="w-full"

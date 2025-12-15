@@ -9,13 +9,14 @@ export function FormDelete({
     userId: number;
     name: string;
     image: string;
+    tap?: number | undefined;
   };
   type: string;
 }) {
   const deleteMovie =
     type === "listFavorite"
       ? deleteMovieFavorite.bind(null, item.userId, item.name)
-      : deleteMovieHistory.bind(null, item.userId, item.name);
+      : deleteMovieHistory.bind(null, item.userId, item.name, item.tap);
 
   return (
     <form action={deleteMovie}>

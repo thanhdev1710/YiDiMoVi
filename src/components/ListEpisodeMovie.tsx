@@ -48,26 +48,30 @@ export function ListEpisodeMovie({
         }`}
       >
         {episodes[0]!.items.length < 30
-          ? data.map((item: any, i) => (
-              <EpisodeMovie
-                key={name + item.name}
-                description=""
-                curEpisodes={curEpisodes}
-                episode={Number(item.slug.slice(item.slug.indexOf("-") + 1))}
-                url={poster_url}
-                slug={slug}
-                i={i}
-              />
-            ))
-          : data.map((item: any, i) => (
-              <EpisodeMovieSmall
-                key={name + item.name}
-                curEpisodes={curEpisodes}
-                episode={Number(item.slug.slice(item.slug.indexOf("-") + 1))}
-                slug={slug}
-                i={i}
-              />
-            ))}
+          ? data
+              .map((item: any, i) => (
+                <EpisodeMovie
+                  key={name + item.name}
+                  description=""
+                  curEpisodes={curEpisodes}
+                  episode={Number(item.slug.slice(item.slug.indexOf("-") + 1))}
+                  url={poster_url}
+                  slug={slug}
+                  i={i}
+                />
+              ))
+              .reverse()
+          : data
+              .map((item: any, i) => (
+                <EpisodeMovieSmall
+                  key={name + item.name}
+                  curEpisodes={curEpisodes}
+                  episode={Number(item.slug.slice(item.slug.indexOf("-") + 1))}
+                  slug={slug}
+                  i={i}
+                />
+              ))
+              .reverse()}
       </div>
     </section>
   );

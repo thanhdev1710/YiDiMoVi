@@ -6,11 +6,13 @@ export function MovieItem({
   poster_url,
   name,
   className = "w-52",
+  tap,
 }: {
   slug: string;
   poster_url: string;
   name: string;
   className?: string;
+  tap?: number | undefined;
 }) {
   return (
     <div>
@@ -31,7 +33,7 @@ export function MovieItem({
         />
       </Link>
       <h3 className="text-sm font-semibold tracking-wide select-none">
-        {name}
+        {name} {tap ? `- Tập ${tap}` : ""}
       </h3>
     </div>
   );

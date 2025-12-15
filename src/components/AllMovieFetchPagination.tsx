@@ -41,9 +41,7 @@ export async function AllMovieFetchPagination({
         ))}
       </div>
 
-      <Suspense>
-        <PaginationPage totalPage={total_page} name={value} type={type} />
-      </Suspense>
+      <PaginationPage totalPage={total_page} name={value} type={type} />
     </section>
   );
 }

@@ -8,6 +8,7 @@ interface PropsMovieFavorite {
   name: string;
   slug: string;
   image: string;
+  tap?: number;
 }
 
 /* ===========================
@@ -36,20 +37,26 @@ export async function createMovieViewingHistory(
   userId: number,
   name: string,
   slug: string,
+  tap: number,
   image: string
 ) {
-  const newMovieHistory = {
-    userId,
-    name,
-    slug,
-    image,
-  };
-  const { error } = await supabase
-    .from("movieViewingHistory")
-    .insert([newMovieHistory]);
+  try {
+    const newMovieHistory = {
+      userId,
+      name,
+      slug,
+      tap,
+      image,
+    };
+    const { error } = await supabase
+      .from("movieViewingHistory")
+      .insert([newMovieHistory]);
 
-  if (!error) updateTag(`history-${userId}`);
-  return error;
+    if (!error) updateTag(`history-${userId}`);
+    return error;
+  } catch (error) {
+    return error;
+  }
 }
 
 export async function getMovieViewingHistory(
@@ -61,7 +68,7 @@ export async function getMovieViewingHistory(
 
   const { data, error } = await supabase
     .from("movieViewingHistory")
-    .select("userId,name,slug,image")
+    .select("userId,name,slug,image,tap")
     .eq("userId", userId)
     .order("created_at", { ascending: false });
 
