@@ -2,7 +2,6 @@ import { PaginationPage } from "./PaginationPage";
 import Image from "next/image";
 import Link from "next/link";
 import { FetchMovieAll } from "../utils/FetchMovieAll";
-import { Suspense } from "react";
 
 export async function AllMovieFetchPagination({
   type,
