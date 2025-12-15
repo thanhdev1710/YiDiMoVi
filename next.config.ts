@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
         hostname: "lh3.googleusercontent.com",
       },
     ],
+    unoptimized: true,
   },
 
   // ⚡ Kết nối HTTP tối ưu → giảm độ trễ API
