@@ -12,13 +12,20 @@ export async function AllMovieFetchPagination({
   value: string;
   page: string;
 }) {
-  const dataList = await FetchMovieAll(type, value, page);
-  const { total_page } = dataList.paginate;
-  const { items } = dataList;
+  const dataList1 = await FetchMovieAll(type, value, page);
+  const dataList2 = await FetchMovieAll(type, value, page + 1);
+  const { total_page: totalPage1 } = dataList1.paginate;
+  const { items: items1 } = dataList1;
+  const { total_page: totalPage2 } = dataList2.paginate;
+  const { items: items2 } = dataList2;
+
+  const totalPage = Math.max(totalPage1, totalPage2);
+  const totalItems = [...items1, ...items2];
+
   return (
     <section>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-[48px_24px]">
-        {items.map((item) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[48px_24px] mb-8">
+        {totalItems.map((item) => (
           <article key={item.name}>
             <Link
               aria-label="Film"
@@ -28,19 +35,21 @@ export async function AllMovieFetchPagination({
               <Image
                 width={300}
                 height={200}
-                className="object-cover w-full h-auto aspect-video"
+                className="object-cover w-full h-auto aspect-video rounded-md"
                 loading="lazy"
                 alt={`Ảnh phim ${item.name}`}
                 src={item.poster_url}
               />
-              <h2 className="text-xl font-bold">{item.name}</h2>
-              <p className="text-xs">{item.description?.slice(0, 160)}...</p>
+              <h2 className="text-xl font-bold line-clamp-1">{item.name}</h2>
+              <p className="text-xs line-clamp-2">
+                {item.description?.slice(0, 160)}...
+              </p>
             </Link>
           </article>
         ))}
       </div>
 
-      <PaginationPage totalPage={total_page} name={value} type={type} />
+      <PaginationPage totalPage={totalPage} name={value} type={type} />
     </section>
   );
 }

@@ -19,6 +19,7 @@ import { auth } from "@/libs/auth";
 import Link from "next/link";
 import MovingRating from "@/components/MovingRating";
 import CommentMovie from "@/components/CommentMovie";
+import MoviePlayer from "@/components/VideoHLS";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -126,11 +127,13 @@ export default async function page(props: {
     movie = {
       name: episodes[indexServerName]!.items[tap - 1]!.name,
       embed: episodes[indexServerName]!.items[tap - 1]!.embed,
+      m3u8: episodes[indexServerName]!.items[tap - 1]!.m3u8,
     };
   } else {
     movie = {
       name: episodes[indexServerName]!.items[0]!.name,
       embed: episodes[indexServerName]!.items[0]!.embed,
+      m3u8: episodes[indexServerName]!.items[0]!.m3u8,
     };
   }
 
@@ -165,6 +168,7 @@ export default async function page(props: {
   return (
     <Main>
       <VideoEmbed url={movie.embed} />
+      {/* <MoviePlayer m3u8Url={movie.m3u8} movieId={movie.m3u8} /> */}
       <div className="flex gap-4 items-center mt-4">
         {data.movie.episodes.map((item) => (
           <Link
