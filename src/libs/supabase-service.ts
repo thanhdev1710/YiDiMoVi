@@ -3,7 +3,7 @@
 import { cacheLife, cacheTag, updateTag } from "next/cache";
 import supabase from "./supabase";
 
-interface PropsMovieFavorite {
+export interface PropsMovieFavorite {
   userId: number;
   name: string;
   slug: string;
