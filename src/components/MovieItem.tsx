@@ -18,7 +18,7 @@ export function MovieItem({
     <div>
       <Link
         aria-label="Film"
-        href={`/xemPhim/${slug}`}
+        href={`/xemPhim/${slug}?tap=${tap ? tap : 1}`}
         className={`inline-block relative aspect-video select-none ${className}`}
       >
         <Image
