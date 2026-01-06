@@ -19,7 +19,6 @@ import { auth } from "@/libs/auth";
 import Link from "next/link";
 import MovingRating from "@/components/MovingRating";
 import CommentMovie from "@/components/CommentMovie";
-import MoviePlayer from "@/components/VideoHLS";
 
 type Props = {
   params: Promise<{ slug: string }>;
