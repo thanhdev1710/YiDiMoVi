@@ -51,7 +51,7 @@ export function ListEpisodeMovie({
           ? data
               .map((item: any, i) => (
                 <EpisodeMovie
-                  key={name + item.name}
+                  key={name + item.slug}
                   description=""
                   curEpisodes={curEpisodes}
                   episode={Number(item.slug.slice(item.slug.indexOf("-") + 1))}
@@ -64,7 +64,7 @@ export function ListEpisodeMovie({
           : data
               .map((item: any, i) => (
                 <EpisodeMovieSmall
-                  key={name + item.name}
+                  key={name + item.slug}
                   curEpisodes={curEpisodes}
                   episode={Number(item.slug.slice(item.slug.indexOf("-") + 1))}
                   slug={slug}

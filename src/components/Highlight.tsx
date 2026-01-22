@@ -12,7 +12,6 @@ import { Session } from "next-auth";
 type Props = {
   params: Promise<{ type: string }>;
   searchParams: Promise<{ [key: string]: string }>;
-  listFavorite: any[];
   session: Session | null;
 };
 
@@ -59,11 +58,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Highlight({
-  searchParams,
-  listFavorite,
-  session,
-}: Props) {
+export default async function Highlight({ searchParams, session }: Props) {
   const {
     page = "1",
     type = "national",
@@ -77,7 +72,7 @@ export default async function Highlight({
       <section className="mb-20">
         <Hero
           userId={session?.user?.userId}
-          listFavorite={listFavorite}
+          listFavorite={[]}
           slideList={dataList}
         />
         <h1 className="sm:text-4xl text-2xl font-bold mt-10 mb-4 text-[#38B6FF]">

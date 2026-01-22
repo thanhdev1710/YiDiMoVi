@@ -44,7 +44,7 @@ export function NavigationAccount() {
                   ? "border-blue-default font-bold text-[#38B6FF]"
                   : "border-transparent"
               }`}
-              key={item.name}
+              key={item.href}
             >
               {item.type === "button" ? (
                 <button

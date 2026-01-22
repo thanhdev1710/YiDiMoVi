@@ -52,7 +52,7 @@ export function Hero({
         {slideList.items.map((item) => (
           <SwiperSlide
             className="relative aspect-video shadow-white"
-            key={item.name}
+            key={item.slug}
           >
             <Image
               sizes="(max-width: 1200px) 80vw, (max-width: 1500px) 60vw, 1200px"

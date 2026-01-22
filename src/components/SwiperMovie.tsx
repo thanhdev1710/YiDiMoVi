@@ -30,7 +30,7 @@ export function SwiperMovie({
       className="mySwiper"
     >
       {dataList.items.map((item) => (
-        <SwiperSlide key={item.name}>
+        <SwiperSlide key={item.slug}>
           <MovieItem
             className="w-full"
             name={item.name}

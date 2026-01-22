@@ -143,17 +143,18 @@ export default async function page(props: {
   const slugList = categoryMovie!.list.map((item) => item.name);
 
   if (session?.user?.userId) {
-    const error = await createMovieViewingHistory(
-      session?.user?.userId,
-      name,
-      slug,
-      tap,
-      poster_url
-    );
+    const [error, favorites] = await Promise.all([
+      createMovieViewingHistory(
+        session?.user?.userId,
+        name,
+        slug,
+        tap,
+        poster_url
+      ),
+      getMovieFavorite(session?.user?.userId),
+    ]);
 
-    listFavoriteAlready = (await getMovieFavorite(session?.user?.userId)).map(
-      (item) => item.name
-    );
+    listFavoriteAlready = favorites.map((item) => item.name);
 
     if (error) {
       console.log("Lưu lịch sử xem thất bại");

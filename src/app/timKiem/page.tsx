@@ -62,7 +62,7 @@ export default async function page() {
           <h2 className="font-bold text-2xl mb-5">Xu hướng gần đây</h2>
           <div className="space-y-4">
             {items2.map((item) => (
-              <div className="flex gap-4" key={item.name}>
+              <div className="flex gap-4" key={item.slug}>
                 <Link
                   href={`/xemPhim/${item.slug}`}
                   className="relative aspect-video min-w-52 rounded-lg overflow-hidden"
@@ -73,6 +73,8 @@ export default async function page() {
                     sizes="208px"
                     alt={item.name}
                     src={item.poster_url}
+                    quality={50}
+                    loading="lazy"
                   />
                 </Link>
                 <div>
@@ -93,7 +95,7 @@ export default async function page() {
             <h2 className="font-bold text-2xl mb-5">Tìm kiếm hàng đầu</h2>
             <div className="flex flex-wrap gap-4">
               {items1.map((item) => (
-                <Link key={item.name} href={`/xemPhim/${item.slug}`}>
+                <Link key={item.slug} href={`/xemPhim/${item.slug}`}>
                   <Button variant="secondary">{item.name}</Button>
                 </Link>
               ))}

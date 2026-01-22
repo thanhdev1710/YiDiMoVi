@@ -12,8 +12,10 @@ export async function AllMovieFetchPagination({
   value: string;
   page: string;
 }) {
-  const dataList1 = await FetchMovieAll(type, value, page);
-  const dataList2 = await FetchMovieAll(type, value, page + 1);
+  const [dataList1, dataList2] = await Promise.all([
+    FetchMovieAll(type, value, page),
+    FetchMovieAll(type, value, page + 1),
+  ]);
   const { total_page: totalPage1 } = dataList1.paginate;
   const { items: items1 } = dataList1;
   const { total_page: totalPage2 } = dataList2.paginate;
@@ -26,7 +28,7 @@ export async function AllMovieFetchPagination({
     <section>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[48px_24px] mb-8">
         {totalItems.map((item) => (
-          <article key={item.name}>
+          <article key={item.slug}>
             <Link
               aria-label="Film"
               href={`/xemPhim/${item.slug}`}
@@ -37,6 +39,7 @@ export async function AllMovieFetchPagination({
                 height={200}
                 className="object-cover w-full h-auto aspect-video rounded-md"
                 loading="lazy"
+                quality={50}
                 alt={`Ảnh phim ${item.name}`}
                 src={item.poster_url}
               />

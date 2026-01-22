@@ -75,7 +75,7 @@ export function SearchItem({
                 aria-label={item.name}
                 className="w-full py-1 px-3 rounded-md hover:bg-slate-600"
                 href={`/xemPhim/${item.slug}`}
-                key={item.name}
+                key={item.slug}
               >
                 {item.name}
               </Link>

@@ -53,18 +53,11 @@ const DataBlockHighLight = [
 export default async function page() {
   const session = await auth();
   const popularFilm = await getMovieByPage("1");
-  let listFavorite: any[];
-
-  if (session?.user?.userId) {
-    listFavorite = await getMovieFavorite(session.user.userId);
-  } else {
-    listFavorite = [];
-  }
 
   return (
     <Main>
       <Hero
-        listFavorite={listFavorite}
+        listFavorite={[]}
         userId={session?.user?.userId}
         slideList={popularFilm}
       />
@@ -98,8 +91,7 @@ export default async function page() {
               key={item.value + item.type + i}
             >
               {(i + 1) % 3 === 0 && (
-                <ListMovieSub
-                  listFavorite={listFavorite}
+                <ListMovieSubWithFavorites
                   userId={session?.user?.userId}
                   i={i.toString()}
                 />
@@ -110,4 +102,18 @@ export default async function page() {
       ))}
     </Main>
   );
+}
+
+async function ListMovieSubWithFavorites({
+  userId,
+  i,
+}: {
+  userId: number | null | undefined;
+  i: string;
+}) {
+  let listFavorite: any[] = [];
+  if (userId) {
+    listFavorite = await getMovieFavorite(userId);
+  }
+  return <ListMovieSub listFavorite={listFavorite} userId={userId} i={i} />;
 }
